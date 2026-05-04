@@ -98,6 +98,71 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
 .nav-tab:hover { color:var(--text); }
 .nav-tab.active { color:var(--gold); border-bottom-color:var(--gold); }
 
+/* ── ACCESS GATE ── */
+#lock-overlay {
+  position:fixed; inset:0; z-index:9999;
+  background:radial-gradient(ellipse at center, #1c1812 0%, #0f0c08 70%);
+  display:flex; align-items:center; justify-content:center;
+  padding:2rem; font-family:'Lora',serif; color:#f0e8d8;
+}
+.lock-card {
+  width:100%; max-width:380px; text-align:center;
+  background:rgba(255,255,255,0.02);
+  border:1px solid rgba(201,165,90,0.18);
+  border-radius:6px; padding:3rem 2.2rem 2.4rem;
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);
+}
+.lock-eyebrow {
+  font-family:'Cinzel',serif; font-size:0.5rem; letter-spacing:0.32em;
+  color:#8a7a62; margin-bottom:1.6rem;
+}
+.lock-title {
+  font-family:'Cinzel Decorative',serif; font-size:2.6rem; font-weight:900;
+  background:linear-gradient(135deg,#e8c97a,#c9a55a);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  letter-spacing:0.08em; line-height:1;
+}
+.lock-sanskrit {
+  font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.24em;
+  color:#8a7a62; margin-top:0.6rem; margin-bottom:2.4rem;
+}
+.lock-prompt {
+  font-size:0.92rem; color:#d8cfc0; margin-bottom:1rem; letter-spacing:0.02em;
+}
+#lock-input {
+  width:100%; padding:0.95rem 1.2rem;
+  background:rgba(0,0,0,0.3); border:1px solid rgba(201,165,90,0.25);
+  color:#f0e8d8; font-family:'Lora',serif; font-size:1.4rem;
+  border-radius:4px; text-align:center; letter-spacing:0.55em;
+  outline:none; transition:border-color 0.2s;
+}
+#lock-input:focus { border-color:#c9a55a; }
+.lock-btn {
+  width:100%; margin-top:1rem; padding:0.85rem;
+  background:#c9a55a; color:#1c1812; border:none; border-radius:4px;
+  font-family:'Cinzel',serif; font-size:0.66rem; letter-spacing:0.32em;
+  font-weight:700; cursor:pointer; transition:background 0.15s, transform 0.1s;
+}
+.lock-btn:hover { background:#e8c97a; }
+.lock-btn:active { transform:scale(0.98); }
+.lock-error {
+  font-size:0.78rem; color:#d47a7a; margin-top:1rem;
+  opacity:0; transition:opacity 0.2s;
+}
+.lock-error.show { opacity:1; }
+.lock-foot {
+  font-family:'Cinzel',serif; font-size:0.5rem; letter-spacing:0.22em;
+  color:#5a4f3e; margin-top:2rem; line-height:1.8;
+}
+@keyframes lockShake {
+  0%,100% { transform:translateX(0) }
+  20%,60% { transform:translateX(-6px) }
+  40%,80% { transform:translateX(6px) }
+}
+.lock-card.shake { animation:lockShake 0.4s; }
+/* While locked, prevent the rest of the body from being seen even if z-index slips */
+body.locked > :not(#lock-overlay) { filter:blur(6px); pointer-events:none; user-select:none; }
+
 /* ── DEEP LINKS ── */
 .copy-link-btn {
   background:transparent; border:none; cursor:pointer;
@@ -700,6 +765,24 @@ body { font-size: 18px; }
 </head>
 <body>
 
+<!-- ── ACCESS GATE ──────────────────────────────────────────────────── -->
+<!-- Hidden by default; the gate logic at the top of the JS block        -->
+<!-- reveals it before any rendering if no valid PIN is stored.          -->
+<div id="lock-overlay" style="display:none">
+  <div class="lock-card">
+    <div class="lock-eyebrow">ABC DANCE COMPANY · NOV 2026</div>
+    <h1 class="lock-title">SANGAM</h1>
+    <p class="lock-sanskrit">संगम · Confluence</p>
+    <p class="lock-prompt">Enter access code to continue</p>
+    <input type="password" inputmode="numeric" autocomplete="off"
+           id="lock-input" maxlength="12" autofocus
+           onkeydown="if(event.key==='Enter')checkAccessPin()">
+    <button class="lock-btn" onclick="checkAccessPin()">Unlock</button>
+    <p class="lock-error" id="lock-error">Wrong code. Try again.</p>
+    <p class="lock-foot">For ABC team only — ask Swapnil for the code.</p>
+  </div>
+</div>
+
 <header class="site-header">
   <div class="header-brand">
     <div class="header-title">SANGAM</div>
@@ -1234,6 +1317,59 @@ body { font-size: 18px; }
 const SUPABASE_URL      = 'https://xlqweobxojiijntvvcta.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhscXdlb2J4b2ppaWpudHZ2Y3RhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4ODQ3NjMsImV4cCI6MjA5MzQ2MDc2M30.l8o0qwpOBes71MUukeolai-xhslKzyvR6c07IDyID2A';
 const SUPABASE_TABLE    = 'sangam_state';
+
+// ════════════════════════════════════════════════════════════════════
+// ACCESS PIN — only people you give this to can open the page.
+// Change the value below, push, then share the PIN with your team
+// via WhatsApp / in-person / wherever. Each device types it once and
+// remembers it forever (localStorage).
+// To rotate the PIN: change the value, push. All existing devices get
+// kicked back to the lock screen and need the new code.
+// ════════════════════════════════════════════════════════════════════
+const ACCESS_PIN = '1147';   // ← CHANGE THIS to your chosen PIN before pushing
+
+// ── ACCESS GATE LOGIC ────────────────────────────────────────────────
+// Runs before any rendering. If no valid PIN is stored on this device,
+// show the lock overlay and pause the rest of the boot until they unlock.
+function isUnlocked() {
+  // PIN can be rotated by changing ACCESS_PIN in source. Old localStorage
+  // entries are tied to the *current* PIN value, so rotation auto-kicks
+  // every device back to the lock screen on next load.
+  return localStorage.getItem('sangam_access_pin') === ACCESS_PIN;
+}
+function checkAccessPin() {
+  const input = document.getElementById('lock-input');
+  const card = document.querySelector('.lock-card');
+  const err = document.getElementById('lock-error');
+  const value = (input.value || '').trim();
+  if (value === ACCESS_PIN) {
+    localStorage.setItem('sangam_access_pin', ACCESS_PIN);
+    document.getElementById('lock-overlay').style.display = 'none';
+    document.body.classList.remove('locked');
+    // Boot the rest of the app — was deferred until unlock
+    if (typeof bootSangam === 'function') bootSangam();
+  } else {
+    err.classList.add('show');
+    card.classList.add('shake');
+    input.value = '';
+    setTimeout(() => card.classList.remove('shake'), 500);
+  }
+}
+// Locked-out check, runs synchronously at script top
+if (!isUnlocked()) {
+  document.body.classList.add('locked');
+  // Reveal the overlay (it was display:none in the HTML so it doesn't flash before this line)
+  const showLock = () => {
+    const ov = document.getElementById('lock-overlay');
+    if (ov) {
+      ov.style.display = 'flex';
+      const inp = document.getElementById('lock-input');
+      if (inp) setTimeout(() => inp.focus(), 60);
+    }
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', showLock);
+  else showLock();
+}
 
 // ── CAST ──
 const DANCERS = ['Swapnil','Narcisse','Sara','Svetlana','Chiara','Kaushika','Laurien','Khushboo','Shreya','Roshni','Haike','Siddhy','Maha'];
@@ -2045,32 +2181,45 @@ function setSyncStatus(text) {
 }
 
 // ── INIT ──
-// Restore from baked preload data if present
-if (window.SANGAM_PRELOAD) {
-  const isViewer = document.documentElement.dataset.viewer === 'true';
-  Object.entries(window.SANGAM_PRELOAD).forEach(([k, v]) => {
-    // Viewers always load from preload; editors only load if key is absent
-    if (isViewer || !localStorage.getItem(k)) localStorage.setItem(k, v);
-  });
-}
-const savedTheme = localStorage.getItem('sangam_theme') || 'light';
-document.documentElement.setAttribute('data-theme', savedTheme);
-document.getElementById('theme-btn').textContent = savedTheme === 'dark' ? '🌙' : '☀️';
-renderFlow();
-renderSongs();
-loadNotes();
-loadCharEdits();
-updateDashboard();
-initFileHandle();
-// Honour any incoming deep-link hash (e.g. /#S11) on first paint
-if (location.hash) setTimeout(() => goToHash(), 100);
+// All real boot work is wrapped in bootSangam() so the access gate can
+// defer it until the user enters the correct PIN. checkAccessPin() calls
+// this on a successful unlock; if the device is already unlocked, we run
+// it immediately below.
+function bootSangam() {
+  // Prevent double-boot
+  if (window._sangamBooted) return;
+  window._sangamBooted = true;
 
-// Boot Supabase sync if configured (no-op otherwise)
-if (Sync.enabled) {
-  Sync.hydrate().then(() => Sync.subscribe());
-} else if (SUPABASE_URL || SUPABASE_ANON_KEY) {
-  setSyncStatus('Sync misconfigured');
+  // Restore from baked preload data if present
+  if (window.SANGAM_PRELOAD) {
+    const isViewer = document.documentElement.dataset.viewer === 'true';
+    Object.entries(window.SANGAM_PRELOAD).forEach(([k, v]) => {
+      // Viewers always load from preload; editors only load if key is absent
+      if (isViewer || !localStorage.getItem(k)) localStorage.setItem(k, v);
+    });
+  }
+  const savedTheme = localStorage.getItem('sangam_theme') || 'light';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  document.getElementById('theme-btn').textContent = savedTheme === 'dark' ? '🌙' : '☀️';
+  renderFlow();
+  renderSongs();
+  loadNotes();
+  loadCharEdits();
+  updateDashboard();
+  initFileHandle();
+  // Honour any incoming deep-link hash (e.g. /#S11) on first paint
+  if (location.hash) setTimeout(() => goToHash(), 100);
+
+  // Boot Supabase sync if configured (no-op otherwise)
+  if (Sync.enabled) {
+    Sync.hydrate().then(() => Sync.subscribe());
+  } else if (SUPABASE_URL || SUPABASE_ANON_KEY) {
+    setSyncStatus('Sync misconfigured');
+  }
 }
+
+// If they're already past the gate, boot now. Otherwise checkAccessPin() boots later.
+if (isUnlocked()) bootSangam();
 </script>
 </body>
 </html>
