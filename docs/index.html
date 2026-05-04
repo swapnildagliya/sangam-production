@@ -1760,7 +1760,21 @@ function updateSaveUI(online, newPagesUrl) {
   }
 }
 
+// Only probe the local save-server when we're in editor mode on the author's
+// own machine. In dancer-view (published GitHub Pages) the Save/Publish buttons
+// are hidden anyway, and pinging http://localhost:7842 from an HTTPS site
+// triggers the browser's "Local Network Access" permission prompt on dancers'
+// devices — which is alarming and pointless.
+function shouldProbeSaveServer() {
+  if (document.documentElement.dataset.viewer === 'true') return false;
+  // Belt-and-braces: also skip when not running off file:// or localhost
+  const h = location.hostname;
+  if (location.protocol !== 'file:' && h !== 'localhost' && h !== '127.0.0.1' && h !== '') return false;
+  return true;
+}
+
 async function pingServer() {
+  if (!shouldProbeSaveServer()) return {online: false, pagesUrl: ''};
   try {
     const res = await fetch(SAVE_SERVER + '/ping', {signal: AbortSignal.timeout(1200)});
     if (res.ok) {
@@ -1776,11 +1790,14 @@ async function initFileHandle() {
   updateSaveUI(online, url);
 }
 
-// Re-check every 5s — UI updates automatically when server starts/stops
-setInterval(async () => {
-  const {online, pagesUrl: url} = await pingServer();
-  if (online !== serverOnline || (online && url !== pagesUrl)) updateSaveUI(online, url);
-}, 5000);
+// Re-check every 5s — UI updates automatically when server starts/stops.
+// No-op (skipped entirely) on the dancer view, so no localhost requests there.
+if (shouldProbeSaveServer()) {
+  setInterval(async () => {
+    const {online, pagesUrl: url} = await pingServer();
+    if (online !== serverOnline || (online && url !== pagesUrl)) updateSaveUI(online, url);
+  }, 5000);
+}
 
 function linkFile() {} // no-op in server mode
 
