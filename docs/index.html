@@ -998,7 +998,7 @@ body { font-size: 18px; }
   <div class="section-wrap">
     <p class="section-label">Songs & Cast</p>
     <h2 class="section-heading">Full Song List</h2>
-    <p class="section-sub">19 songs across the production. Click a status badge to update readiness.</p>
+    <p class="section-sub" id="songs-subtitle">songs across the production. Click a status badge to update readiness.</p>
     <div class="song-header">
       <div class="song-header-cell">Song Title</div>
       <div class="song-header-cell">Genre</div>
@@ -1815,6 +1815,7 @@ function updateDashboard() {
     else if(st==='new') neww++;
   });
   document.getElementById('songs-ready').innerHTML = ready + ' <span>/ ' + songs.length + '</span>';
+  document.getElementById('songs-subtitle').textContent = songs.length + ' songs across the production. Click a status badge to update readiness.';
   document.getElementById('songs-progress').innerHTML = inprog + ' <span>songs</span>';
   document.getElementById('songs-new').innerHTML = neww + ' <span>songs</span>';
 }
