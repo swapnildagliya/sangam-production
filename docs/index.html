@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light" data-edit="off" data-viewer="true" data-viewer="true">
+<html lang="en" data-theme="light" data-edit="off" data-viewer="true">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -681,6 +681,27 @@ body.locked > :not(#lock-overlay) { filter:blur(6px); pointer-events:none; user-
 .scene-item { margin-bottom:2px; }
 .scene-item .flow-row { margin-bottom:0; }
 
+/* Dependency warnings (back-to-back, costume-buffer, stamina) */
+.scene-deps-row {
+  display:none; flex-wrap:wrap; gap:4px;
+  border:1px solid var(--border); border-top:none;
+  background:var(--bg2); padding:0.5rem 0.9rem;
+}
+.scene-deps-row.has-deps { display:flex; }
+.dep-chip {
+  font-family:'Cinzel',serif; font-size:0.5rem; letter-spacing:0.12em;
+  padding:0.22rem 0.55rem; border-radius:2px; white-space:nowrap;
+  display:inline-flex; align-items:center; gap:5px; cursor:help;
+  border:1px solid;
+}
+.dep-chip::before { content:'●'; font-size:0.55rem; line-height:1; }
+.dep-red   { background:rgba(196,33,90,0.10);  color:#c4215a; border-color:rgba(196,33,90,0.30); }
+.dep-amber { background:rgba(184,146,42,0.12); color:#b8922a; border-color:rgba(184,146,42,0.32); }
+.dep-blue  { background:rgba(42,107,143,0.10); color:#2a6b8f; border-color:rgba(42,107,143,0.30); }
+[data-theme="dark"] .dep-red   { background:rgba(220,90,140,0.12); color:#e07ea3; border-color:rgba(220,90,140,0.35); }
+[data-theme="dark"] .dep-amber { background:rgba(201,165,90,0.14); color:#d4b46a; border-color:rgba(201,165,90,0.35); }
+[data-theme="dark"] .dep-blue  { background:rgba(74,155,191,0.14); color:#7cc1de; border-color:rgba(74,155,191,0.35); }
+
 /* ══════════════════════
    READABILITY OVERRIDES
    Base was 17px with rem values as small as 0.44rem (7.5px).
@@ -1314,8 +1335,8 @@ body { font-size: 18px; }
 // device). See SANGAM-SUPABASE-SETUP.md at the workspace root for the
 // 5-minute Supabase project setup.
 // ════════════════════════════════════════════════════════════════════
-const SUPABASE_URL      = 'https://xlqweobxojiijntvvcta.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhscXdlb2J4b2ppaWpudHZ2Y3RhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4ODQ3NjMsImV4cCI6MjA5MzQ2MDc2M30.l8o0qwpOBes71MUukeolai-xhslKzyvR6c07IDyID2A';
+const SUPABASE_URL      = '';
+const SUPABASE_ANON_KEY = '';
 const SUPABASE_TABLE    = 'sangam_state';
 
 // ════════════════════════════════════════════════════════════════════
@@ -1446,6 +1467,7 @@ function toggleCostume(sceneId) {
 }
 function saveCostume(sceneId, val) {
   localStorage.setItem('sangam_costume_' + sceneId, val);
+  if (typeof invalidateDeps === 'function') invalidateDeps();
 }
 function getCostume(sceneId) {
   return localStorage.getItem('sangam_costume_' + sceneId) || '';
@@ -1557,6 +1579,95 @@ const songs = [
 ];
 // ── DATA END ──
 
+// ── DEPENDENCY ENGINE ──
+// Three colors:
+//   RED   = back-to-back (S(n) and S(n+1))
+//   AMBER = 1-scene buffer (S(n) and S(n+2)) AND costume strings differ
+//   BLUE  = 3+ consecutive scenes (stamina)
+const OG_CAST = ['Svetlana','Sara','Roshni','Kaushika','Narcisse'];
+
+function parseSceneDancers(s) {
+  const edits = getEditData();
+  const text = (edits.scenes?.[s.id]?.dancers ?? s.dancers) || '';
+  const stripped = text.replace(/\([^)]*\)/g, ' ');
+  const set = new Set();
+  if (/\bOG\s*cast\b/i.test(stripped)) OG_CAST.forEach(n => set.add(n));
+  DANCERS.forEach(name => {
+    if (new RegExp('\\b' + name + '\\b', 'i').test(stripped)) set.add(name);
+  });
+  return [...set];
+}
+
+function computeDeps() {
+  const all = [...scenes1, ...scenes2].filter(s => s.id !== 'S00' && s.status !== 'narr');
+  const dancerToIdx = {};
+  all.forEach((s, i) => {
+    parseSceneDancers(s).forEach(d => {
+      (dancerToIdx[d] = dancerToIdx[d] || []).push(i);
+    });
+  });
+  const warnings = {};
+  const push = (sid, w) => (warnings[sid] = warnings[sid] || []).push(w);
+
+  for (const dancer in dancerToIdx) {
+    const idxs = dancerToIdx[dancer];
+    for (let k = 0; k < idxs.length - 1; k++) {
+      const a = all[idxs[k]];
+      if (idxs[k+1] - idxs[k] === 1) {
+        const b = all[idxs[k+1]];
+        push(a.id, {type:'red', dancer, label:`${dancer} → S${b.num}`, title:`${dancer} is back-to-back into S${b.num} (${b.name})`});
+        push(b.id, {type:'red', dancer, label:`${dancer} ← S${a.num}`, title:`${dancer} just came from S${a.num} (${a.name}) — back-to-back`});
+      }
+      for (let j = k+1; j < idxs.length; j++) {
+        const gap = idxs[j] - idxs[k];
+        if (gap > 2) break;
+        if (gap === 2) {
+          const b = all[idxs[j]];
+          const ca = (getCostume(a.id) || '').trim().toLowerCase();
+          const cb = (getCostume(b.id) || '').trim().toLowerCase();
+          if (ca && cb && ca !== cb) {
+            push(a.id, {type:'amber', dancer, label:`${dancer} ⇢ S${b.num}`, title:`${dancer}: 1-scene buffer to S${b.num} with costume change (${ca} → ${cb})`});
+            push(b.id, {type:'amber', dancer, label:`${dancer} ⇠ S${a.num}`, title:`${dancer}: 1-scene buffer from S${a.num} with costume change (${ca} → ${cb})`});
+          }
+        }
+      }
+    }
+    let runStart = 0;
+    for (let k = 1; k <= idxs.length; k++) {
+      if (k === idxs.length || idxs[k] !== idxs[k-1] + 1) {
+        const len = k - runStart;
+        if (len >= 3) {
+          const a = all[idxs[runStart]], z = all[idxs[k-1]];
+          push(a.id, {type:'blue', dancer, label:`${dancer} ${len}× S${a.num}–S${z.num}`, title:`${dancer}: ${len} consecutive scenes (S${a.num} through S${z.num})`});
+        }
+        runStart = k;
+      }
+    }
+  }
+  return warnings;
+}
+
+let _depsCache = null;
+function getDepsForScene(sid) {
+  if (!_depsCache) _depsCache = computeDeps();
+  return _depsCache[sid] || [];
+}
+function renderDepsChips(sid) {
+  return getDepsForScene(sid).map(w =>
+    `<span class="dep-chip dep-${w.type}" title="${w.title.replace(/"/g,'&quot;')}">${w.label}</span>`
+  ).join('');
+}
+function invalidateDeps() {
+  _depsCache = null;
+  document.querySelectorAll('.scene-deps-row').forEach(row => {
+    const sid = row.dataset.sceneId;
+    if (!sid) return;
+    const html = renderDepsChips(sid);
+    row.innerHTML = html;
+    row.classList.toggle('has-deps', !!html);
+  });
+}
+
 // ── RENDER FLOW ──
 function makeCheck(sid, type, label) {
   const key = 'sangam_check_' + sid + '_' + type;
@@ -1575,6 +1686,7 @@ function makeFlowRow(s) {
   const kc = sc.key ? ' key-scene' : '';
   const numStyle = sc.key ? 'color:var(--gold-light)' : '';
   const costumeVal = getCostume(s.id);
+  const depsHtml = renderDepsChips(s.id);
   return `<div class="scene-item" id="${s.id}">
     <div class="flow-row${kc}" id="row-${s.id}" data-scene-id="${s.id}">
       <div class="flow-cell flow-num" style="${numStyle}">${sc.num}${copyLinkBtn(s.id, 'scene ' + sc.num)}</div>
@@ -1591,10 +1703,12 @@ function makeFlowRow(s) {
       <span class="costume-label">COSTUME</span>
       <input class="costume-input" type="text" placeholder="Costume / colour direction for this scene…" value="${costumeVal}" oninput="saveCostume('${s.id}',this.value)">
     </div>
+    <div class="scene-deps-row${depsHtml?' has-deps':''}" id="deps-${s.id}" data-scene-id="${s.id}">${depsHtml}</div>
   </div>`;
 }
 
 function renderFlow() {
+  _depsCache = null; // recompute on each full render
   document.getElementById('flow-scenes').innerHTML = scenes1.map(makeFlowRow).join('');
   document.getElementById('flow-scenes-2').innerHTML = scenes2.map(makeFlowRow).join('');
 }
@@ -1832,7 +1946,10 @@ document.addEventListener('blur', function(e) {
     const songRow = cell.closest('[data-song-idx]');
     const field = cell.dataset.field;
     const value = cell.innerText.trim();
-    if (sceneRow && field) saveEdit('scenes', sceneRow.dataset.sceneId, field, value);
+    if (sceneRow && field) {
+      saveEdit('scenes', sceneRow.dataset.sceneId, field, value);
+      if (field === 'dancers' && typeof invalidateDeps === 'function') invalidateDeps();
+    }
     else if (songRow && field) saveEdit('songs', songRow.dataset.songIdx, field, value);
   }
   if (cell.dataset && cell.dataset.charIdx !== undefined) {
