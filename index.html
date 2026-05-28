@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SANGAM — ABC Dance Company 2026</title>
+<title>SANGAM — ABC a bollywood company 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Cinzel+Decorative:wght@400;900&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
 /* ── THEME VARIABLES ── */
 :root {
-  --gold: #b8922a;
-  --gold-light: #d4aa50;
-  --gold-bg: rgba(184,146,42,0.08);
+  --gold: #c4941a;
+  --gold-light: #dab84a;
+  --gold-bg: rgba(196,148,26,0.09);
   --river: #2a6b8f;
   --river-light: #4a9bbf;
   --drought: #8b5e1a;
@@ -19,9 +19,9 @@
   --holi-pink: #c4215a;
   --holi-teal: #1a8b7a;
   /* Light theme (default) */
-  --bg: #f7f2ea;
-  --bg2: #ede7da;
-  --bg3: #e5ddd0;
+  --bg: #eae4db;
+  --bg2: #e0d9ce;
+  --bg3: #d4ccc0;
   --text: #1e1810;
   --text2: #3a2e20;
   --muted: #7a6a52;
@@ -97,6 +97,71 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
 }
 .nav-tab:hover { color:var(--text); }
 .nav-tab.active { color:var(--gold); border-bottom-color:var(--gold); }
+
+/* ── ACCESS GATE ── */
+#lock-overlay {
+  position:fixed; inset:0; z-index:9999;
+  background:radial-gradient(ellipse at center, #1c1812 0%, #0f0c08 70%);
+  display:flex; align-items:center; justify-content:center;
+  padding:2rem; font-family:'Lora',serif; color:#f0e8d8;
+}
+.lock-card {
+  width:100%; max-width:380px; text-align:center;
+  background:rgba(255,255,255,0.02);
+  border:1px solid rgba(201,165,90,0.18);
+  border-radius:6px; padding:3rem 2.2rem 2.4rem;
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);
+}
+.lock-eyebrow {
+  font-family:'Cinzel',serif; font-size:0.5rem; letter-spacing:0.32em;
+  color:#8a7a62; margin-bottom:1.6rem;
+}
+.lock-title {
+  font-family:'Cinzel Decorative',serif; font-size:2.6rem; font-weight:900;
+  background:linear-gradient(135deg,#e8c97a,#c9a55a);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  letter-spacing:0.08em; line-height:1;
+}
+.lock-sanskrit {
+  font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.24em;
+  color:#8a7a62; margin-top:0.6rem; margin-bottom:2.4rem;
+}
+.lock-prompt {
+  font-size:0.92rem; color:#d8cfc0; margin-bottom:1rem; letter-spacing:0.02em;
+}
+#lock-input {
+  width:100%; padding:0.95rem 1.2rem;
+  background:rgba(0,0,0,0.3); border:1px solid rgba(201,165,90,0.25);
+  color:#f0e8d8; font-family:'Lora',serif; font-size:1.4rem;
+  border-radius:4px; text-align:center; letter-spacing:0.55em;
+  outline:none; transition:border-color 0.2s;
+}
+#lock-input:focus { border-color:#c9a55a; }
+.lock-btn {
+  width:100%; margin-top:1rem; padding:0.85rem;
+  background:#c9a55a; color:#1c1812; border:none; border-radius:4px;
+  font-family:'Cinzel',serif; font-size:0.66rem; letter-spacing:0.32em;
+  font-weight:700; cursor:pointer; transition:background 0.15s, transform 0.1s;
+}
+.lock-btn:hover { background:#e8c97a; }
+.lock-btn:active { transform:scale(0.98); }
+.lock-error {
+  font-size:0.78rem; color:#d47a7a; margin-top:1rem;
+  opacity:0; transition:opacity 0.2s;
+}
+.lock-error.show { opacity:1; }
+.lock-foot {
+  font-family:'Cinzel',serif; font-size:0.5rem; letter-spacing:0.22em;
+  color:#5a4f3e; margin-top:2rem; line-height:1.8;
+}
+@keyframes lockShake {
+  0%,100% { transform:translateX(0) }
+  20%,60% { transform:translateX(-6px) }
+  40%,80% { transform:translateX(6px) }
+}
+.lock-card.shake { animation:lockShake 0.4s; }
+/* While locked, prevent the rest of the body from being seen even if z-index slips */
+body.locked > :not(#lock-overlay) { filter:blur(6px); pointer-events:none; user-select:none; }
 
 /* ── DEEP LINKS ── */
 .copy-link-btn {
@@ -222,6 +287,7 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
 }
 .dash-label { font-family:'Cinzel',serif; font-size:0.48rem; letter-spacing:0.3em; color:var(--muted); }
 .dash-value { font-family:'Cinzel',serif; font-size:0.95rem; font-weight:600; color:var(--text); }
+#days-count { font-size:1.6rem; line-height:1; color:var(--gold); }
 .dash-value span { font-size:0.65rem; font-weight:400; color:var(--muted); }
 .dash-divider { width:1px; height:32px; background:var(--border2); flex-shrink:0; }
 .dash-progress { flex:1; min-width:200px; }
@@ -250,12 +316,12 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
 ══════════════════════ */
 .hero {
   background:linear-gradient(160deg, var(--bg) 0%, var(--bg2) 60%, var(--bg3) 100%);
-  padding:5rem 2rem 4rem; text-align:center; position:relative; overflow:hidden;
+  padding:1.8rem 2rem 1.5rem; text-align:center; position:relative; overflow:hidden;
   border-bottom:1px solid var(--border);
 }
 .hero-eyebrow { font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.45em; color:var(--gold); margin-bottom:1.8rem; }
 .hero-title {
-  font-family:'Cinzel Decorative',serif; font-size:clamp(3.5rem,12vw,9rem); font-weight:900;
+  font-family:'Cinzel Decorative',serif; font-size:clamp(2rem,5.5vw,4rem); font-weight:900;
   background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,#8a6010 100%);
   -webkit-background-clip:text; background-clip:text; color:transparent; line-height:0.9;
 }
@@ -276,9 +342,9 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
   position:relative; overflow:hidden; transition:background 0.2s;
 }
 .pillar:hover { background:var(--surface2); }
-.pillar::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--pc); }
+.pillar::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:var(--pc); }
 .pillar:nth-child(1){--pc:var(--gold)} .pillar:nth-child(2){--pc:var(--river-light)} .pillar:nth-child(3){--pc:var(--holi-pink)}
-.pillar-num { font-family:'Cinzel',serif; font-size:2.5rem; font-weight:900; color:var(--pc); opacity:0.15; line-height:1; margin-bottom:0.8rem; }
+.pillar-num { font-family:'Cinzel',serif; font-size:1.4rem; font-weight:900; color:var(--pc); opacity:0.55; line-height:1; margin-bottom:0.8rem; }
 .pillar-title { font-family:'Cinzel',serif; font-size:0.68rem; letter-spacing:0.38em; color:var(--pc); margin-bottom:0.8rem; }
 .pillar-text { font-size:0.9rem; line-height:1.8; color:var(--muted); }
 
@@ -616,6 +682,27 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
 .scene-item { margin-bottom:2px; }
 .scene-item .flow-row { margin-bottom:0; }
 
+/* Dependency warnings (back-to-back, costume-buffer, stamina) */
+.scene-deps-row {
+  display:none; flex-wrap:wrap; gap:4px;
+  border:1px solid var(--border); border-top:none;
+  background:var(--bg2); padding:0.5rem 0.9rem;
+}
+.scene-deps-row.has-deps { display:flex; }
+.dep-chip {
+  font-family:'Cinzel',serif; font-size:0.5rem; letter-spacing:0.12em;
+  padding:0.22rem 0.55rem; border-radius:2px; white-space:nowrap;
+  display:inline-flex; align-items:center; gap:5px; cursor:help;
+  border:1px solid;
+}
+.dep-chip::before { content:'●'; font-size:0.55rem; line-height:1; }
+.dep-red   { background:rgba(196,33,90,0.10);  color:#c4215a; border-color:rgba(196,33,90,0.30); }
+.dep-amber { background:rgba(184,146,42,0.12); color:#b8922a; border-color:rgba(184,146,42,0.32); }
+.dep-blue  { background:rgba(42,107,143,0.10); color:#2a6b8f; border-color:rgba(42,107,143,0.30); }
+[data-theme="dark"] .dep-red   { background:rgba(220,90,140,0.12); color:#e07ea3; border-color:rgba(220,90,140,0.35); }
+[data-theme="dark"] .dep-amber { background:rgba(201,165,90,0.14); color:#d4b46a; border-color:rgba(201,165,90,0.35); }
+[data-theme="dark"] .dep-blue  { background:rgba(74,155,191,0.14); color:#7cc1de; border-color:rgba(74,155,191,0.35); }
+
 /* ══════════════════════
    READABILITY OVERRIDES
    Base was 17px with rem values as small as 0.44rem (7.5px).
@@ -700,10 +787,28 @@ body { font-size: 18px; }
 </head>
 <body>
 
+<!-- ── ACCESS GATE ──────────────────────────────────────────────────── -->
+<!-- Hidden by default; the gate logic at the top of the JS block        -->
+<!-- reveals it before any rendering if no valid PIN is stored.          -->
+<div id="lock-overlay" style="display:none">
+  <div class="lock-card">
+    <div class="lock-eyebrow">ABC a bollywood company · NOV 2026</div>
+    <h1 class="lock-title">SANGAM</h1>
+    <p class="lock-sanskrit">संगम · Confluence</p>
+    <p class="lock-prompt">Enter access code to continue</p>
+    <input type="password" inputmode="numeric" autocomplete="off"
+           id="lock-input" maxlength="12" autofocus
+           onkeydown="if(event.key==='Enter')checkAccessPin()">
+    <button class="lock-btn" onclick="checkAccessPin()">Unlock</button>
+    <p class="lock-error" id="lock-error">Wrong code. Try again.</p>
+    <p class="lock-foot">For ABC team only — ask Swapnil for the code.</p>
+  </div>
+</div>
+
 <header class="site-header">
   <div class="header-brand">
     <div class="header-title">SANGAM</div>
-    <div class="header-sub">ABC DANCE COMPANY &nbsp;·&nbsp; NOV 7–8 2026</div>
+    <div class="header-sub">ABC a bollywood company &nbsp;·&nbsp; NOV 7–8 2026</div>
   </div>
   <nav class="nav-tabs">
     <button class="nav-tab active" onclick="showTab('direction',this)">Direction</button>
@@ -783,7 +888,7 @@ body { font-size: 18px; }
 ════════════════════════════════════════ -->
 <div id="tab-direction" class="panel active">
   <section class="hero">
-    <p class="hero-eyebrow">ABC Dance Company &nbsp;·&nbsp; November 2026 &nbsp;·&nbsp; Creative Direction</p>
+    <p class="hero-eyebrow">ABC a bollywood company &nbsp;·&nbsp; November 2026 &nbsp;·&nbsp; Creative Direction</p>
     <h1 class="hero-title">SANGAM</h1>
     <p class="hero-sanskrit">संगम &nbsp;·&nbsp; Confluence</p>
     <p class="hero-tagline">An all-female village. A river goddess. A rejected boy.<br>A calamity born from heartbreak. A queen whose love cost her everything.</p>
@@ -893,7 +998,7 @@ body { font-size: 18px; }
   <div class="section-wrap">
     <p class="section-label">Songs & Cast</p>
     <h2 class="section-heading">Full Song List</h2>
-    <p class="section-sub">19 songs across the production. Click a status badge to update readiness.</p>
+    <p class="section-sub" id="songs-subtitle">songs across the production. Click a status badge to update readiness.</p>
     <div class="song-header">
       <div class="song-header-cell">Song Title</div>
       <div class="song-header-cell">Genre</div>
@@ -1115,7 +1220,7 @@ body { font-size: 18px; }
       <div class="ref-card">
         <div class="ref-card-thumb" style="background:linear-gradient(160deg,#16100a,#2a1e0e)">
           <span class="ref-thumb-title">ganavya<br>ami pana so'dras</span>
-          <a class="ref-play-btn" href="https://www.youtube.com/watch?v=Mw3r5g" target="_blank" rel="noopener">
+          <a class="ref-play-btn" href="https://www.youtube.com/watch?v=Mw3r5gPq-Bo" target="_blank" rel="noopener">
             <div class="ref-play-icon"><div class="ref-play-arrow"></div></div>
           </a>
         </div>
@@ -1129,7 +1234,7 @@ body { font-size: 18px; }
       <div class="ref-card">
         <div class="ref-card-thumb" style="background:linear-gradient(160deg,#1a0808,#380e0e)">
           <span class="ref-thumb-title">LUMINI<br>A Contemporary Dance Piece</span>
-          <a class="ref-play-btn" href="https://www.youtube.com/watch?v=fdcfQT5" target="_blank" rel="noopener">
+          <a class="ref-play-btn" href="https://www.youtube.com/watch?v=fdcfQT5j7PY" target="_blank" rel="noopener">
             <div class="ref-play-icon"><div class="ref-play-arrow"></div></div>
           </a>
         </div>
@@ -1143,7 +1248,7 @@ body { font-size: 18px; }
       <div class="ref-card">
         <div class="ref-card-thumb" style="background:linear-gradient(160deg,#2a1600,#4a2a08)">
           <span class="ref-thumb-title">Aayirathil Oruvan<br>Celebration Of Life</span>
-          <a class="ref-play-btn" href="https://www.youtube.com/watch?v=86djRLU" target="_blank" rel="noopener">
+          <a class="ref-play-btn" href="https://www.youtube.com/watch?v=86djRLU_P9A" target="_blank" rel="noopener">
             <div class="ref-play-icon"><div class="ref-play-arrow"></div></div>
           </a>
         </div>
@@ -1157,7 +1262,7 @@ body { font-size: 18px; }
       <div class="ref-card">
         <div class="ref-card-thumb" style="background:linear-gradient(160deg,#080820,#141430)">
           <span class="ref-thumb-title">Stages of Grief<br>AVANTGARDE SHOW 2023</span>
-          <a class="ref-play-btn" href="https://www.youtube.com/watch?v=IZio9bd" target="_blank" rel="noopener">
+          <a class="ref-play-btn" href="https://www.youtube.com/watch?v=IZio9bdkzTI" target="_blank" rel="noopener">
             <div class="ref-play-icon"><div class="ref-play-arrow"></div></div>
           </a>
         </div>
@@ -1171,7 +1276,7 @@ body { font-size: 18px; }
       <div class="ref-card">
         <div class="ref-card-thumb" style="background:linear-gradient(160deg,#081818,#0e2e2e)">
           <span class="ref-thumb-title">The Final Stage<br>Girar O Mundo</span>
-          <a class="ref-play-btn" href="https://www.youtube.com/watch?v=nIJn-pZ" target="_blank" rel="noopener">
+          <a class="ref-play-btn" href="https://www.youtube.com/watch?v=nIJn-pZ3lgE" target="_blank" rel="noopener">
             <div class="ref-play-icon"><div class="ref-play-arrow"></div></div>
           </a>
         </div>
@@ -1185,7 +1290,7 @@ body { font-size: 18px; }
       <div class="ref-card">
         <div class="ref-card-thumb" style="background:linear-gradient(160deg,#181808,#2e2e10)">
           <span class="ref-thumb-title">Many Angels<br>Lar Lubovitch</span>
-          <a class="ref-play-btn" href="https://www.youtube.com/watch?v=LDyeLz" target="_blank" rel="noopener">
+          <a class="ref-play-btn" href="https://www.youtube.com/watch?v=LDyeLzEP9dQ" target="_blank" rel="noopener">
             <div class="ref-play-icon"><div class="ref-play-arrow"></div></div>
           </a>
         </div>
@@ -1199,7 +1304,7 @@ body { font-size: 18px; }
       <div class="ref-card">
         <div class="ref-card-thumb" style="background:linear-gradient(160deg,#081220,#101e3c)">
           <span class="ref-thumb-title">Max Richter<br>The Four Seasons</span>
-          <a class="ref-play-btn" href="https://www.youtube.com/watch?v=NTMQu" target="_blank" rel="noopener">
+          <a class="ref-play-btn" href="https://www.youtube.com/watch?v=DLDvbnK_Sqk" target="_blank" rel="noopener">
             <div class="ref-play-icon"><div class="ref-play-arrow"></div></div>
           </a>
         </div>
@@ -1231,9 +1336,62 @@ body { font-size: 18px; }
 // device). See SANGAM-SUPABASE-SETUP.md at the workspace root for the
 // 5-minute Supabase project setup.
 // ════════════════════════════════════════════════════════════════════
-const SUPABASE_URL      = 'https://xlqweobxojiijntvvcta.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhscXdlb2J4b2ppaWpudHZ2Y3RhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4ODQ3NjMsImV4cCI6MjA5MzQ2MDc2M30.l8o0qwpOBes71MUukeolai-xhslKzyvR6c07IDyID2A';
+const SUPABASE_URL      = '';
+const SUPABASE_ANON_KEY = '';
 const SUPABASE_TABLE    = 'sangam_state';
+
+// ════════════════════════════════════════════════════════════════════
+// ACCESS PIN — only people you give this to can open the page.
+// Change the value below, push, then share the PIN with your team
+// via WhatsApp / in-person / wherever. Each device types it once and
+// remembers it forever (localStorage).
+// To rotate the PIN: change the value, push. All existing devices get
+// kicked back to the lock screen and need the new code.
+// ════════════════════════════════════════════════════════════════════
+const ACCESS_PIN = '1147';   // ← CHANGE THIS to your chosen PIN before pushing
+
+// ── ACCESS GATE LOGIC ────────────────────────────────────────────────
+// Runs before any rendering. If no valid PIN is stored on this device,
+// show the lock overlay and pause the rest of the boot until they unlock.
+function isUnlocked() {
+  // PIN can be rotated by changing ACCESS_PIN in source. Old localStorage
+  // entries are tied to the *current* PIN value, so rotation auto-kicks
+  // every device back to the lock screen on next load.
+  return localStorage.getItem('sangam_access_pin') === ACCESS_PIN;
+}
+function checkAccessPin() {
+  const input = document.getElementById('lock-input');
+  const card = document.querySelector('.lock-card');
+  const err = document.getElementById('lock-error');
+  const value = (input.value || '').trim();
+  if (value === ACCESS_PIN) {
+    localStorage.setItem('sangam_access_pin', ACCESS_PIN);
+    document.getElementById('lock-overlay').style.display = 'none';
+    document.body.classList.remove('locked');
+    // Boot the rest of the app — was deferred until unlock
+    if (typeof bootSangam === 'function') bootSangam();
+  } else {
+    err.classList.add('show');
+    card.classList.add('shake');
+    input.value = '';
+    setTimeout(() => card.classList.remove('shake'), 500);
+  }
+}
+// Locked-out check, runs synchronously at script top
+if (!isUnlocked()) {
+  document.body.classList.add('locked');
+  // Reveal the overlay (it was display:none in the HTML so it doesn't flash before this line)
+  const showLock = () => {
+    const ov = document.getElementById('lock-overlay');
+    if (ov) {
+      ov.style.display = 'flex';
+      const inp = document.getElementById('lock-input');
+      if (inp) setTimeout(() => inp.focus(), 60);
+    }
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', showLock);
+  else showLock();
+}
 
 // ── CAST ──
 const DANCERS = ['Swapnil','Narcisse','Sara','Svetlana','Chiara','Kaushika','Laurien','Khushboo','Shreya','Roshni','Haike','Siddhy','Maha'];
@@ -1310,6 +1468,7 @@ function toggleCostume(sceneId) {
 }
 function saveCostume(sceneId, val) {
   localStorage.setItem('sangam_costume_' + sceneId, val);
+  if (typeof invalidateDeps === 'function') invalidateDeps();
 }
 function getCostume(sceneId) {
   return localStorage.getItem('sangam_costume_' + sceneId) || '';
@@ -1400,26 +1559,110 @@ const scenes2 = [
 
 const songs = [
   {title:'Dheeme Dheeme',genre:'Bollyfolk',people:2,dancers:'Shreya & Laurien',backup:'Sara, Narcisse, Roshni',status:'ready'},
-  {title:'Apsara Aali & Wajle ki Bara',genre:'Lavani',people:6,dancers:'OG cast',backup:'Sara, Siddhy, Svetlana',status:'ready'},
-  {title:'Dola Re Dola',genre:'Bollywood Group',people:8,dancers:'—',backup:'Narcisse (for Chiara), Maha',status:'ready'},
-  {title:'Ghanan Ghanan',genre:'Bollyfolk',people:16,dancers:'ABC + Level 2',backup:'Kaushika, Narcisse',status:'partial'},
-  {title:'Ghar More Pardesiya',genre:'Semi-classical Kathak',people:8,dancers:'Kaushika, Maha, Narcisse',backup:'Sara, Chiara',status:'partial'},
-  {title:'Jab Se Tere Naina',genre:'Semi-classical Kathak',people:5,dancers:'—',backup:'Sara, Haike',status:'partial'},
-  {title:'Choli ke Peeche',genre:'Lavani version',people:8,dancers:'—',backup:'Svetlana, Chiara',status:'partial'},
-  {title:'Ishq Bina',genre:'Group',people:8,dancers:'—',backup:'—',status:'partial'},
-  {title:'Kalbeliya',genre:'Group',people:8,dancers:'—',backup:'—',status:'partial'},
-  {title:'Tera Taali',genre:'Folk',people:3,dancers:'Roshni, Kaushika, Swapnil',backup:'Siddhy, Khushboo',status:'partial'},
   {title:'Chalka Re + Pots',genre:'Bollyfolk',people:6,dancers:'OG cast',backup:'Narcisse, Shreya',status:'partial'},
-  {title:'Nimbooda',genre:'Bollyfolk',people:8,dancers:'—',backup:'Roshni, Narcisse',status:'partial'},
-  {title:'Ramta Jogi',genre:'Bollywood',people:'—',dancers:'—',backup:'Siddhy, Sara',status:'partial'},
-  {title:'Pinga',genre:'Marathi Folk',people:'—',dancers:'—',backup:'—',status:'partial'},
-  {title:'Laal Ishq',genre:'Semi-classical',people:3,dancers:'Khushboo, Kaushika, Maha',backup:'Laurien',status:'partial'},
-  {title:'Krishna Dandiya Medley',genre:'Garba',people:8,dancers:'—',backup:'Shreya, Narcisse, Chiara',status:'partial'},
-  {title:'Namak',genre:'Bollyfolk',people:'—',dancers:'—',backup:'—',status:'partial'},
-  {title:'Jalalo Bilalo',genre:'Ghoomar Duet',people:2,dancers:'Roshni & Svetlana',backup:'Khushboo',status:'new'},
+  {title:'Jab Se Tere Naina',genre:'Semi-classical Kathak',people:5,dancers:'Swapnil, Khushboo, Kaushika, Siddhy, Maha',backup:'Sara, Haike',status:'partial'},
+  {title:'Jalalo Bilalo',genre:'Ghoomar Duet',people:2,dancers:'Roshni & Svetlana',backup:'Khushboo, Kaushika',status:'partial'},
+  {title:'Kalbeliya',genre:'Group',people:8,dancers:'OG cast',backup:'—',status:'partial'},
+  {title:'Natarang Ubha',genre:'Semi-classical',people:9,dancers:'Svetlana + 8 dancers',backup:'—',status:'new'},
   {title:'Chari',genre:'Folk',people:6,dancers:'—',backup:'Roshni, Maha',status:'new'},
+  {title:'Lakh Laahnta',genre:'Bhangra',people:'—',dancers:'Bhangra Students',backup:'—',status:'new'},
+  {title:'O Re Kanchi',genre:'Bollyfolk',people:'—',dancers:'Bollyfolk Students',backup:'—',status:'new'},
+  {title:'Ishq Bina',genre:'Group',people:8,dancers:'Shreya, Laurien, Sara, Khushboo, Haike, Maha, Siddhy, Roshni',backup:'—',status:'partial'},
+  {title:'Tera Taali',genre:'Folk',people:3,dancers:'Swapnil, Roshni, Kaushika',backup:'Siddhy, Khushboo',status:'partial'},
+  {title:'Ghanan Ghanan',genre:'Bollyfolk',people:16,dancers:'ABC + Level 2',backup:'Kaushika, Narcisse',status:'partial'},
+  {title:'Ghar More Pardesiya',genre:'Semi-classical Kathak',people:9,dancers:'Kaushika, Sara, Narcisse, Roshni, Khushboo, Maha, Shreya, Laurien, Swapnil',backup:'—',status:'partial'},
+  {title:'Krishna Dandiya Medley',genre:'Garba',people:8,dancers:'—',backup:'Shreya, Narcisse, Chiara',status:'new'},
 ];
 // ── DATA END ──
+
+// ── DEPENDENCY ENGINE ──
+// Three colors:
+//   RED   = back-to-back (S(n) and S(n+1))
+//   AMBER = 1-scene buffer (S(n) and S(n+2)) AND costume strings differ
+//   BLUE  = 3+ consecutive scenes (stamina)
+const OG_CAST = ['Svetlana','Sara','Roshni','Kaushika','Narcisse'];
+
+function parseSceneDancers(s) {
+  const edits = getEditData();
+  const text = (edits.scenes?.[s.id]?.dancers ?? s.dancers) || '';
+  const stripped = text.replace(/\([^)]*\)/g, ' ');
+  const set = new Set();
+  if (/\bOG\s*cast\b/i.test(stripped)) OG_CAST.forEach(n => set.add(n));
+  DANCERS.forEach(name => {
+    if (new RegExp('\\b' + name + '\\b', 'i').test(stripped)) set.add(name);
+  });
+  return [...set];
+}
+
+function computeDeps() {
+  const all = [...scenes1, ...scenes2].filter(s => s.id !== 'S00' && s.status !== 'narr');
+  const dancerToIdx = {};
+  all.forEach((s, i) => {
+    parseSceneDancers(s).forEach(d => {
+      (dancerToIdx[d] = dancerToIdx[d] || []).push(i);
+    });
+  });
+  const warnings = {};
+  const push = (sid, w) => (warnings[sid] = warnings[sid] || []).push(w);
+
+  for (const dancer in dancerToIdx) {
+    const idxs = dancerToIdx[dancer];
+    for (let k = 0; k < idxs.length - 1; k++) {
+      const a = all[idxs[k]];
+      if (idxs[k+1] - idxs[k] === 1) {
+        const b = all[idxs[k+1]];
+        push(a.id, {type:'red', dancer, label:`${dancer} → S${b.num}`, title:`${dancer} is back-to-back into S${b.num} (${b.name})`});
+        push(b.id, {type:'red', dancer, label:`${dancer} ← S${a.num}`, title:`${dancer} just came from S${a.num} (${a.name}) — back-to-back`});
+      }
+      for (let j = k+1; j < idxs.length; j++) {
+        const gap = idxs[j] - idxs[k];
+        if (gap > 2) break;
+        if (gap === 2) {
+          const b = all[idxs[j]];
+          const ca = (getCostume(a.id) || '').trim().toLowerCase();
+          const cb = (getCostume(b.id) || '').trim().toLowerCase();
+          if (ca && cb && ca !== cb) {
+            push(a.id, {type:'amber', dancer, label:`${dancer} ⇢ S${b.num}`, title:`${dancer}: 1-scene buffer to S${b.num} with costume change (${ca} → ${cb})`});
+            push(b.id, {type:'amber', dancer, label:`${dancer} ⇠ S${a.num}`, title:`${dancer}: 1-scene buffer from S${a.num} with costume change (${ca} → ${cb})`});
+          }
+        }
+      }
+    }
+    let runStart = 0;
+    for (let k = 1; k <= idxs.length; k++) {
+      if (k === idxs.length || idxs[k] !== idxs[k-1] + 1) {
+        const len = k - runStart;
+        if (len >= 3) {
+          const a = all[idxs[runStart]], z = all[idxs[k-1]];
+          push(a.id, {type:'blue', dancer, label:`${dancer} ${len}× S${a.num}–S${z.num}`, title:`${dancer}: ${len} consecutive scenes (S${a.num} through S${z.num})`});
+        }
+        runStart = k;
+      }
+    }
+  }
+  return warnings;
+}
+
+let _depsCache = null;
+function getDepsForScene(sid) {
+  if (!_depsCache) _depsCache = computeDeps();
+  return _depsCache[sid] || [];
+}
+function renderDepsChips(sid) {
+  return getDepsForScene(sid).map(w =>
+    `<span class="dep-chip dep-${w.type}" title="${w.title.replace(/"/g,'&quot;')}">${w.label}</span>`
+  ).join('');
+}
+function invalidateDeps() {
+  _depsCache = null;
+  document.querySelectorAll('.scene-deps-row').forEach(row => {
+    const sid = row.dataset.sceneId;
+    if (!sid) return;
+    const html = renderDepsChips(sid);
+    row.innerHTML = html;
+    row.classList.toggle('has-deps', !!html);
+  });
+}
 
 // ── RENDER FLOW ──
 function makeCheck(sid, type, label) {
@@ -1439,6 +1682,7 @@ function makeFlowRow(s) {
   const kc = sc.key ? ' key-scene' : '';
   const numStyle = sc.key ? 'color:var(--gold-light)' : '';
   const costumeVal = getCostume(s.id);
+  const depsHtml = renderDepsChips(s.id);
   return `<div class="scene-item" id="${s.id}">
     <div class="flow-row${kc}" id="row-${s.id}" data-scene-id="${s.id}">
       <div class="flow-cell flow-num" style="${numStyle}">${sc.num}${copyLinkBtn(s.id, 'scene ' + sc.num)}</div>
@@ -1455,10 +1699,12 @@ function makeFlowRow(s) {
       <span class="costume-label">COSTUME</span>
       <input class="costume-input" type="text" placeholder="Costume / colour direction for this scene…" value="${costumeVal}" oninput="saveCostume('${s.id}',this.value)">
     </div>
+    <div class="scene-deps-row${depsHtml?' has-deps':''}" id="deps-${s.id}" data-scene-id="${s.id}">${depsHtml}</div>
   </div>`;
 }
 
 function renderFlow() {
+  _depsCache = null; // recompute on each full render
   document.getElementById('flow-scenes').innerHTML = scenes1.map(makeFlowRow).join('');
   document.getElementById('flow-scenes-2').innerHTML = scenes2.map(makeFlowRow).join('');
 }
@@ -1569,6 +1815,7 @@ function updateDashboard() {
     else if(st==='new') neww++;
   });
   document.getElementById('songs-ready').innerHTML = ready + ' <span>/ ' + songs.length + '</span>';
+  document.getElementById('songs-subtitle').textContent = songs.length + ' songs across the production. Click a status badge to update readiness.';
   document.getElementById('songs-progress').innerHTML = inprog + ' <span>songs</span>';
   document.getElementById('songs-new').innerHTML = neww + ' <span>songs</span>';
 }
@@ -1696,7 +1943,10 @@ document.addEventListener('blur', function(e) {
     const songRow = cell.closest('[data-song-idx]');
     const field = cell.dataset.field;
     const value = cell.innerText.trim();
-    if (sceneRow && field) saveEdit('scenes', sceneRow.dataset.sceneId, field, value);
+    if (sceneRow && field) {
+      saveEdit('scenes', sceneRow.dataset.sceneId, field, value);
+      if (field === 'dancers' && typeof invalidateDeps === 'function') invalidateDeps();
+    }
     else if (songRow && field) saveEdit('songs', songRow.dataset.songIdx, field, value);
   }
   if (cell.dataset && cell.dataset.charIdx !== undefined) {
@@ -1760,7 +2010,21 @@ function updateSaveUI(online, newPagesUrl) {
   }
 }
 
+// Only probe the local save-server when we're in editor mode on the author's
+// own machine. In dancer-view (published GitHub Pages) the Save/Publish buttons
+// are hidden anyway, and pinging http://localhost:7842 from an HTTPS site
+// triggers the browser's "Local Network Access" permission prompt on dancers'
+// devices — which is alarming and pointless.
+function shouldProbeSaveServer() {
+  if (document.documentElement.dataset.viewer === 'true') return false;
+  // Belt-and-braces: also skip when not running off file:// or localhost
+  const h = location.hostname;
+  if (location.protocol !== 'file:' && h !== 'localhost' && h !== '127.0.0.1' && h !== '') return false;
+  return true;
+}
+
 async function pingServer() {
+  if (!shouldProbeSaveServer()) return {online: false, pagesUrl: ''};
   try {
     const res = await fetch(SAVE_SERVER + '/ping', {signal: AbortSignal.timeout(1200)});
     if (res.ok) {
@@ -1776,11 +2040,14 @@ async function initFileHandle() {
   updateSaveUI(online, url);
 }
 
-// Re-check every 5s — UI updates automatically when server starts/stops
-setInterval(async () => {
-  const {online, pagesUrl: url} = await pingServer();
-  if (online !== serverOnline || (online && url !== pagesUrl)) updateSaveUI(online, url);
-}, 5000);
+// Re-check every 5s — UI updates automatically when server starts/stops.
+// No-op (skipped entirely) on the dancer view, so no localhost requests there.
+if (shouldProbeSaveServer()) {
+  setInterval(async () => {
+    const {online, pagesUrl: url} = await pingServer();
+    if (online !== serverOnline || (online && url !== pagesUrl)) updateSaveUI(online, url);
+  }, 5000);
+}
 
 function linkFile() {} // no-op in server mode
 
@@ -2028,32 +2295,45 @@ function setSyncStatus(text) {
 }
 
 // ── INIT ──
-// Restore from baked preload data if present
-if (window.SANGAM_PRELOAD) {
-  const isViewer = document.documentElement.dataset.viewer === 'true';
-  Object.entries(window.SANGAM_PRELOAD).forEach(([k, v]) => {
-    // Viewers always load from preload; editors only load if key is absent
-    if (isViewer || !localStorage.getItem(k)) localStorage.setItem(k, v);
-  });
-}
-const savedTheme = localStorage.getItem('sangam_theme') || 'light';
-document.documentElement.setAttribute('data-theme', savedTheme);
-document.getElementById('theme-btn').textContent = savedTheme === 'dark' ? '🌙' : '☀️';
-renderFlow();
-renderSongs();
-loadNotes();
-loadCharEdits();
-updateDashboard();
-initFileHandle();
-// Honour any incoming deep-link hash (e.g. /#S11) on first paint
-if (location.hash) setTimeout(() => goToHash(), 100);
+// All real boot work is wrapped in bootSangam() so the access gate can
+// defer it until the user enters the correct PIN. checkAccessPin() calls
+// this on a successful unlock; if the device is already unlocked, we run
+// it immediately below.
+function bootSangam() {
+  // Prevent double-boot
+  if (window._sangamBooted) return;
+  window._sangamBooted = true;
 
-// Boot Supabase sync if configured (no-op otherwise)
-if (Sync.enabled) {
-  Sync.hydrate().then(() => Sync.subscribe());
-} else if (SUPABASE_URL || SUPABASE_ANON_KEY) {
-  setSyncStatus('Sync misconfigured');
+  // Restore from baked preload data if present
+  if (window.SANGAM_PRELOAD) {
+    const isViewer = document.documentElement.dataset.viewer === 'true';
+    Object.entries(window.SANGAM_PRELOAD).forEach(([k, v]) => {
+      // Viewers always load from preload; editors only load if key is absent
+      if (isViewer || !localStorage.getItem(k)) localStorage.setItem(k, v);
+    });
+  }
+  const savedTheme = localStorage.getItem('sangam_theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  document.getElementById('theme-btn').textContent = savedTheme === 'dark' ? '🌙' : '☀️';
+  renderFlow();
+  renderSongs();
+  loadNotes();
+  loadCharEdits();
+  updateDashboard();
+  initFileHandle();
+  // Honour any incoming deep-link hash (e.g. /#S11) on first paint
+  if (location.hash) setTimeout(() => goToHash(), 100);
+
+  // Boot Supabase sync if configured (no-op otherwise)
+  if (Sync.enabled) {
+    Sync.hydrate().then(() => Sync.subscribe());
+  } else if (SUPABASE_URL || SUPABASE_ANON_KEY) {
+    setSyncStatus('Sync misconfigured');
+  }
 }
+
+// If they're already past the gate, boot now. Otherwise checkAccessPin() boots later.
+if (isUnlocked()) bootSangam();
 </script>
 </body>
 </html>
