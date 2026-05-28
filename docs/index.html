@@ -316,12 +316,12 @@ body.locked > :not(#lock-overlay) { filter:blur(6px); pointer-events:none; user-
 ══════════════════════ */
 .hero {
   background:linear-gradient(160deg, var(--bg) 0%, var(--bg2) 60%, var(--bg3) 100%);
-  padding:2.8rem 2rem 2.2rem; text-align:center; position:relative; overflow:hidden;
+  padding:1.8rem 2rem 1.5rem; text-align:center; position:relative; overflow:hidden;
   border-bottom:1px solid var(--border);
 }
 .hero-eyebrow { font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.45em; color:var(--gold); margin-bottom:1.8rem; }
 .hero-title {
-  font-family:'Cinzel Decorative',serif; font-size:clamp(2.5rem,8vw,6rem); font-weight:900;
+  font-family:'Cinzel Decorative',serif; font-size:clamp(2rem,5.5vw,4rem); font-weight:900;
   background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,#8a6010 100%);
   -webkit-background-clip:text; background-clip:text; color:transparent; line-height:0.9;
 }
@@ -2311,7 +2311,7 @@ function bootSangam() {
       if (isViewer || !localStorage.getItem(k)) localStorage.setItem(k, v);
     });
   }
-  const savedTheme = localStorage.getItem('sangam_theme') || 'light';
+  const savedTheme = localStorage.getItem('sangam_theme') || 'dark';
   document.documentElement.setAttribute('data-theme', savedTheme);
   document.getElementById('theme-btn').textContent = savedTheme === 'dark' ? '🌙' : '☀️';
   renderFlow();
