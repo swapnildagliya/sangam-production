@@ -401,6 +401,11 @@ body.locked > :not(#lock-overlay) { filter:blur(6px); pointer-events:none; user-
 .flow-scene-name { font-size:0.9rem; font-weight:500; color:var(--text); line-height:1.35; }
 .flow-song { font-style:italic; color:var(--muted); font-size:0.84rem; line-height:1.4; }
 .flow-dancers { font-size:0.82rem; color:var(--muted); line-height:1.5; }
+/* Multi-song sub-rows */
+.scene-song-subrow { display:grid; grid-template-columns:50px 160px 1fr 1fr 130px 120px; border-top:1px solid var(--border); background:var(--surface); }
+.scene-song-subrow .flow-cell { padding:0.45rem 1rem; font-size:0.84rem; }
+.scene-song-subrow .flow-cell.song-indent { background:var(--surface); border-right:1px solid var(--border); }
+.scene-song-subrow .song-label { font-style:italic; color:var(--muted); font-size:0.82rem; }
 
 /* Status tags */
 .flow-tag {
@@ -1524,30 +1529,31 @@ const STATUS_CLASSES = {tbc:'tag-tbc',partial:'tag-partial',ready:'tag-ready',ne
 // ── DATA START ──
 const scenes1 = [
   {id:'S00',num:'PRE',name:'Pre-show',song:'The Blue (Niraj Chag) · Women giggling, payals, nature soundscape',dancers:'Level 2 — welcoming with teeka + incense',status:'tbc',key:false},
-  {id:'S01',num:'01',name:'The Birth & The Birth of the River ◆',sub:'Desert village. Baby rejected. Maha cries — and the river is born to carry him away',song:'Call It Luck If You Want To (Ganavya) → On the Nature of Daylight (Max Richter) → Remain The Sea (Anoushka Shankar feat. Vanessa Redgrave)',dancers:'Svetlana, Sara, Narcisse, Kaushika, Maha, Siddhy, Haike',status:'ready',key:true},
-  {id:'S02',num:'02',name:'Sun & Moon',sub:'Two guardians find each other — then find the boy',song:'Pyaara Sa Gaon (Zubeida) → Dheeme Dheeme',dancers:'Shreya & Laurien',status:'ready',key:false},
-  {id:'S04',num:'03',name:'Villagers',sub:'Village established — the river runs, life is full',song:'Mori Atariya pe Kaaga Bole (Niraj Chag) → Chalka Re',dancers:'Svetlana, Sara, Roshni, Kaushika, Narcisse',status:'ready',key:false},
+  {id:'S01',num:'01',name:'The Birth & The Birth of the River ◆',sub:'Desert village. Baby rejected. Maha cries — and the river is born to carry him away',songs:[{title:'Call It Luck If You Want To (Ganavya)',status:'ready'},{title:'On the Nature of Daylight (Max Richter)',status:'ready'},{title:'Remain The Sea (Anoushka Shankar feat. Vanessa Redgrave)',status:'ready'}],dancers:'Svetlana, Sara, Narcisse, Kaushika, Maha, Siddhy, Haike',status:'ready',key:true},
+  {id:'S02',num:'02',name:'Sun & Moon',sub:'Two guardians find each other — then find the boy',songs:[{title:'Pyaara Sa Gaon (Zubeida)',status:'ready'},{title:'Dheeme Dheeme',status:'ready'}],dancers:'Shreya & Laurien',status:'ready',key:false},
+  {id:'S04',num:'03',name:'Villagers',sub:'Village established — the river runs, life is full',songs:[{title:'Mori Atariya pe Kaaga Bole (Niraj Chag)',status:'partial'},{title:'Chalka Re',status:'ready'}],dancers:'Svetlana, Sara, Roshni, Kaushika, Narcisse',status:'partial',key:false},
   {id:'S07',num:'04',name:'Adulthood Solo',sub:'Boy has grown up — the question of love begins',song:'Oru Paiyan (Ganavya) + Sun & Moon cameo',dancers:'Swapnil + Shreya & Laurien',status:'ready',key:false},
-  {id:'S08',num:'05',name:'First Discovery',sub:'Villagers hesitate, then accept',song:'Jab Se Tere Naina',dancers:'Swapnil, Khushboo, Kaushika, Siddhy, Maha',status:'ready',key:false},
+  {id:'S08',num:'05',name:'First Discovery',sub:'The village turns its gaze toward the boy — and cannot look away',songs:[{title:'Jab Se Tere Naina',status:'ready'},{title:'Nainowale Ne',status:'new'}],dancers:'Swapnil, Khushboo, Kaushika, Siddhy, Maha',status:'partial',key:false},
   {id:'S09',num:'06',name:'More Villagers',sub:'Queen still unaware — joy building with the boy',song:'Jalalo Bilalo',dancers:'Bollyfolk Students + Swapnil + Roshni, Khushboo, Kaushika',status:'ready',key:false},
-  {id:'S10',num:'07',name:'Village Feast ◆',sub:'Peak of joy — queen sees the boy',song:'Kalbeliya',dancers:'OG cast + Swapnil',status:'ready',key:true},
-  {id:'S11',num:'08',name:"Queen's Rejection ◆",sub:'Music cuts. One gesture. A single voice from the dark.',song:'Silence + a single distant voice (wordless)',dancers:'Svetlana + full company freeze',status:'ready',key:true},
-  {id:'S12',num:'09',name:'End of Part 1',song:'Narration',dancers:'—',status:'narr',key:false},
+  {id:'S09B',num:'07',name:'Queen\'s Entry',sub:'Who she is before the feast — power, obsession, complexity',songs:[{title:'Laal Ishq',status:'ready'},{title:'Deewani Mastani',status:'ready'}],dancers:'Svetlana + company',status:'ready',key:false},
+  {id:'S10',num:'08',name:'Village Feast ◆',sub:'Peak of joy — queen sees the boy',song:'Kalbeliya',dancers:'OG cast + Swapnil',status:'ready',key:true},
+  {id:'S11',num:'09',name:"Queen's Rejection ◆",sub:'Music cuts. One gesture. A single voice from the dark.',song:'Silence + a single distant voice (wordless)',dancers:'Svetlana + full company freeze',status:'ready',key:true},
+  {id:'S12',num:'10',name:'End of Part 1',song:'Narration',dancers:'—',status:'narr',key:false},
 ];
 const scenes2 = [
-  {id:'S13',num:'10',name:'Chaos & Drought ◆',sub:'The river dies in real time',song:'No song — projection, strobe, smoke',dancers:'Full ensemble — fragmented',status:'tbc',key:true},
-  {id:'S14',num:'11',name:'Tribe Invitation',sub:'Vayu carries the village\'s plea to the Four Tribes',song:'Narration + wind / Vayu solo',dancers:'Narcisse (Vayu)',status:'narr',key:false},
-  {id:'S15',num:'12',name:'Invocation to Nataraja',sub:'The village prays — but prayer is not love',song:'Natarang Ubha',dancers:'Svetlana + 8 dancers',status:'ready',key:false},
-  {id:'S16',num:'13',name:'Tribe 1 — Chari',sub:'Ritual & tradition — fire pots',song:'Chari',dancers:'ABC company',status:'new',key:false},
-  {id:'S17',num:'14',name:'Tribe 2 — Bhangra',sub:'Strength & joy — but not love',song:'Luddi',dancers:'Bhangra Students',status:'new',key:false},
-  {id:'S18',num:'15',name:'Tribe 3 — Bolly Folk',sub:'Community — but the boy was never let in',song:'O Re Kanchi',dancers:'Bollyfolk Students',status:'ready',key:false},
-  {id:'S_CHERAW',num:'16',name:'Tribe 4 — Cheraw',sub:'Grace & precision — but not love',song:'TBC — fusion',dancers:'Cheraw group TBC',status:'new',key:false},
-  {id:'S19',num:'17',name:'The Appeal',sub:'The village and the boy both plead with the Queen',song:'Ishq Bina → Tera Taali',dancers:'Shreya, Laurien, Sara, Khushboo, Haike, Maha, Siddhy, Roshni + Swapnil, Roshni, Kaushika',status:'partial',key:false},
-  {id:'S21',num:'18',name:"Queen's Sacrifice — Ardhanarishwar ◆",sub:'She dies. Her soul enters him. Two become one.',song:'Ode to Baji / Jhalla Re (Rani verse, Niraj Chag) → Lasya (Anoushka Shankar)',dancers:'Swapnil & Svetlana',status:'ready',key:true},
-  {id:'S22',num:'19',name:'Finally Free — The Boy Becomes ◆',sub:'Boy alone, carrying the Queen\'s soul. First breath as Ardhanarishwar.',song:'Eindelijk Ben Je Vrij (Stef Bos)',dancers:'Swapnil (solo)',status:'ready',key:true},
-  {id:'S23',num:'20',name:'Rainfall ◆',sub:'One drop. Then a monsoon. The river returns because love returned.',song:'Saawan (Niraj Chag, opening) → Ghanan Ghanan',dancers:'Bollywood 2 + full company build',status:'ready',key:true},
-  {id:'S24',num:'21',name:'Return of the Boy',song:'Ghar More Pardesiya',dancers:'Kaushika, Sara, Narcisse, Roshni, Khushboo, Maha, Shreya, Laurien, Swapnil',status:'ready',key:false},
-  {id:'S25',num:'22',name:'Holi Celebration',song:'Krishna Dandiya Medley (placeholder)',dancers:'Full company',status:'tbc',key:false},
+  {id:'S13',num:'11',name:'Chaos & Drought ◆',sub:'The river dies in real time',song:'No song — projection, strobe, smoke',dancers:'Full ensemble — fragmented',status:'tbc',key:true},
+  {id:'S14',num:'12',name:'Tribe Invitation',sub:'Vayu carries the village\'s plea to the Four Tribes',song:'Narration + wind / Vayu solo',dancers:'Narcisse (Vayu)',status:'narr',key:false},
+  {id:'S15',num:'13',name:'Invocation to Nataraja',sub:'The village prays — but prayer is not love',song:'Natarang Ubha',dancers:'Svetlana + 8 dancers',status:'ready',key:false},
+  {id:'S16',num:'14',name:'Tribe 1 — Chari',sub:'Ritual & tradition — fire pots',song:'Chari',dancers:'ABC company',status:'new',key:false},
+  {id:'S17',num:'15',name:'Tribe 2 — Bhangra',sub:'Strength & joy — but not love',song:'Luddi',dancers:'Bhangra Students',status:'new',key:false},
+  {id:'S18',num:'16',name:'Tribe 3 — Bolly Folk',sub:'Community — but the boy was never let in',song:'O Re Kanchi',dancers:'Bollyfolk Students',status:'ready',key:false},
+  {id:'S_CHERAW',num:'17',name:'Tribe 4 — Cheraw',sub:'Grace & precision — but not love',song:'TBC — fusion',dancers:'Cheraw group TBC',status:'new',key:false},
+  {id:'S19',num:'18',name:'The Appeal',sub:'The village and the boy both plead with the Queen',songs:[{title:'Ishq Bina',status:'partial'},{title:'Tera Taali',status:'partial'}],dancers:'Shreya, Laurien, Sara, Khushboo, Haike, Maha, Siddhy, Roshni + Swapnil, Roshni, Kaushika',status:'partial',key:false},
+  {id:'S21',num:'19',name:"Queen's Sacrifice — Ardhanarishwar ◆",sub:'She dies. Her soul enters him. Two become one.',songs:[{title:'Ode to Baji / Jhalla Re (Rani verse, Niraj Chag)',status:'new'},{title:'Lasya (Anoushka Shankar)',status:'new'}],dancers:'Swapnil & Svetlana',status:'ready',key:true},
+  {id:'S22',num:'20',name:'Finally Free — The Boy Becomes ◆',sub:'Boy alone, carrying the Queen\'s soul. First breath as Ardhanarishwar.',song:'Eindelijk Ben Je Vrij (Stef Bos)',dancers:'Swapnil (solo)',status:'ready',key:true},
+  {id:'S23',num:'21',name:'Rainfall ◆',sub:'One drop. Then a monsoon. The river returns because love returned.',songs:[{title:'Saawan (Niraj Chag, opening)',status:'new'},{title:'Ghanan Ghanan',status:'ready'}],dancers:'Bollywood 2 + full company build',status:'ready',key:true},
+  {id:'S24',num:'22',name:'Return of the Boy',song:'Ghar More Pardesiya',dancers:'Kaushika, Sara, Narcisse, Roshni, Khushboo, Maha, Shreya, Laurien, Swapnil',status:'ready',key:false},
+  {id:'S25',num:'23',name:'Holi Celebration',song:'Krishna Dandiya Medley (placeholder)',dancers:'Full company',status:'tbc',key:false},
 ];
 
 const songs = [
@@ -1562,6 +1568,8 @@ const songs = [
   {title:'Oru Paiyan',genre:'Ganavya — devotional',people:3,dancers:'Swapnil + Shreya & Laurien',backup:'—',status:'ready'},
   {title:'Jab Se Tere Naina',genre:'Semi-classical Kathak',people:5,dancers:'Swapnil, Khushboo, Kaushika, Siddhy, Maha',backup:'Sara, Haike',status:'ready'},
   {title:'Jalalo Bilalo',genre:'Bollyfolk / Ghoomar',people:'8+',dancers:'Bollyfolk Students + Swapnil + Roshni, Khushboo, Kaushika',backup:'—',status:'ready'},
+  {title:'Laal Ishq',genre:'Bollywood — intense / dark',people:8,dancers:'Svetlana + company (Queen entry)',backup:'—',status:'ready'},
+  {title:'Deewani Mastani',genre:'Bollywood — regal / complex',people:8,dancers:'Svetlana + company (Queen entry)',backup:'—',status:'ready'},
   {title:'Kalbeliya',genre:'Group',people:8,dancers:'OG cast + Swapnil',backup:'—',status:'partial'},
   {title:'Natarang Ubha',genre:'Semi-classical',people:9,dancers:'Svetlana + 8 dancers',backup:'—',status:'ready'},
   {title:'Chari',genre:'Folk — ABC company',people:6,dancers:'ABC company',backup:'—',status:'new'},
@@ -1687,11 +1695,27 @@ function makeFlowRow(s) {
   const numStyle = sc.key ? 'color:var(--gold-light)' : '';
   const costumeVal = getCostume(s.id);
   const depsHtml = renderDepsChips(s.id);
+  // Multi-song sub-rows
+  const songSubRows = sc.songs ? sc.songs.map((sg, i) => {
+    const sgKey = 'sangam_song_sub_' + s.id + '_' + i;
+    const sgStatus = localStorage.getItem(sgKey) || sg.status;
+    return `<div class="scene-song-subrow">
+      <div class="flow-cell song-indent"></div>
+      <div class="flow-cell song-indent"></div>
+      <div class="flow-cell"><span class="song-label">${sg.title}</span></div>
+      <div class="flow-cell song-indent"></div>
+      <div class="flow-cell song-indent"></div>
+      <div class="flow-cell"><span class="flow-tag ${STATUS_CLASSES[sgStatus]}" onclick="cycleSongSub(this,'${s.id}',${i})" title="Click to update">${STATUS_LABELS[sgStatus]}</span></div>
+    </div>`;
+  }).join('') : '';
+  const songCell = sc.songs
+    ? `<span class="flow-song" style="color:var(--muted);font-size:0.78rem;font-style:italic">↓ ${sc.songs.length} songs</span>`
+    : `<span class="flow-song editable-cell" data-field="song">${sc.song||''}</span>`;
   return `<div class="scene-item" id="${s.id}">
     <div class="flow-row${kc}" id="row-${s.id}" data-scene-id="${s.id}">
       <div class="flow-cell flow-num" style="${numStyle}">${sc.num}${copyLinkBtn(s.id, 'scene ' + sc.num)}</div>
       <div class="flow-cell"><span class="flow-scene-name editable-cell" data-field="name">${sc.name}</span>${sc.sub?`<br><span class="editable-cell" style="font-size:0.74rem;color:var(--muted)" data-field="sub">${sc.sub}</span>`:''}</div>
-      <div class="flow-cell"><span class="flow-song editable-cell" data-field="song">${sc.song}</span></div>
+      <div class="flow-cell">${songCell}</div>
       <div class="flow-cell"><span class="flow-dancers editable-cell" data-field="dancers">${sc.dancers}</span></div>
       <div class="flow-cell" style="gap:4px;flex-wrap:wrap">
         ${sc.status!=='narr'?makeCheck(s.id,'c','C')+makeCheck(s.id,'m','M')+makeCheck(s.id,'t','T'):'<span style="font-size:0.75rem;color:var(--muted);font-style:italic">narration</span>'}
@@ -1699,6 +1723,7 @@ function makeFlowRow(s) {
       </div>
       <div class="flow-cell"><span class="flow-tag ${STATUS_CLASSES[currentStatus]}" onclick="cycleStatus(this,'${s.id}')" title="Click to update">${STATUS_LABELS[currentStatus]}</span></div>
     </div>
+    ${songSubRows}
     <div class="scene-costume-row${costumeVal?' open':''}" id="cos-${s.id}">
       <span class="costume-label">COSTUME</span>
       <input class="costume-input" type="text" placeholder="Costume / colour direction for this scene…" value="${costumeVal}" oninput="saveCostume('${s.id}',this.value)">
@@ -1750,6 +1775,15 @@ function cycleStatus(el, sid) {
   updateDashboard();
 }
 
+function cycleSongSub(el, sid, i) {
+  const cyclable = ['tbc','new','partial','ready'];
+  const cur = Object.keys(STATUS_CLASSES).find(k => el.className.includes(STATUS_CLASSES[k])) || 'tbc';
+  const next = cyclable[(cyclable.indexOf(cur)+1)%cyclable.length];
+  el.className = 'flow-tag ' + STATUS_CLASSES[next];
+  el.textContent = STATUS_LABELS[next];
+  localStorage.setItem('sangam_song_sub_' + sid + '_' + i, next);
+  updateDashboard();
+}
 function cycleSongStatus(el, idx) {
   const cyclable = ['tbc','partial','ready','new'];
   const cur = Object.keys(STATUS_CLASSES).find(k => el.className.includes(STATUS_CLASSES[k])) || 'tbc';
