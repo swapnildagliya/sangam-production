@@ -402,10 +402,11 @@ body.locked > :not(#lock-overlay) { filter:blur(6px); pointer-events:none; user-
 .flow-song { font-style:italic; color:var(--muted); font-size:0.84rem; line-height:1.4; }
 .flow-dancers { font-size:0.82rem; color:var(--muted); line-height:1.5; }
 /* Multi-song sub-rows */
-.scene-song-subrow { display:grid; grid-template-columns:50px 160px 1fr 1fr 130px 120px; border-top:1px solid var(--border); background:var(--surface); }
-.scene-song-subrow .flow-cell { padding:0.45rem 1rem; font-size:0.84rem; }
-.scene-song-subrow .flow-cell.song-indent { background:var(--surface); border-right:1px solid var(--border); }
-.scene-song-subrow .song-label { font-style:italic; color:var(--muted); font-size:0.82rem; }
+.scene-song-subrow { display:grid; grid-template-columns:50px 160px 1fr 1fr 130px 120px; border-top:1px dashed var(--border); background:var(--surface); }
+.scene-song-subrow .flow-cell { padding:0.35rem 1rem; font-size:0.83rem; border-right:1px solid var(--border); }
+.scene-song-subrow .flow-cell:last-child { border-right:none; }
+.scene-song-subrow .flow-cell.song-indent { background:var(--surface2); }
+.scene-song-subrow .song-label { font-style:italic; color:var(--text); font-size:0.82rem; line-height:1.3; }
 
 /* Status tags */
 .flow-tag {
@@ -1709,12 +1710,12 @@ function makeFlowRow(s) {
     </div>`;
   }).join('') : '';
   const songCell = sc.songs
-    ? `<span class="flow-song" style="color:var(--muted);font-size:0.78rem;font-style:italic">↓ ${sc.songs.length} songs</span>`
+    ? `<span class="flow-song" style="color:var(--muted);font-size:0.78rem;font-style:italic">${sc.sub||''}</span>`
     : `<span class="flow-song editable-cell" data-field="song">${sc.song||''}</span>`;
   return `<div class="scene-item" id="${s.id}">
     <div class="flow-row${kc}" id="row-${s.id}" data-scene-id="${s.id}">
       <div class="flow-cell flow-num" style="${numStyle}">${sc.num}${copyLinkBtn(s.id, 'scene ' + sc.num)}</div>
-      <div class="flow-cell"><span class="flow-scene-name editable-cell" data-field="name">${sc.name}</span>${sc.sub?`<br><span class="editable-cell" style="font-size:0.74rem;color:var(--muted)" data-field="sub">${sc.sub}</span>`:''}</div>
+      <div class="flow-cell"><span class="flow-scene-name editable-cell" data-field="name">${sc.name}</span>${(!sc.songs && sc.sub)?`<br><span class="editable-cell" style="font-size:0.74rem;color:var(--muted)" data-field="sub">${sc.sub}</span>`:''}</div>
       <div class="flow-cell">${songCell}</div>
       <div class="flow-cell"><span class="flow-dancers editable-cell" data-field="dancers">${sc.dancers}</span></div>
       <div class="flow-cell" style="gap:4px;flex-wrap:wrap">
