@@ -1531,12 +1531,12 @@ const scenes1 = [
   {id:'S00',num:'PRE',name:'Pre-show',song:'The Blue (Niraj Chag) — soundscape only. No dance. Projection or plays before curtains open.',dancers:'—',status:'ready',key:false},
   {id:'S01',num:'01',name:'The Birth & The Birth of the River ◆',sub:'Desert village. Baby rejected. Maha cries — and the river is born to carry him away',songs:[{title:'Call It Luck If You Want To (Ganavya)',status:'ready'},{title:'On the Nature of Daylight (Max Richter)',status:'ready'},{title:'Remain The Sea (Anoushka Shankar feat. Vanessa Redgrave)',status:'ready'}],dancers:'Svetlana, Sara, Narcisse, Kaushika, Maha, Siddhy, Haike',status:'ready',key:true},
   {id:'S02',num:'02',name:'Sun & Moon',sub:'Two guardians find each other — then find the boy',songs:[{title:'Pyaara Sa Gaon (Zubeida)',status:'ready'},{title:'Dheeme Dheeme',status:'ready'}],dancers:'Shreya & Laurien',status:'ready',key:false},
-  {id:'S04',num:'03',name:'Villagers',sub:'Village established — the river runs, life is full',songs:[{title:'Mori Atariya pe Kaaga Bole (Niraj Chag)',status:'partial'},{title:'Chalka Re',status:'ready',dancers:'Kaushika, Khushboo, Sara, Chiara, Laurien, Roshni'}],dancers:'Kaushika, Khushboo, Sara, Chiara, Laurien, Roshni',status:'partial',key:false},
+  {id:'S04',num:'03',name:'Villagers',sub:'Village established — the river runs, life is full',songs:[{title:'Mori Atariya pe Kaaga Bole (Niraj Chag)',status:'partial',dancers:'Svetlana, Narcisse, Kaushika, Roshni, Sara, Chiara'},{title:'Chalka Re',status:'ready',dancers:'Kaushika, Khushboo, Sara, Chiara, Laurien, Roshni'}],dancers:'Svetlana, Narcisse, Kaushika, Roshni, Sara, Chiara, Khushboo, Laurien',status:'partial',key:false},
   {id:'S07',num:'04',name:'Adulthood Solo',sub:'Boy has grown up — the question of love begins',song:'Oru Paiyan (Ganavya) + Sun & Moon cameo',dancers:'Swapnil + Shreya & Laurien',status:'ready',key:false},
   {id:'S08',num:'05',name:'First Discovery',sub:'The village turns its gaze toward the boy — and cannot look away',songs:[{title:'Jab Se Tere Naina',status:'ready'},{title:'Nainowale Ne',status:'new'}],dancers:'Swapnil, Khushboo, Kaushika, Siddhy, Maha',status:'partial',key:false},
   {id:'S09',num:'06',name:'More Villagers',sub:'Queen still unaware — joy building with the boy',song:'Jalalo Bilalo',dancers:'Bollyfolk Students + Swapnil + Roshni, Khushboo, Kaushika',status:'ready',key:false},
   {id:'S09B',num:'07',name:'Queen\'s Entry',sub:'Who she is before the feast — power, obsession, complexity',songs:[{title:'Laal Ishq',status:'ready',dancers:'Kaushika, Khushboo, Swapnil'},{title:'Deewani Mastani',status:'ready',dancers:'Sara, Svetlana, Narcisse, Kaushika, Chiara, Khushboo, Haike'}],dancers:'Svetlana, Sara, Narcisse, Kaushika, Chiara, Khushboo, Haike, Swapnil',status:'ready',key:false},
-  {id:'S10',num:'08',name:'Village Feast ◆',sub:'Peak of joy — queen sees the boy',song:'Kalbeliya',dancers:'OG cast + Swapnil',status:'ready',key:true},
+  {id:'S10',num:'08',name:'Village Feast ◆',sub:'Peak of joy — queen sees the boy',song:'Kalbeliya',dancers:'Narcisse, Shreya, Maha, Kaushika, Sara, Laurien, Roshni, Haike, Swapnil',status:'ready',key:true},
   {id:'S11',num:'09',name:"Queen's Rejection ◆",sub:'Music cuts. One gesture. A single voice from the dark.',song:'Silence + a single distant voice (wordless)',dancers:'Svetlana + full company freeze',status:'ready',key:true},
   {id:'S12',num:'10',name:'End of Part 1',song:'Narration',dancers:'—',status:'narr',key:false},
 ];
@@ -1553,7 +1553,7 @@ const scenes2 = [
   {id:'S22',num:'20',name:'Finally Free — The Boy Becomes ◆',sub:'Boy alone, carrying the Queen\'s soul. First breath as Ardhanarishwar.',song:'Eindelijk Ben Je Vrij (Stef Bos)',dancers:'Swapnil (solo)',status:'ready',key:true},
   {id:'S23',num:'21',name:'Rainfall ◆',sub:'One drop. Then a monsoon. The river returns because love returned.',songs:[{title:'Saawan (Niraj Chag, opening)',status:'new'},{title:'Ghanan Ghanan',status:'ready',dancers:'Bollywood Level 2 Students + ABC dancers (TBC)'}],dancers:'Bollywood Level 2 Students + ABC dancers (TBC)',status:'ready',key:true},
   {id:'S24',num:'22',name:'Return of the Boy',song:'Ghar More Pardesiya',dancers:'Swapnil, Narcisse, Khushboo, Roshni, Sara, Laurien, Haike, Kaushika',status:'ready',key:false},
-  {id:'S25',num:'23',name:'Holi Celebration',song:'Krishna Dandiya Medley (placeholder)',dancers:'Full company',status:'tbc',key:false},
+  {id:'S25',num:'23',name:'Holi Celebration',song:'Krishna Dandiya Medley',dancers:'Full company',status:'partial',key:false},
 ];
 
 const songs = [
@@ -1563,14 +1563,14 @@ const songs = [
   {title:'Remain The Sea',genre:'Anoushka Shankar feat. Vanessa Redgrave — spoken word / sitar',people:1,dancers:'Maha carries boy to river (S01)',backup:'—',status:'ready'},
   {title:'Pyaara Sa Gaon',genre:'Zubeida — folk',people:2,dancers:'Shreya & Laurien (Sun & Moon)',backup:'—',status:'ready'},
   {title:'Dheeme Dheeme',genre:'Bollyfolk',people:2,dancers:'Shreya & Laurien',backup:'Sara, Narcisse, Roshni',status:'ready'},
-  {title:'Mori Atariya pe Kaaga Bole',genre:'Niraj Chag — Rajasthani folk',people:5,dancers:'OG cast (village establishment)',backup:'—',status:'ready'},
+  {title:'Mori Atariya pe Kaaga Bole',genre:'Niraj Chag — Rajasthani folk',people:6,dancers:'Svetlana, Narcisse, Kaushika, Roshni, Sara, Chiara',backup:'—',status:'partial'},
   {title:'Chalka Re',genre:'Bollyfolk',people:5,dancers:'OG cast',backup:'Narcisse, Shreya',status:'ready'},
   {title:'Oru Paiyan',genre:'Ganavya — devotional',people:3,dancers:'Swapnil + Shreya & Laurien',backup:'—',status:'ready'},
   {title:'Jab Se Tere Naina',genre:'Semi-classical Kathak',people:5,dancers:'Swapnil, Khushboo, Kaushika, Siddhy, Maha',backup:'Sara, Haike',status:'ready'},
   {title:'Jalalo Bilalo',genre:'Bollyfolk / Ghoomar',people:'8+',dancers:'Bollyfolk Students + Swapnil + Roshni, Khushboo, Kaushika',backup:'—',status:'ready'},
   {title:'Laal Ishq',genre:'Bollywood — intense / dark',people:3,dancers:'Kaushika, Khushboo, Swapnil',backup:'—',status:'ready'},
   {title:'Deewani Mastani',genre:'Bollywood — regal / complex',people:7,dancers:'Sara, Svetlana, Narcisse, Kaushika, Chiara, Khushboo, Haike',backup:'—',status:'ready'},
-  {title:'Kalbeliya',genre:'Group',people:8,dancers:'OG cast + Swapnil',backup:'—',status:'partial'},
+  {title:'Kalbeliya',genre:'Group',people:9,dancers:'Narcisse, Shreya, Maha, Kaushika, Sara, Laurien, Roshni, Haike, Swapnil',backup:'—',status:'partial'},
   {title:'Natarang Ubha',genre:'Semi-classical',people:9,dancers:'Svetlana + 8 dancers',backup:'—',status:'ready'},
   {title:'Chari',genre:'Folk — ABC company',people:6,dancers:'ABC company',backup:'—',status:'new'},
   {title:'Luddi',genre:'Bhangra — folk',people:'—',dancers:'Bhangra Students',backup:'—',status:'new'},
@@ -1583,7 +1583,7 @@ const songs = [
   {title:'Saawan',genre:'Niraj Chag — folk',people:'16+',dancers:'Full company build (opening of Rainfall)',backup:'—',status:'new'},
   {title:'Ghanan Ghanan',genre:'Bollyfolk',people:'20+',dancers:'Bollywood Level 2 Students + ABC dancers (TBC)',backup:'—',status:'ready'},
   {title:'Ghar More Pardesiya',genre:'Semi-classical Kathak',people:9,dancers:'Kaushika, Sara, Narcisse, Roshni, Khushboo, Maha, Shreya, Laurien, Swapnil',backup:'—',status:'ready'},
-  {title:'Krishna Dandiya Medley',genre:'Garba — placeholder',people:'20+',dancers:'Full company',backup:'Shreya, Narcisse, Chiara',status:'tbc'},
+  {title:'Krishna Dandiya Medley',genre:'Garba',people:'20+',dancers:'Full company',backup:'Shreya, Narcisse, Chiara',status:'partial'},
 ];
 // ── DATA END ──
 
