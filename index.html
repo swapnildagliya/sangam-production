@@ -1709,12 +1709,12 @@ function makeFlowRow(s) {
     </div>`;
   }).join('') : '';
   const songCell = sc.songs
-    ? `<span class="flow-song" style="color:var(--muted);font-size:0.78rem;font-style:italic">${sc.sub||''}</span>`
+    ? `<span class="flow-song" style="color:var(--text);font-size:0.86rem;font-style:italic;line-height:1.4">${sc.songs.map(sg=>sg.title).join(' · ')}</span>`
     : `<span class="flow-song editable-cell" data-field="song">${sc.song||''}</span>`;
   return `<div class="scene-item" id="${s.id}">
     <div class="flow-row${kc}" id="row-${s.id}" data-scene-id="${s.id}">
       <div class="flow-cell flow-num" style="${numStyle}">${sc.num}${copyLinkBtn(s.id, 'scene ' + sc.num)}</div>
-      <div class="flow-cell"><div style="display:flex;flex-direction:column;gap:3px;width:100%"><span class="flow-scene-name editable-cell" data-field="name">${sc.name}</span>${(!sc.songs && sc.sub)?`<span class="editable-cell" style="font-size:0.74rem;color:var(--muted);line-height:1.35" data-field="sub">${sc.sub}</span>`:''}</div></div>
+      <div class="flow-cell"><div style="display:flex;flex-direction:column;gap:3px;width:100%"><span class="flow-scene-name editable-cell" data-field="name">${sc.name}</span>${sc.sub?`<span class="editable-cell" style="font-size:0.74rem;color:var(--muted);line-height:1.35" data-field="sub">${sc.sub}</span>`:''}</div></div>
       <div class="flow-cell">${songCell}</div>
       <div class="flow-cell"><span class="flow-dancers editable-cell" data-field="dancers">${sc.dancers}</span></div>
       <div class="flow-cell" style="gap:4px;flex-wrap:wrap">
