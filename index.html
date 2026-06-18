@@ -399,11 +399,12 @@ body.locked > :not(#lock-overlay) { filter:blur(6px); pointer-events:none; user-
 .flow-row.has-songs { background:var(--bg2); border-left:3px solid var(--gold); }
 .flow-row.has-songs .flow-cell { padding:0.55rem 1rem; }
 .flow-row.has-songs .flow-num { background:transparent; }
-.flow-row.has-songs .flow-cell:nth-child(2) { grid-column: 2 / 7; border-right:none; }
+.flow-row.has-songs .flow-cell:nth-child(2) { grid-column: 2 / 8; border-right:none; }
 .flow-row.has-songs .flow-cell:nth-child(3),
 .flow-row.has-songs .flow-cell:nth-child(4),
 .flow-row.has-songs .flow-cell:nth-child(5),
-.flow-row.has-songs .flow-cell:nth-child(6) { display:none; }
+.flow-row.has-songs .flow-cell:nth-child(6),
+.flow-row.has-songs .flow-cell:nth-child(7) { display:none; }
 
 /* Subrows hang off the same gold accent */
 .scene-item:has(.scene-song-subrow) .scene-song-subrow { border-left:3px solid var(--gold); }
