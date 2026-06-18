@@ -125,12 +125,6 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
 }
 .theme-toggle:hover { background:var(--bg3); }
 .header-actions { display:flex; align-items:center; gap:0.5rem; flex-shrink:0; margin-left:1rem; }
-.sync-pill {
-  font-family:'Cinzel',serif; font-size:0.46rem; letter-spacing:0.24em;
-  color:var(--muted); padding:0.32rem 0.65rem; border-radius:99px;
-  background:var(--surface2); border:1px solid var(--border);
-  opacity:0.55; transition:opacity 0.4s, color 0.2s; white-space:nowrap;
-}
 .export-btn {
   font-family:'Cinzel',serif; font-size:0.5rem; letter-spacing:0.2em;
   background:transparent; border:1px solid var(--border2); padding:0.38rem 0.85rem;
@@ -474,12 +468,7 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
   position:fixed; bottom:1.5rem; right:1.5rem; z-index:200;
   display:none; align-items:center; gap:1rem;
 }
-.save-btn { font-family:'Cinzel',serif; font-size:0.58rem; letter-spacing:0.28em; background:var(--gold); color:white; border:none; padding:0.75rem 1.6rem; cursor:pointer; transition:all 0.2s; border-radius:2px; box-shadow:var(--shadow-lg); }
-[data-theme="light"] .save-btn { color:#1e1810; }
-.save-btn:hover { background:var(--gold-light); }
-.save-msg { font-family:'Cinzel',serif; font-size:0.52rem; letter-spacing:0.28em; color:var(--gold); opacity:0; transition:opacity 0.4s; }
-.save-msg.show { opacity:1; }
-
+[data-theme="light"] 
 /* ══════════════════════
    TAB 6 — REFERENCES
 ══════════════════════ */
@@ -733,8 +722,6 @@ body { font-size: 18px; }
 /* Notes */
 .note-block-title { font-size: 0.72rem; letter-spacing: 0.3em; }
 .note-area { font-size: 0.96rem; line-height: 1.85; }
-.save-btn { font-size: 0.68rem; letter-spacing: 0.22em; padding: 0.8rem 1.8rem; }
-.save-msg { font-size: 0.65rem; letter-spacing: 0.22em; }
 
 /* References */
 .ref-origin-eyebrow { font-size: 0.68rem; letter-spacing: 0.32em; }
@@ -759,12 +746,10 @@ body { font-size: 18px; }
     <button class="nav-tab" onclick="showTab('flow',this)">Show Flow</button>
     <button class="nav-tab" onclick="showTab('songs',this)">Songs</button>
     <button class="nav-tab" onclick="showTab('characters',this)">Characters</button>
-    <button class="nav-tab" onclick="showTab('notes',this)">Notes</button>
     <button class="nav-tab" onclick="showTab('cast',this)">Cast</button>
     <button class="nav-tab" onclick="showTab('references',this)">References</button>
   </nav>
   <div class="header-actions">
-    <span class="sync-pill" id="sync-status" title="Live-sync status">Local</span>
     <button class="export-btn" onclick="exportForDancers()" title="Export view-only snapshot as a file">📤 &nbsp;Export</button>
     <button class="edit-btn" onclick="toggleEditMode()" id="edit-btn" title="Toggle edit mode">✏</button>
     <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn" title="Toggle theme">☀️</button>
@@ -1096,24 +1081,6 @@ body { font-size: 18px; }
 <!-- ═══════════════════════════════════════
      TAB 5: NOTES
 ════════════════════════════════════════ -->
-<div id="tab-notes" class="panel">
-  <div class="section-wrap">
-    <p class="section-label">Production Notes</p>
-    <h2 class="section-heading">Your Working Notes</h2>
-    <p class="section-sub" style="margin-bottom:2.5rem">Type directly into any field. Notes save automatically as you type.</p>
-    <div class="notes-grid">
-      <div class="note-block"><div class="note-block-title">General Vision</div><textarea class="note-area" id="note-vision" placeholder="Thoughts on the overall creative direction, what you want audiences to feel..."></textarea></div>
-      <div class="note-block"><div class="note-block-title">Opening & Part 1</div><textarea class="note-area" id="note-part1" placeholder="Notes on Scenes 1–12: birth, Sun & Moon, villagers, feast, rejection..."></textarea></div>
-      <div class="note-block"><div class="note-block-title">Tribes & Part 2</div><textarea class="note-area" id="note-part2" placeholder="Notes on Scenes 13–21: drought, tribes, appeal, sacrifice..."></textarea></div>
-      <div class="note-block"><div class="note-block-title">Finale</div><textarea class="note-area" id="note-finale" placeholder="Notes on Scenes 19–22 (display): Ardhanarishwar reveal (Lasya bridge), rainfall, Ghar More Pardesiya, Holi..."></textarea></div>
-      <div class="note-block"><div class="note-block-title">Casting & Dancers</div><textarea class="note-area" id="note-casting" placeholder="Casting decisions, dancer notes, any changes to assignments..."></textarea></div>
-      <div class="note-block"><div class="note-block-title">Technical & Production</div><textarea class="note-area" id="note-tech" placeholder="Lighting, projections, props, costumes, venue requirements..."></textarea></div>
-      <div class="note-block"><div class="note-block-title">Music & Sound</div><textarea class="note-area" id="note-music" placeholder="Audio edits, transitions, narration, live vs. recorded decisions..."></textarea></div>
-      <div class="note-block"><div class="note-block-title">Open Questions</div><textarea class="note-area" id="note-questions" placeholder="Unresolved decisions, things to follow up, questions for the team..."></textarea></div>
-    </div>
-  </div>
-</div>
-
 <!-- ═══════════════════════════════════════
      TAB 7: CAST OVERVIEW
 ════════════════════════════════════════ -->
@@ -1262,11 +1229,6 @@ body { font-size: 18px; }
     </div>
     <p style="font-family:'Cinzel',serif;font-size:0.48rem;letter-spacing:0.22em;color:var(--muted);margin-top:2rem;font-style:italic">Note: YouTube links above are truncated from source — search by title if a link does not open directly.</p>
   </div>
-</div>
-
-<div class="save-bar" id="save-bar">
-  <span class="save-msg" id="save-msg">Saved</span>
-  <button class="save-btn" onclick="saveNotes()">Save Notes</button>
 </div>
 
 <script>
@@ -1744,24 +1706,6 @@ function toggleTheme() {
   localStorage.setItem('sangam_theme', isDark ? 'light' : 'dark');
 }
 
-// ── NOTES ──
-const NOTE_IDS = ['note-vision','note-part1','note-part2','note-finale','note-casting','note-tech','note-music','note-questions'];
-function saveNotes() {
-  NOTE_IDS.forEach(id => localStorage.setItem('sangam_'+id, document.getElementById(id).value));
-  const msg = document.getElementById('save-msg');
-  msg.classList.add('show');
-  setTimeout(() => msg.classList.remove('show'), 2000);
-}
-function loadNotes() {
-  NOTE_IDS.forEach(id => { const v = localStorage.getItem('sangam_'+id); if(v) document.getElementById(id).value = v; });
-}
-NOTE_IDS.forEach(id => {
-  document.getElementById(id).addEventListener('input', () => {
-    clearTimeout(window._st);
-    window._st = setTimeout(saveNotes, 1200);
-  });
-});
-
 // ── EDIT MODE ──
 let editMode = false;
 
@@ -2052,7 +1996,6 @@ function bootSangam() {
   document.getElementById('theme-btn').textContent = savedTheme === 'dark' ? '🌙' : '☀️';
   renderFlow();
   renderSongs();
-  loadNotes();
   loadCharEdits();
   updateDashboard();
   initFileHandle();
