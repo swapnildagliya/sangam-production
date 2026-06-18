@@ -580,10 +580,43 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
 /* ── RESPONSIVE ── */
 @media(max-width:900px){
   .pillars-grid{grid-template-columns:1fr}
-  .flow-header-row,.flow-row,.scene-song-subrow{grid-template-columns:40px 1fr 1fr 100px}
-  .flow-header-cell:nth-child(4),.flow-cell:nth-child(4),
-  .flow-header-cell:nth-child(5),.flow-cell:nth-child(5),
-  .flow-header-cell:nth-child(6),.flow-cell:nth-child(6){display:none}
+  /* Stacked card layout for show flow on phones + landscape phones */
+  .flow-header-row{display:none}
+  .scene-item{border:1px solid var(--border);border-radius:8px;background:var(--surface);margin-bottom:10px;overflow:hidden;box-shadow:var(--shadow)}
+  .scene-item .flow-row,.scene-item .scene-song-subrow{display:flex !important;flex-direction:column !important;grid-template-columns:none !important;box-shadow:none;margin-bottom:0;border:none;background:transparent}
+  .flow-row .flow-cell,.scene-song-subrow .flow-cell{border-right:none;border-bottom:1px solid var(--border);padding:0.55rem 0.85rem;justify-content:flex-start !important;align-items:flex-start;flex-direction:column;gap:3px}
+  .flow-row .flow-cell:last-child,.scene-song-subrow .flow-cell:last-child{border-bottom:none}
+  .flow-row .flow-cell:empty,.scene-song-subrow .flow-cell:empty{display:none}
+  /* Scene number header strip */
+  .flow-row .flow-cell:nth-child(1){background:var(--bg2);padding:0.4rem 0.85rem;font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.22em;color:var(--gold);justify-content:flex-start !important;flex-direction:row;align-items:center}
+  .flow-row .flow-cell:nth-child(1)::before{content:'Scene · ';opacity:0.55;margin-right:4px}
+  /* Labelled cells via ::before */
+  .flow-row .flow-cell:nth-child(3):not(:empty)::before,
+  .scene-song-subrow .flow-cell:nth-child(3)::before{content:'Song';display:block;width:100%;font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:0.22em;color:var(--muted);margin-bottom:2px}
+  .flow-row .flow-cell:nth-child(4):not(:empty)::before,
+  .scene-song-subrow .flow-cell:nth-child(4):not(:empty)::before{content:'Dancers';display:block;width:100%;font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:0.22em;color:var(--muted);margin-bottom:2px}
+  .flow-row .flow-cell:nth-child(5):not(:empty)::before,
+  .scene-song-subrow .flow-cell:nth-child(5):not(:empty)::before{content:'Costume';display:block;width:100%;font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:0.22em;color:var(--muted);margin-bottom:2px}
+  .flow-row .flow-cell:nth-child(6):not(:empty)::before,
+  .scene-song-subrow .flow-cell:nth-child(6):not(:empty)::before{content:'Time';display:block;width:100%;font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:0.22em;color:var(--muted);margin-bottom:2px}
+  /* Status pill cell (last) */
+  .flow-row .flow-cell:nth-child(7),.scene-song-subrow .flow-cell:nth-child(7){padding:0.5rem 0.85rem;flex-direction:row;align-items:center;gap:8px}
+  .flow-row .flow-cell:nth-child(7)::before,.scene-song-subrow .flow-cell:nth-child(7)::before{content:'Status';font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:0.22em;color:var(--muted)}
+  /* Multi-song parent banner stays clean — just name+sub block */
+  .flow-row.has-songs .flow-cell:nth-child(2){grid-column:auto !important;padding:0.7rem 0.85rem}
+  .flow-row.has-songs .flow-cell:nth-child(3),
+  .flow-row.has-songs .flow-cell:nth-child(4),
+  .flow-row.has-songs .flow-cell:nth-child(5),
+  .flow-row.has-songs .flow-cell:nth-child(6),
+  .flow-row.has-songs .flow-cell:nth-child(7){display:none !important}
+  /* Narration rows: slim single block */
+  .flow-row.is-narr .flow-cell:nth-child(1){background:transparent;color:var(--muted)}
+  .flow-row.is-narr .flow-narr-body{grid-column:auto !important}
+  .flow-row.is-narr .flow-cell{border-bottom:none}
+  /* Subrow indents: drop the empty first two cells on mobile (they were spacers in desktop grid) */
+  .scene-song-subrow .flow-cell.song-indent{display:none}
+  .scene-song-subrow{border-top:1px dashed var(--border)}
+  /* Songs catalog table — keep desktop-ish but compact */
   .song-header,.song-row{grid-template-columns:1fr 120px 100px}
   .song-header-cell:nth-child(4),.song-header-cell:nth-child(5),.song-cell:nth-child(4),.song-cell:nth-child(5){display:none}
   .notes-grid{grid-template-columns:1fr}
@@ -1608,8 +1641,8 @@ function makeFlowRow(s) {
       <div class="flow-cell song-indent"></div>
       <div class="flow-cell"><div style="display:flex;flex-direction:column;gap:2px;width:100%"><span class="song-label">${sg.title}</span>${sg.note?`<span style="font-size:0.72rem;color:var(--muted);font-style:italic;line-height:1.35">${sg.note}</span>`:''}</div></div>
       <div class="flow-cell">${sg.dancers?`<span style="font-size:0.78rem;color:var(--muted)">${sg.dancers}</span>`:''}</div>
-      <div class="flow-cell"><span style="font-size:0.74rem;color:var(--muted);line-height:1.4">${sg.costume||''}</span></div>
-      <div class="flow-cell" style="justify-content:center"><span style="font-family:'Cinzel',serif;font-size:0.68rem;color:var(--muted);letter-spacing:0.05em">${sg.duration||''}</span></div>
+      <div class="flow-cell">${sg.costume?`<span style="font-size:0.74rem;color:var(--muted);line-height:1.4">${sg.costume}</span>`:''}</div>
+      <div class="flow-cell" style="justify-content:center">${sg.duration?`<span style="font-family:'Cinzel',serif;font-size:0.68rem;color:var(--muted);letter-spacing:0.05em">${sg.duration}</span>`:''}</div>
       <div class="flow-cell"><span class="flow-tag ${STATUS_CLASSES[sgStatus]}" onclick="cycleSongSub(this,'${s.id}',${i})" title="Click to update">${STATUS_LABELS[sgStatus]}</span></div>
     </div>`;
   }).join('') : '';
@@ -1622,8 +1655,8 @@ function makeFlowRow(s) {
       <div class="flow-cell${nameBodyClass}"><div style="display:flex;flex-direction:column;gap:3px;width:100%"><span class="flow-scene-name editable-cell" data-field="name">${sc.name}</span>${sc.sub?`<span class="editable-cell" style="font-size:0.74rem;color:var(--muted);line-height:1.35" data-field="sub">${sc.sub}</span>`:''}</div></div>
       <div class="flow-cell${narrHide}">${songCell}</div>
       <div class="flow-cell${narrHide}">${sc.songs?'':`<span class="flow-dancers editable-cell" data-field="dancers">${sc.dancers}</span>`}</div>
-      <div class="flow-cell${narrHide}"><span style="font-size:0.78rem;color:var(--muted);line-height:1.4">${sc.costume||''}</span></div>
-      <div class="flow-cell${narrHide}" style="justify-content:center"><span style="font-family:'Cinzel',serif;font-size:0.7rem;color:var(--muted);letter-spacing:0.05em">${sc.duration||''}</span></div>
+      <div class="flow-cell${narrHide}">${sc.costume?`<span style="font-size:0.78rem;color:var(--muted);line-height:1.4">${sc.costume}</span>`:''}</div>
+      <div class="flow-cell${narrHide}" style="justify-content:center">${sc.duration?`<span style="font-family:'Cinzel',serif;font-size:0.7rem;color:var(--muted);letter-spacing:0.05em">${sc.duration}</span>`:''}</div>
       <div class="flow-cell"><span class="flow-tag ${STATUS_CLASSES[currentStatus]}" onclick="cycleStatus(this,'${s.id}')" title="Click to update">${STATUS_LABELS[currentStatus]}</span></div>
     </div>
     ${songSubRows}
