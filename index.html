@@ -74,11 +74,9 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
 .header-brand { display:flex; flex-direction:column; gap:1px; }
 .header-title {
   font-family:'Cinzel Decorative',serif; font-size:1.15rem; font-weight:900;
-  background:linear-gradient(135deg,var(--gold-light),var(--gold));
-  -webkit-background-clip:text; background-clip:text; color:transparent;
-  letter-spacing:0.08em; white-space:nowrap;
+  color:var(--gold); letter-spacing:0.08em; white-space:nowrap;
 }
-.header-sub { font-family:'Cinzel',serif; font-size:0.5rem; letter-spacing:0.35em; color:var(--muted); white-space:nowrap; }
+.header-sub { font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.35em; color:var(--muted); white-space:nowrap; }
 .nav-tabs {
   display:flex; height:100%; margin-left:auto;
   overflow-x:auto; overflow-y:hidden;
@@ -88,7 +86,7 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
 }
 .nav-tabs::-webkit-scrollbar { display:none; }
 .nav-tab {
-  font-family:'Cinzel',serif; font-size:0.58rem; letter-spacing:0.28em;
+  font-family:'Cinzel',serif; font-size:0.66rem; letter-spacing:0.28em;
   color:var(--muted); padding:0 1.2rem; height:100%;
   display:flex; align-items:center; cursor:pointer;
   border:none; background:none;
@@ -97,6 +95,7 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
 }
 .nav-tab:hover { color:var(--text); }
 .nav-tab.active { color:var(--gold); border-bottom-color:var(--gold); }
+.nav-tab:focus-visible, .skip-link:focus-visible { outline:2px solid var(--gold); outline-offset:2px; }
 
 /* ── DEEP LINKS ── */
 .copy-link-btn {
@@ -126,13 +125,13 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
 .theme-toggle:hover { background:var(--bg3); }
 .header-actions { display:flex; align-items:center; gap:0.5rem; flex-shrink:0; margin-left:1rem; }
 .export-btn {
-  font-family:'Cinzel',serif; font-size:0.5rem; letter-spacing:0.2em;
+  font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.2em;
   background:transparent; border:1px solid var(--border2); padding:0.38rem 0.85rem;
   cursor:pointer; border-radius:2px; color:var(--muted); transition:all 0.2s; white-space:nowrap;
 }
 .export-btn:hover { background:var(--bg3); color:var(--text); border-color:var(--gold); }
 .publish-btn {
-  font-family:'Cinzel',serif; font-size:0.5rem; letter-spacing:0.2em;
+  font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.2em;
   background:var(--river); border:1px solid var(--river); padding:0.38rem 0.85rem;
   cursor:pointer; border-radius:2px; color:white; transition:all 0.2s; white-space:nowrap;
   display:none;
@@ -153,7 +152,7 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
 .copy-link-btn { display:none !important; }
 .scene-deps-row { display:none !important; } /* hide dep chips — re-enable on request */
 [data-viewer="true"] .header-actions::after {
-  content:'DANCER VIEW'; font-family:'Cinzel',serif; font-size:0.46rem;
+  content:'DANCER VIEW'; font-family:'Cinzel',serif; font-size:0.62rem;
   letter-spacing:0.28em; color:var(--muted); padding:0 0.3rem;
 }
 .edit-btn {
@@ -174,22 +173,22 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
   position:sticky; top:60px; z-index:90; backdrop-filter:blur(8px);
 }
 [data-edit="off"] .edit-mode-bar { display:flex; }
-.edit-mode-label { font-family:'Cinzel',serif; font-size:0.52rem; letter-spacing:0.32em; color:var(--gold); white-space:nowrap; }
-.edit-mode-hint { font-family:'Cinzel',serif; font-size:0.46rem; letter-spacing:0.18em; color:var(--muted); }
+.edit-mode-label { font-family:'Cinzel',serif; font-size:0.64rem; letter-spacing:0.32em; color:var(--gold); white-space:nowrap; }
+.edit-mode-hint { font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.18em; color:var(--muted); }
 .save-status {
-  font-family:'Cinzel',serif; font-size:0.46rem; letter-spacing:0.18em;
+  font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.18em;
   color:var(--gold); min-width:80px; text-align:right;
 }
 .edit-bar-actions { margin-left:auto; display:flex; align-items:center; gap:0.6rem; flex-shrink:0; }
 .save-file-btn {
-  font-family:'Cinzel',serif; font-size:0.5rem; letter-spacing:0.22em;
+  font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.22em;
   background:var(--gold); border:none; padding:0.45rem 1.2rem; cursor:pointer;
   border-radius:2px; color:white; transition:all 0.2s; white-space:nowrap;
 }
 [data-theme="light"] .save-file-btn { color:#1e1810; }
 .save-file-btn:hover { background:var(--gold-light); }
 .link-file-btn {
-  font-family:'Cinzel',serif; font-size:0.46rem; letter-spacing:0.18em;
+  font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.18em;
   background:transparent; border:1px solid rgba(184,146,42,0.4); padding:0.42rem 0.9rem;
   cursor:pointer; border-radius:2px; color:var(--gold); transition:all 0.2s; white-space:nowrap;
 }
@@ -223,17 +222,17 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
 .dash-stat {
   display:flex; flex-direction:column; gap:2px;
 }
-.dash-label { font-family:'Cinzel',serif; font-size:0.48rem; letter-spacing:0.3em; color:var(--muted); }
+.dash-label { font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.3em; color:var(--muted); }
 .dash-value { font-family:'Cinzel',serif; font-size:0.95rem; font-weight:600; color:var(--text); }
 #days-count { font-size:1.6rem; line-height:1; color:var(--gold); }
 .dash-value span { font-size:0.65rem; font-weight:400; color:var(--muted); }
 .dash-divider { width:1px; height:32px; background:var(--border2); flex-shrink:0; }
 .dash-progress { flex:1; min-width:200px; }
-.dash-progress-label { font-family:'Cinzel',serif; font-size:0.48rem; letter-spacing:0.3em; color:var(--muted); margin-bottom:4px; }
+.dash-progress-label { font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.3em; color:var(--muted); margin-bottom:4px; }
 .dash-bar-track { height:6px; background:var(--bg3); border-radius:3px; overflow:hidden; display:flex; }
 .dash-bar-seg { height:100%; transition:width 0.5s; }
 .dash-legend { display:flex; gap:1rem; margin-top:4px; flex-wrap:wrap; }
-.dash-legend-item { font-family:'Cinzel',serif; font-size:0.45rem; letter-spacing:0.15em; color:var(--muted); display:flex; align-items:center; gap:4px; }
+.dash-legend-item { font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.15em; color:var(--muted); display:flex; align-items:center; gap:4px; }
 .dash-legend-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
 
 /* ── PANELS ── */
@@ -260,8 +259,7 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
 .hero-eyebrow { font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.45em; color:var(--gold); margin-bottom:1.8rem; }
 .hero-title {
   font-family:'Cinzel Decorative',serif; font-size:clamp(2rem,5.5vw,4rem); font-weight:900;
-  background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,#8a6010 100%);
-  -webkit-background-clip:text; background-clip:text; color:transparent; line-height:0.9;
+  color:var(--gold); line-height:0.9;
 }
 .hero-sanskrit { font-style:italic; color:var(--muted); margin-top:1rem; font-size:0.95rem; letter-spacing:0.2em; }
 .hero-tagline {
@@ -289,7 +287,7 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
 /* Arc */
 .arc-bar { display:flex; gap:3px; height:80px; margin-bottom:0.6rem; }
 .arc-seg { border-radius:3px; display:flex; align-items:flex-end; padding:0.35rem; }
-.arc-seg-label { font-family:'Cinzel',serif; font-size:0.46rem; letter-spacing:0.12em; color:rgba(0,0,0,0.35); white-space:nowrap; overflow:hidden; }
+.arc-seg-label { font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.12em; color:rgba(0,0,0,0.35); white-space:nowrap; overflow:hidden; }
 [data-theme="dark"] .arc-seg-label { color:rgba(255,255,255,0.4); }
 
 /* Key Scenes */
@@ -302,18 +300,18 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
 .sc-num {
   display:flex; align-items:center; justify-content:center;
   writing-mode:vertical-rl; transform:rotate(180deg);
-  font-family:'Cinzel',serif; font-size:0.52rem; letter-spacing:0.22em;
+  font-family:'Cinzel',serif; font-size:0.64rem; letter-spacing:0.22em;
   color:white; background:var(--sca); padding:1rem 0; opacity:0.9;
 }
 .sc-orig { padding:2rem 2.2rem; background:var(--surface); display:flex; flex-direction:column; justify-content:center; border-right:1px solid var(--border); }
-.sc-orig-label { font-family:'Cinzel',serif; font-size:0.52rem; letter-spacing:0.38em; color:var(--sca); margin-bottom:0.7rem; opacity:0.8; }
+.sc-orig-label { font-family:'Cinzel',serif; font-size:0.64rem; letter-spacing:0.38em; color:var(--sca); margin-bottom:0.7rem; opacity:0.8; }
 .sc-orig-title { font-family:'Cinzel',serif; font-size:clamp(0.95rem,1.8vw,1.3rem); font-weight:600; color:var(--text); margin-bottom:0.7rem; line-height:1.3; }
-.sc-orig-text { font-size:0.88rem; font-style:italic; color:var(--muted); line-height:1.7; border-left:2px solid var(--border2); padding-left:0.8rem; }
+.sc-orig-text { font-size:0.88rem; font-style:italic; color:var(--muted); line-height:1.7; padding-left:0.2rem; }
 .sc-dir { padding:2rem 2.2rem; background:var(--surface2); display:flex; flex-direction:column; justify-content:center; }
-.sc-dir-eye { font-family:'Cinzel',serif; font-size:0.5rem; letter-spacing:0.4em; color:var(--sca); margin-bottom:1rem; opacity:0.9; }
+.sc-dir-eye { font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.4em; color:var(--sca); margin-bottom:1rem; opacity:0.9; }
 .sc-dir-text { font-size:0.9rem; line-height:1.85; color:var(--text2); }
 .sc-dir-text strong { color:var(--sca); font-weight:500; }
-.sc-key { margin-top:1.2rem; padding:0.7rem 1rem; background:var(--gold-bg); border-left:3px solid var(--sca); font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.07em; color:var(--sca); font-style:italic; }
+.sc-key { margin-top:1.2rem; padding:0.85rem 1.1rem; background:var(--gold-bg); border:1px solid color-mix(in srgb, var(--sca) 18%, transparent); border-radius:3px; font-family:'Cinzel',serif; font-size:0.7rem; letter-spacing:0.07em; color:var(--sca); font-style:italic; }
 .scene-card:nth-child(1){--sca:#b8922a} .scene-card:nth-child(2){--sca:#a03a5a} .scene-card:nth-child(3){--sca:#b06a20} .scene-card:nth-child(4){--sca:#2a6b8f} .scene-card:nth-child(5){--sca:#1a8b7a}
 [data-theme="dark"] .scene-card:nth-child(1){--sca:#c9a55a} [data-theme="dark"] .scene-card:nth-child(3){--sca:#c4874a} [data-theme="dark"] .scene-card:nth-child(4){--sca:#4a9bbf} [data-theme="dark"] .scene-card:nth-child(5){--sca:#4ac4b0}
 
@@ -323,11 +321,11 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
 .act-header { display:flex; align-items:center; gap:2rem; padding:1rem 0 1rem; position:sticky; top:0; background:var(--bg); z-index:5; }
 .act-label { font-family:'Cinzel',serif; font-size:clamp(1rem,1.8vw,1.4rem); font-weight:600; white-space:nowrap; }
 .act-line { flex:1; height:1px; background:var(--border2); }
-.act-counts { font-family:'Cinzel',serif; font-size:0.55rem; letter-spacing:0.22em; color:var(--muted); white-space:nowrap; }
+.act-counts { font-family:'Cinzel',serif; font-size:0.64rem; letter-spacing:0.22em; color:var(--muted); white-space:nowrap; }
 .act-counts b { color:var(--text); font-weight:600; }
 
 /* Multi-song scene parent row = full-width banner (num + spanning name+sub + status) */
-.flow-row.has-songs { background:var(--bg2); border-left:3px solid var(--gold); }
+.flow-row.has-songs { background:var(--bg2); }
 .flow-row.has-songs .flow-cell { padding:0.55rem 1rem; }
 .flow-row.has-songs .flow-num { background:transparent; }
 .flow-row.has-songs .flow-cell:nth-child(2) { grid-column: 2 / 8; border-right:none; }
@@ -338,7 +336,7 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
 .flow-row.has-songs .flow-cell:nth-child(7) { display:none; }
 
 /* Subrows hang off the same gold accent */
-.scene-item:has(.scene-song-subrow) .scene-song-subrow { border-left:3px solid var(--gold); }
+.scene-item:has(.scene-song-subrow) .scene-song-subrow { background:var(--surface); }
 .scene-song-subrow .flow-cell:nth-child(3) { padding-left:1.4rem; }
 
 /* Narration / interval rows — slim, dimmed, no checkbox clutter */
@@ -352,7 +350,7 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
   border:1px solid var(--border); overflow:hidden;
 }
 .flow-header-row { margin-bottom:3px; }
-.flow-header-cell { padding:0.5rem 1rem; font-family:'Cinzel',serif; font-size:0.48rem; letter-spacing:0.28em; color:var(--muted); background:var(--bg2); }
+.flow-header-cell { padding:0.5rem 1rem; font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.28em; color:var(--muted); background:var(--bg2); }
 .flow-row { margin-bottom:2px; transition:background 0.15s; box-shadow:var(--shadow); }
 .flow-row:hover { background:var(--surface2); }
 .flow-row.key-scene { border-color:rgba(184,146,42,0.25); }
@@ -371,7 +369,7 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
 
 /* Status tags */
 .flow-tag {
-  font-family:'Cinzel',serif; font-size:0.46rem; letter-spacing:0.18em;
+  font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.18em;
   padding:0.22rem 0.55rem; border-radius:2px; white-space:nowrap; cursor:pointer;
   transition:all 0.15s; user-select:none;
 }
@@ -393,7 +391,7 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
   flex-shrink:0; transition:all 0.15s; font-size:9px; color:white;
 }
 .r-check.checked .r-check-box { background:var(--gold); border-color:var(--gold); }
-.r-check-label { font-family:'Cinzel',serif; font-size:0.42rem; letter-spacing:0.15em; color:var(--muted); }
+.r-check-label { font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.15em; color:var(--muted); }
 
 /* ══════════════════════
    TAB 3 — SONGS
@@ -405,7 +403,7 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
 .song-item { margin-bottom:2px; }
 .song-item .song-row { margin-bottom:0; }
 .song-header { margin-bottom:3px; }
-.song-header-cell { padding:0.5rem 1rem; font-family:'Cinzel',serif; font-size:0.48rem; letter-spacing:0.28em; color:var(--muted); background:var(--bg2); }
+.song-header-cell { padding:0.5rem 1rem; font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.28em; color:var(--muted); background:var(--bg2); }
 .song-row { margin-bottom:2px; transition:background 0.15s; box-shadow:var(--shadow); }
 .song-row:hover { background:var(--surface2); }
 .song-cell { padding:0.9rem 1rem; font-size:0.92rem; display:flex; align-items:center; border-right:1px solid var(--border); }
@@ -426,17 +424,17 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
 .char-card-top { padding:2rem; border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
 .char-card-top::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--cc); }
 .char-accent { position:absolute; top:1.5rem; right:1.5rem; font-family:'Cinzel Decorative',serif; font-size:3rem; font-weight:900; color:var(--cc); opacity:0.07; line-height:1; }
-.char-role { font-family:'Cinzel',serif; font-size:0.52rem; letter-spacing:0.38em; color:var(--cc); margin-bottom:0.6rem; opacity:0.9; }
+.char-role { font-family:'Cinzel',serif; font-size:0.64rem; letter-spacing:0.38em; color:var(--cc); margin-bottom:0.6rem; opacity:0.9; }
 .char-name { font-family:'Cinzel',serif; font-size:1.3rem; font-weight:600; color:var(--text); margin-bottom:0.3rem; }
 .char-sanskrit { font-style:italic; font-size:0.82rem; color:var(--muted); margin-bottom:0.8rem; }
-.char-played { font-family:'Cinzel',serif; font-size:0.55rem; letter-spacing:0.25em; color:var(--muted); }
+.char-played { font-family:'Cinzel',serif; font-size:0.64rem; letter-spacing:0.25em; color:var(--muted); }
 .char-played strong { color:var(--text); }
 .char-body { padding:1.5rem 2rem; }
 .char-section { margin-bottom:1.2rem; }
-.char-section-title { font-family:'Cinzel',serif; font-size:0.52rem; letter-spacing:0.3em; color:var(--cc); margin-bottom:0.5rem; opacity:0.85; }
+.char-section-title { font-family:'Cinzel',serif; font-size:0.64rem; letter-spacing:0.3em; color:var(--cc); margin-bottom:0.5rem; opacity:0.85; }
 .char-section-text { font-size:0.86rem; line-height:1.75; color:var(--text2); }
 .char-key-scenes { display:flex; gap:4px; flex-wrap:wrap; margin-top:0.5rem; }
-.char-scene-tag { font-family:'Cinzel',serif; font-size:0.44rem; letter-spacing:0.15em; padding:0.2rem 0.5rem; background:var(--cc-bg); color:var(--cc); border:1px solid var(--cc-b); border-radius:2px; }
+.char-scene-tag { font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.15em; padding:0.2rem 0.5rem; background:var(--cc-bg); color:var(--cc); border:1px solid var(--cc-b); border-radius:2px; }
 
 .char-card:nth-child(1){--cc:#b8922a;--cc-bg:rgba(184,146,42,0.08);--cc-b:rgba(184,146,42,0.2)}
 .char-card:nth-child(2){--cc:#2a6b8f;--cc-bg:rgba(42,107,143,0.08);--cc-b:rgba(42,107,143,0.2)}
@@ -454,7 +452,7 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
 ══════════════════════ */
 .notes-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
 .note-block { background:var(--surface); border:1px solid var(--border); padding:1.8rem; }
-.note-block-title { font-family:'Cinzel',serif; font-size:0.58rem; letter-spacing:0.4em; color:var(--gold); margin-bottom:1rem; display:flex; align-items:center; gap:1rem; }
+.note-block-title { font-family:'Cinzel',serif; font-size:0.66rem; letter-spacing:0.4em; color:var(--gold); margin-bottom:1rem; display:flex; align-items:center; gap:1rem; }
 .note-block-title::after { content:''; flex:1; height:1px; background:var(--border2); }
 .note-area {
   width:100%; background:var(--note-bg); border:1px solid var(--border2);
@@ -477,7 +475,7 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
   padding:2.5rem; margin-bottom:3rem; position:relative; overflow:hidden;
 }
 .ref-origin::before { content:''; position:absolute; top:0; left:0; bottom:0; width:3px; background:var(--gold); }
-.ref-origin-eyebrow { font-family:'Cinzel',serif; font-size:0.52rem; letter-spacing:0.42em; color:var(--gold); margin-bottom:1.2rem; display:flex; align-items:center; gap:1rem; }
+.ref-origin-eyebrow { font-family:'Cinzel',serif; font-size:0.64rem; letter-spacing:0.42em; color:var(--gold); margin-bottom:1.2rem; display:flex; align-items:center; gap:1rem; }
 .ref-origin-eyebrow::after { content:''; flex:1; height:1px; background:var(--border2); }
 .ref-origin-title { font-family:'Cinzel Decorative',serif; font-size:1.8rem; font-weight:900; color:var(--text); margin-bottom:0.3rem; letter-spacing:0.08em; }
 .ref-origin-sub { font-style:italic; color:var(--muted); font-size:0.84rem; margin-bottom:1.5rem; letter-spacing:0.12em; }
@@ -514,7 +512,7 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
 .ref-play-btn:hover .ref-play-icon { background:rgba(184,146,42,0.3); border-color:rgba(184,146,42,0.8); }
 .ref-play-arrow { width:0; height:0; border-top:9px solid transparent; border-bottom:9px solid transparent; border-left:16px solid var(--gold); margin-left:3px; }
 .ref-card-body { padding:1.4rem 1.6rem; flex:1; display:flex; flex-direction:column; }
-.ref-cat { font-family:'Cinzel',serif; font-size:0.44rem; letter-spacing:0.34em; color:var(--gold); margin-bottom:0.5rem; opacity:0.85; }
+.ref-cat { font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.34em; color:var(--gold); margin-bottom:0.5rem; opacity:0.85; }
 .ref-title { font-family:'Cinzel',serif; font-size:0.88rem; font-weight:600; color:var(--text); margin-bottom:0.7rem; line-height:1.4; }
 .ref-notes { font-size:0.84rem; line-height:1.75; color:var(--muted); flex:1; }
 
@@ -533,16 +531,16 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
   .flow-row .flow-cell:nth-child(1)::before{content:'Scene · ';opacity:0.55;margin-right:4px}
   /* Labelled cells via ::before */
   .flow-row .flow-cell:nth-child(3):not(:empty)::before,
-  .scene-song-subrow .flow-cell:nth-child(3)::before{content:'Song';display:block;width:100%;font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:0.22em;color:var(--muted);margin-bottom:2px}
+  .scene-song-subrow .flow-cell:nth-child(3)::before{content:'Song';display:block;width:100%;font-family:'Cinzel',serif;font-size:0.62rem;letter-spacing:0.22em;color:var(--muted);margin-bottom:2px}
   .flow-row .flow-cell:nth-child(4):not(:empty)::before,
-  .scene-song-subrow .flow-cell:nth-child(4):not(:empty)::before{content:'Dancers';display:block;width:100%;font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:0.22em;color:var(--muted);margin-bottom:2px}
+  .scene-song-subrow .flow-cell:nth-child(4):not(:empty)::before{content:'Dancers';display:block;width:100%;font-family:'Cinzel',serif;font-size:0.62rem;letter-spacing:0.22em;color:var(--muted);margin-bottom:2px}
   .flow-row .flow-cell:nth-child(5):not(:empty)::before,
-  .scene-song-subrow .flow-cell:nth-child(5):not(:empty)::before{content:'Costume';display:block;width:100%;font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:0.22em;color:var(--muted);margin-bottom:2px}
+  .scene-song-subrow .flow-cell:nth-child(5):not(:empty)::before{content:'Costume';display:block;width:100%;font-family:'Cinzel',serif;font-size:0.62rem;letter-spacing:0.22em;color:var(--muted);margin-bottom:2px}
   .flow-row .flow-cell:nth-child(6):not(:empty)::before,
-  .scene-song-subrow .flow-cell:nth-child(6):not(:empty)::before{content:'Time';display:block;width:100%;font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:0.22em;color:var(--muted);margin-bottom:2px}
+  .scene-song-subrow .flow-cell:nth-child(6):not(:empty)::before{content:'Time';display:block;width:100%;font-family:'Cinzel',serif;font-size:0.62rem;letter-spacing:0.22em;color:var(--muted);margin-bottom:2px}
   /* Status pill cell (last) */
   .flow-row .flow-cell:nth-child(7),.scene-song-subrow .flow-cell:nth-child(7){padding:0.5rem 0.85rem;flex-direction:row;align-items:center;gap:8px}
-  .flow-row .flow-cell:nth-child(7)::before,.scene-song-subrow .flow-cell:nth-child(7)::before{content:'Status';font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:0.22em;color:var(--muted)}
+  .flow-row .flow-cell:nth-child(7)::before,.scene-song-subrow .flow-cell:nth-child(7)::before{content:'Status';font-family:'Cinzel',serif;font-size:0.62rem;letter-spacing:0.22em;color:var(--muted)}
   /* Multi-song parent banner stays clean — just name+sub block */
   .flow-row.has-songs .flow-cell:nth-child(2){grid-column:auto !important;padding:0.7rem 0.85rem}
   .flow-row.has-songs .flow-cell:nth-child(3),
@@ -569,11 +567,17 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
   .header-brand{flex:1 0 auto}
   .header-sub{display:none}
   .nav-tabs{order:3;flex:1 0 100%;margin-left:0;flex-wrap:wrap;overflow:visible;height:auto;mask-image:none;-webkit-mask-image:none;gap:2px 0;border-top:1px solid var(--border);padding-top:0.45rem;margin-top:0.25rem}
-  .nav-tab{padding:0.35rem 0.7rem;font-size:0.6rem;letter-spacing:0.18em;height:auto;border-bottom:none;border-radius:14px;background:var(--surface);margin:2px}
+  .nav-tab{padding:0.55rem 0.95rem;font-size:0.68rem;letter-spacing:0.18em;min-height:34px;border-bottom:none;border-radius:17px;background:var(--surface);margin:2px;display:inline-flex;align-items:center}
   .nav-tab.active{background:var(--gold-bg);color:var(--gold)}
   .header-actions{margin-left:0.25rem}
   .theme-toggle{width:32px;height:32px;margin-left:0.25rem}
 }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration:0.01ms !important; animation-duration:0.01ms !important; animation-iteration-count:1 !important; scroll-behavior:auto !important; }
+}
+.skip-link { position:absolute; left:-9999px; top:0; padding:0.6rem 1rem; background:var(--gold); color:#1c1812; font-family:'Cinzel',serif; font-size:0.72rem; letter-spacing:0.18em; z-index:10000; border-radius:0 0 4px 4px; text-decoration:none; }
+.skip-link:focus { left:0; }
 
 /* ══════════════════════
    TAB 7 — CAST
@@ -592,12 +596,12 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
   color:var(--gold);
 }
 .cast-dancer-name { font-family:'Cinzel',serif; font-size:0.9rem; font-weight:600; color:var(--text); }
-.cast-dancer-stats { font-family:'Cinzel',serif; font-size:0.56rem; letter-spacing:0.18em; color:var(--muted); margin-top:3px; }
+.cast-dancer-stats { font-family:'Cinzel',serif; font-size:0.64rem; letter-spacing:0.18em; color:var(--muted); margin-top:3px; }
 .cast-body { padding:0.85rem 1.4rem 1.3rem; }
-.cast-section-label { font-family:'Cinzel',serif; font-size:0.5rem; letter-spacing:0.32em; color:var(--muted); margin-bottom:0.5rem; }
+.cast-section-label { font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.32em; color:var(--muted); margin-bottom:0.5rem; }
 .cast-pill-wrap { display:flex; flex-wrap:wrap; gap:5px; }
 .cast-empty { font-style:italic; font-size:0.85rem; color:var(--muted); padding:0.4rem 0; }
-.cast-scene-pill { font-family:'Cinzel',serif; font-size:0.56rem; letter-spacing:0.08em; padding:0.25rem 0.55rem; background:var(--gold-bg); color:var(--gold); border:1px solid rgba(184,146,42,0.3); border-radius:3px; display:inline-flex; align-items:center; gap:5px; }
+.cast-scene-pill { font-family:'Cinzel',serif; font-size:0.64rem; letter-spacing:0.08em; padding:0.25rem 0.55rem; background:var(--gold-bg); color:var(--gold); border:1px solid rgba(184,146,42,0.3); border-radius:3px; display:inline-flex; align-items:center; gap:5px; }
 .cast-scene-pill-name { font-family:'Lora',serif; font-style:italic; font-size:0.66rem; color:var(--text2); letter-spacing:0; text-transform:none; opacity:0.85; }
 .cast-song-pill { font-family:'Lora',serif; font-style:italic; font-size:0.78rem; padding:0.2rem 0.6rem; background:var(--surface2); color:var(--text2); border:1px solid var(--border); border-radius:3px; }
 .cast-refresh-bar { display:flex; justify-content:flex-end; margin-bottom:1.5rem; }
@@ -610,14 +614,14 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
   background:var(--bg2); padding:0.7rem 1.2rem; gap:0.8rem; align-items:center;
 }
 .scene-costume-row.open { display:flex; }
-.costume-label { font-family:'Cinzel',serif; font-size:0.58rem; letter-spacing:0.22em; color:var(--gold); white-space:nowrap; }
+.costume-label { font-family:'Cinzel',serif; font-size:0.66rem; letter-spacing:0.22em; color:var(--gold); white-space:nowrap; }
 .costume-input {
   flex:1; background:var(--note-bg); border:1px solid var(--border2); border-radius:2px;
   color:var(--text); font-family:'Lora',serif; font-size:0.88rem; padding:0.35rem 0.6rem;
 }
 .costume-input:focus { outline:none; border-color:var(--gold); }
 .costume-toggle {
-  font-family:'Cinzel',serif; font-size:0.5rem; letter-spacing:0.18em;
+  font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.18em;
   padding:0.22rem 0.55rem; border-radius:2px; cursor:pointer; transition:all 0.15s;
   border:1px solid var(--border); background:var(--surface); color:var(--muted);
   white-space:nowrap;
@@ -635,12 +639,12 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
 }
 .scene-deps-row.has-deps { display:flex; }
 .dep-chip {
-  font-family:'Cinzel',serif; font-size:0.5rem; letter-spacing:0.12em;
+  font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.12em;
   padding:0.22rem 0.55rem; border-radius:2px; white-space:nowrap;
   display:inline-flex; align-items:center; gap:5px; cursor:help;
   border:1px solid;
 }
-.dep-chip::before { content:'●'; font-size:0.55rem; line-height:1; }
+.dep-chip::before { content:'●'; font-size:0.64rem; line-height:1; }
 .dep-red   { background:rgba(196,33,90,0.10);  color:#c4215a; border-color:rgba(196,33,90,0.30); }
 .dep-amber { background:rgba(184,146,42,0.12); color:#b8922a; border-color:rgba(184,146,42,0.32); }
 .dep-blue  { background:rgba(42,107,143,0.10); color:#2a6b8f; border-color:rgba(42,107,143,0.30); }
@@ -679,7 +683,7 @@ body { font-size: 18px; }
 .flow-dancers { font-size: 0.9rem; }
 .flow-num { font-size: 0.82rem; }
 .flow-tag { font-size: 0.62rem; letter-spacing: 0.12em; padding: 0.28rem 0.65rem; }
-.r-check-label { font-size: 0.58rem; letter-spacing: 0.1em; }
+.r-check-label { font-size: 0.66rem; letter-spacing: 0.1em; }
 
 /* Songs */
 .song-header-cell { font-size: 0.65rem; letter-spacing: 0.18em; padding: 0.6rem 1rem; }
@@ -711,7 +715,7 @@ body { font-size: 18px; }
 .char-played { font-size: 0.68rem; letter-spacing: 0.2em; }
 .char-section-title { font-size: 0.65rem; letter-spacing: 0.25em; }
 .char-section-text { font-size: 0.94rem; line-height: 1.82; }
-.char-scene-tag { font-size: 0.58rem; letter-spacing: 0.1em; padding: 0.24rem 0.6rem; }
+.char-scene-tag { font-size: 0.66rem; letter-spacing: 0.1em; padding: 0.24rem 0.6rem; }
 
 /* Notes */
 .note-block-title { font-size: 0.72rem; letter-spacing: 0.3em; }
@@ -729,13 +733,13 @@ body { font-size: 18px; }
 </style>
 </head>
 <body>
-
+<a class="skip-link" href="#main-content">Skip to content</a>
 <header class="site-header">
   <div class="header-brand">
     <div class="header-title">SANGAM</div>
     <div class="header-sub">ABC a bollywood company &nbsp;·&nbsp; NOV 7–8 2026</div>
   </div>
-  <nav class="nav-tabs">
+  <nav class="nav-tabs" aria-label="Sections">
     <button class="nav-tab active" onclick="showTab('direction',this)">Direction</button>
     <button class="nav-tab" onclick="showTab('flow',this)">Show Flow</button>
     <button class="nav-tab" onclick="showTab('songs',this)">Songs</button>
@@ -804,6 +808,7 @@ body { font-size: 18px; }
 <!-- ═══════════════════════════════════════
      TAB 1: CREATIVE DIRECTION
 ════════════════════════════════════════ -->
+<main id="main-content">
 <div id="tab-direction" class="panel active">
   <section class="hero">
     <p class="hero-eyebrow">ABC a bollywood company &nbsp;·&nbsp; November 2026 &nbsp;·&nbsp; Creative Direction</p>
@@ -844,11 +849,11 @@ body { font-size: 18px; }
       <div class="arc-seg" style="background:linear-gradient(to right,rgba(42,107,143,0.4),rgba(196,33,90,0.4),rgba(220,100,30,0.35));flex:4;height:80px;border-top:3px solid var(--holi-teal)"><span class="arc-seg-label">S19–21 ◆</span></div>
     </div>
     <div style="display:flex;gap:1.8rem;flex-wrap:wrap;margin-top:1rem">
-      <span style="font-family:'Cinzel',serif;font-size:0.52rem;letter-spacing:0.18em;color:var(--muted);display:flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:50%;background:rgba(184,146,42,0.5);display:inline-block"></span>Village life</span>
-      <span style="font-family:'Cinzel',serif;font-size:0.52rem;letter-spacing:0.18em;color:var(--muted);display:flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:50%;background:rgba(42,107,143,0.6);display:inline-block"></span>River / Uma</span>
-      <span style="font-family:'Cinzel',serif;font-size:0.52rem;letter-spacing:0.18em;color:var(--muted);display:flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:50%;background:rgba(139,94,26,0.7);display:inline-block"></span>Drought</span>
-      <span style="font-family:'Cinzel',serif;font-size:0.52rem;letter-spacing:0.18em;color:var(--muted);display:flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:50%;background:rgba(196,33,90,0.6);display:inline-block"></span>Catharsis / Holi</span>
-      <span style="font-family:'Cinzel',serif;font-size:0.52rem;letter-spacing:0.18em;color:var(--gold);display:flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:50%;background:var(--gold);display:inline-block"></span>Key moment</span>
+      <span style="font-family:'Cinzel',serif;font-size:0.64rem;letter-spacing:0.18em;color:var(--muted);display:flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:50%;background:rgba(184,146,42,0.5);display:inline-block"></span>Village life</span>
+      <span style="font-family:'Cinzel',serif;font-size:0.64rem;letter-spacing:0.18em;color:var(--muted);display:flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:50%;background:rgba(42,107,143,0.6);display:inline-block"></span>River / Uma</span>
+      <span style="font-family:'Cinzel',serif;font-size:0.64rem;letter-spacing:0.18em;color:var(--muted);display:flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:50%;background:rgba(139,94,26,0.7);display:inline-block"></span>Drought</span>
+      <span style="font-family:'Cinzel',serif;font-size:0.64rem;letter-spacing:0.18em;color:var(--muted);display:flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:50%;background:rgba(196,33,90,0.6);display:inline-block"></span>Catharsis / Holi</span>
+      <span style="font-family:'Cinzel',serif;font-size:0.64rem;letter-spacing:0.18em;color:var(--gold);display:flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:50%;background:var(--gold);display:inline-block"></span>Key moment</span>
     </div>
   </div>
   <div class="section-wrap" style="padding-top:2.5rem">
@@ -1216,10 +1221,11 @@ body { font-size: 18px; }
       </div>
 
     </div>
-    <p style="font-family:'Cinzel',serif;font-size:0.48rem;letter-spacing:0.22em;color:var(--muted);margin-top:2rem;font-style:italic">Note: YouTube links above are truncated from source — search by title if a link does not open directly.</p>
+    <p style="font-family:'Cinzel',serif;font-size:0.62rem;letter-spacing:0.22em;color:var(--muted);margin-top:2rem;font-style:italic">Note: YouTube links above are truncated from source — search by title if a link does not open directly.</p>
   </div>
 </div>
 
+</main>
 <script>
 
 // Costume notes on scenes
@@ -1240,6 +1246,7 @@ function getCostume(sceneId) {
 
 // Cast tab — reads cast assignments straight from source data (songs[].dancers + scenes[].dancers strings)
 const DANCERS = ['Swapnil','Narcisse','Sara','Svetlana','Chiara','Kaushika','Laurien','Khushboo','Shreya','Roshni','Haike','Siddhy','Maha'];
+const SHOW_DATE = '2026-11-07';
 function dancerInText(dancer, text) {
   if (!text) return false;
   return new RegExp('\\b' + dancer + '\\b', 'i').test(text);
@@ -1473,7 +1480,7 @@ function makeFlowRow(s) {
       <div class="flow-cell">${sg.dancers?`<span style="font-size:0.78rem;color:var(--muted)">${sg.dancers}</span>`:''}</div>
       <div class="flow-cell">${sg.costume?`<span style="font-size:0.74rem;color:var(--muted);line-height:1.4">${sg.costume}</span>`:''}</div>
       <div class="flow-cell" style="justify-content:center">${sg.duration?`<span style="font-family:'Cinzel',serif;font-size:0.68rem;color:var(--muted);letter-spacing:0.05em">${sg.duration}</span>`:''}</div>
-      <div class="flow-cell"><span class="flow-tag ${STATUS_CLASSES[sgStatus]}" onclick="cycleSongSub(this,'${s.id}',${i})" title="Click to update">${STATUS_LABELS[sgStatus]}</span></div>
+      <div class="flow-cell"><span class="flow-tag ${STATUS_CLASSES[sgStatus]}" aria-label="Status: ${STATUS_LABELS[sgStatus]}">${STATUS_LABELS[sgStatus]}</span></div>
     </div>`;
   }).join('') : '';
   const songCell = sc.songs
@@ -1487,7 +1494,7 @@ function makeFlowRow(s) {
       <div class="flow-cell${narrHide}">${sc.songs?'':`<span class="flow-dancers editable-cell" data-field="dancers">${sc.dancers}</span>`}</div>
       <div class="flow-cell${narrHide}">${sc.costume?`<span style="font-size:0.78rem;color:var(--muted);line-height:1.4">${sc.costume}</span>`:''}</div>
       <div class="flow-cell${narrHide}" style="justify-content:center">${sc.duration?`<span style="font-family:'Cinzel',serif;font-size:0.7rem;color:var(--muted);letter-spacing:0.05em">${sc.duration}</span>`:''}</div>
-      <div class="flow-cell"><span class="flow-tag ${STATUS_CLASSES[currentStatus]}" onclick="cycleStatus(this,'${s.id}')" title="Click to update">${STATUS_LABELS[currentStatus]}</span></div>
+      <div class="flow-cell"><span class="flow-tag ${STATUS_CLASSES[currentStatus]}" aria-label="Status: ${STATUS_LABELS[currentStatus]}">${STATUS_LABELS[currentStatus]}</span></div>
     </div>
     ${songSubRows}
     <div class="scene-costume-row${costumeVal?' open':''}" id="cos-${s.id}">
@@ -1538,7 +1545,7 @@ function makeSongRow(s, i) {
       <div class="song-cell"><span class="song-meta editable-cell" data-field="genre">${sg.genre}</span></div>
       <div class="song-cell" style="justify-content:center"><span class="editable-cell" style="font-family:'Cinzel',serif;font-size:1rem;font-weight:600;color:var(--gold);opacity:0.55;text-align:center" data-field="people">${sg.people}</span></div>
       <div class="song-cell"><span class="song-meta editable-cell" data-field="dancers">${sg.dancers}</span></div>
-      <div class="song-cell"><span class="flow-tag ${STATUS_CLASSES[currentStatus]}" onclick="cycleSongStatus(this,${i})" title="Click to update">${STATUS_LABELS[currentStatus]}</span></div>
+      <div class="song-cell"><span class="flow-tag ${STATUS_CLASSES[currentStatus]}" aria-label="Status: ${STATUS_LABELS[currentStatus]}">${STATUS_LABELS[currentStatus]}</span></div>
     </div>
   </div>`;
 }
@@ -1595,7 +1602,7 @@ function toggleCheck(label, key) {
 // ── DASHBOARD ──
 function updateDashboard() {
   // Days to show
-  const show = new Date('2026-11-07');
+  const show = new Date(SHOW_DATE);
   const now = new Date();
   const diff = Math.ceil((show - now) / (1000*60*60*24));
   document.getElementById('days-count').innerHTML = diff > 0 ? diff + ' <span>days</span>' : 'SHOW DAY';
