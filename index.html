@@ -1725,14 +1725,18 @@ function makeFlowRow(s) {
   const sc = {...s, ...(edits.scenes?.[s.id] || {})};
   const statusKey = 'sangam_status_' + s.id;
   const currentStatus = localStorage.getItem(statusKey) || sc.status;
-  const kc = (sc.key ? ' key-scene' : '') + (sc.songs ? ' has-songs' : '') + (currentStatus === 'narr' ? ' is-narr' : '');
+  // Treat non-narration single-song scenes as banner+1-subrow too (consistent layout)
+  const effectiveSongs = sc.songs || (currentStatus !== 'narr' && sc.song
+    ? [{title: sc.song, status: currentStatus, dancers: sc.dancers, costume: sc.costume, duration: sc.duration, _synth: true}]
+    : null);
+  const kc = (sc.key ? ' key-scene' : '') + (effectiveSongs ? ' has-songs' : '') + (currentStatus === 'narr' ? ' is-narr' : '');
   const narrHide = currentStatus === 'narr' ? ' flow-narr-hide' : '';
   const nameBodyClass = currentStatus === 'narr' ? ' flow-narr-body' : '';
   const numStyle = sc.key ? 'color:var(--gold-light)' : '';
   const costumeVal = getCostume(s.id);
   const depsHtml = renderDepsChips(s.id);
-  // Multi-song sub-rows
-  const songSubRows = sc.songs ? sc.songs.map((sg, i) => {
+  // Sub-row(s): one per song
+  const songSubRows = effectiveSongs ? effectiveSongs.map((sg, i) => {
     const sgKey = 'sangam_song_sub_' + s.id + '_' + i;
     const sgStatus = localStorage.getItem(sgKey) || sg.status;
     return `<div class="scene-song-subrow">
