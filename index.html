@@ -786,11 +786,6 @@ body { font-size: 18px; }
     <div class="dash-value" id="songs-new">2 <span>songs</span></div>
   </div>
   <div class="dash-divider"></div>
-  <div class="dash-stat">
-    <div class="dash-label">SCENES CHECKED OFF</div>
-    <div class="dash-value"><span id="checks-done">0</span> <span>/ 72 tasks</span></div>
-  </div>
-  <div class="dash-divider"></div>
   <div class="dash-progress">
     <div class="dash-progress-label">SONG READINESS</div>
     <div class="dash-bar-track">
@@ -1605,18 +1600,8 @@ function updateDashboard() {
   const diff = Math.ceil((show - now) / (1000*60*60*24));
   document.getElementById('days-count').innerHTML = diff > 0 ? diff + ' <span>days</span>' : 'SHOW DAY';
 
-  // Checklist count
-  let done = 0;
-  const allScenes = [...scenes1, ...scenes2].filter(s => s.status !== 'narr');
-  allScenes.forEach(s => {
-    ['c','m','t'].forEach(t => {
-      if(localStorage.getItem('sangam_check_'+s.id+'_'+t)==='1') done++;
-    });
-  });
-  document.getElementById('checks-done').textContent = done;
-
   document.getElementById('songs-ready').innerHTML = ready + ' <span>/ ' + songs.length + '</span>';
-  document.getElementById('songs-subtitle').textContent = songs.length + ' songs across the production. Click a status badge to update readiness.';
+  document.getElementById('songs-subtitle').textContent = songs.length + ' songs across the production.';
   document.getElementById('songs-progress').innerHTML = inprog + ' <span>songs</span>';
   document.getElementById('songs-new').innerHTML = neww + ' <span>songs</span>';
 }
