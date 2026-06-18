@@ -407,11 +407,11 @@ body.locked > :not(#lock-overlay) { filter:blur(6px); pointer-events:none; user-
 /* Narration / interval rows — slim, dimmed, no checkbox clutter */
 .flow-row.is-narr { background:transparent; box-shadow:none; border-style:dashed; opacity:0.7; }
 .flow-row.is-narr .flow-cell { padding:0.5rem 1rem; font-style:italic; color:var(--muted); }
-.flow-row.is-narr .flow-narr-body { grid-column: 2 / 5; }
+.flow-row.is-narr .flow-narr-body { grid-column: 2 / 7; }
 .flow-row.is-narr .flow-narr-hide { display:none; }
 
 .flow-header-row, .flow-row {
-  display:grid; grid-template-columns:50px 160px 1fr 1fr 130px 120px;
+  display:grid; grid-template-columns:50px 160px 1fr 1fr 140px 90px 120px;
   border:1px solid var(--border); overflow:hidden;
 }
 .flow-header-row { margin-bottom:3px; }
@@ -426,7 +426,7 @@ body.locked > :not(#lock-overlay) { filter:blur(6px); pointer-events:none; user-
 .flow-song { font-style:italic; color:var(--muted); font-size:0.84rem; line-height:1.4; }
 .flow-dancers { font-size:0.82rem; color:var(--muted); line-height:1.5; }
 /* Multi-song sub-rows */
-.scene-song-subrow { display:grid; grid-template-columns:50px 160px 1fr 1fr 130px 120px; border-top:1px dashed var(--border); background:var(--surface); }
+.scene-song-subrow { display:grid; grid-template-columns:50px 160px 1fr 1fr 140px 90px 120px; border-top:1px dashed var(--border); background:var(--surface); }
 .scene-song-subrow .flow-cell { padding:0.35rem 1rem; font-size:0.83rem; border-right:1px solid var(--border); }
 .scene-song-subrow .flow-cell:last-child { border-right:none; }
 .scene-song-subrow .flow-cell.song-indent { background:var(--surface2); }
@@ -637,8 +637,10 @@ body.locked > :not(#lock-overlay) { filter:blur(6px); pointer-events:none; user-
 /* ── RESPONSIVE ── */
 @media(max-width:900px){
   .pillars-grid{grid-template-columns:1fr}
-  .flow-header-row,.flow-row{grid-template-columns:40px 1fr 1fr 100px}
-  .flow-header-cell:nth-child(4),.flow-cell:nth-child(4){display:none}
+  .flow-header-row,.flow-row,.scene-song-subrow{grid-template-columns:40px 1fr 1fr 100px}
+  .flow-header-cell:nth-child(4),.flow-cell:nth-child(4),
+  .flow-header-cell:nth-child(5),.flow-cell:nth-child(5),
+  .flow-header-cell:nth-child(6),.flow-cell:nth-child(6){display:none}
   .song-header,.song-row{grid-template-columns:1fr 120px 100px}
   .song-header-cell:nth-child(4),.song-header-cell:nth-child(5),.song-cell:nth-child(4),.song-cell:nth-child(5){display:none}
   .notes-grid{grid-template-columns:1fr}
@@ -1004,14 +1006,15 @@ body { font-size: 18px; }
 <div id="tab-flow" class="panel">
   <div class="section-wrap">
     <p class="section-label">Show Flow</p>
-    <h2 class="section-heading">24 Scenes — Both Acts</h2>
+    <h2 class="section-heading">25 Scenes — Both Acts</h2>
     <p class="section-sub" data-viewer-hide>Check off choreography (C), music (M), and tech (T) as each scene progresses. Click a status badge to update it.</p>
     <div class="flow-header-row">
       <div class="flow-header-cell">#</div>
       <div class="flow-header-cell">Scene</div>
       <div class="flow-header-cell">Song / Audio</div>
       <div class="flow-header-cell">Dancers</div>
-      <div class="flow-header-cell">Rehearsal</div>
+      <div class="flow-header-cell">Costume</div>
+      <div class="flow-header-cell">Time</div>
       <div class="flow-header-cell">Status</div>
     </div>
     <div class="act-header"><span class="act-label" style="color:var(--gold)">Part One</span><div class="act-line"></div><span class="act-counts" id="act-counts-1"></span></div>
@@ -1555,11 +1558,11 @@ const STATUS_CLASSES = {tbc:'tag-tbc',partial:'tag-partial',ready:'tag-ready',ne
 const scenes1 = [
   {id:'S00',num:'PRE',name:'Pre-show',song:'The Blue (Niraj Chag) — soundscape only. No dance. Projection or plays before curtains open.',dancers:'—',status:'ready',key:false},
   {id:'S01',num:'01',name:'The Birth & The Birth of the River ◆',sub:'Desert village. Baby rejected. Maha cries — and the river is born to carry him away',songs:[{title:'Call It Luck If You Want To (Ganavya)',status:'ready',dancers:'Svetlana, Sara, Narcisse, Kaushika, Maha, Roshni, Haike'},{title:'Remain The Sea (Anoushka Shankar feat. Vanessa Redgrave)',status:'tbc',dancers:'Maha (solo, with baby doll) — river forms, she places him on the water'}],dancers:'Svetlana, Sara, Narcisse, Kaushika, Maha, Roshni, Haike',status:'ready',key:true},
-  {id:'S02',num:'02',name:'Sun & Moon',sub:'Two guardians find each other — then find the boy',songs:[{title:'Pyaara Sa Gaon (Zubeida)',note:'Introduction of the Sun & Moon characters',status:'partial',dancers:'Shreya & Laurien'},{title:'Dheeme Dheeme',note:'Relationship between Sun & Moon · finding the baby',status:'partial',dancers:'Shreya & Laurien'}],dancers:'Shreya & Laurien',status:'partial',key:false},
-  {id:'S04',num:'03',name:'Villagers',sub:'Village established — the river runs, life is full',songs:[{title:'Mori Atariya pe Kaaga Bole (Niraj Chag)',status:'partial',dancers:'Svetlana, Narcisse, Kaushika, Roshni, Sara, Chiara'},{title:'Chalka Re',status:'partial',dancers:'Kaushika, Laurien, Sara, Chiara, Narcisse, Roshni'}],dancers:'Svetlana, Narcisse, Kaushika, Roshni, Sara, Chiara, Khushboo, Laurien',status:'partial',key:false},
-  {id:'S07',num:'04',name:'Adulthood Solo',sub:'Boy has grown up — the question of love begins',song:'Oru Paiyan (Ganavya) + Sun & Moon cameo',dancers:'Swapnil + Shreya & Laurien',status:'ready',key:false},
-  {id:'S08',num:'05',name:'First Discovery',sub:'The village turns its gaze toward the boy — and cannot look away',songs:[{title:'Jab Se Tere Naina',status:'ready'},{title:'Nainowale Ne',status:'new'}],dancers:'Swapnil, Khushboo, Kaushika, Siddhy, Maha',status:'partial',key:false},
-  {id:'S09',num:'06',name:'More Villagers',sub:'Queen still unaware — joy building with the boy',song:'Jalalo Bilalo',dancers:'Bollyfolk Students + Swapnil + Roshni, Khushboo, Kaushika',status:'ready',key:false},
+  {id:'S02',num:'02',name:'Sun & Moon',sub:'Two guardians find each other — then find the boy',songs:[{title:'Pyaara Sa Gaon (Zubeida)',note:'Introduction of the Sun & Moon characters',status:'partial',dancers:'Shreya & Laurien',costume:'Sun & Moon red'},{title:'Dheeme Dheeme',note:'Relationship between Sun & Moon · finding the baby',status:'partial',dancers:'Shreya & Laurien',costume:'Sun & Moon red'}],dancers:'Shreya & Laurien',costume:'Sun & Moon red',status:'partial',key:false},
+  {id:'S04',num:'03',name:'Villagers',sub:'Village established — the river runs, life is full',songs:[{title:'Mori Atariya pe Kaaga Bole (Niraj Chag)',status:'partial',dancers:'Svetlana, Narcisse, Kaushika, Roshni, Sara, Chiara',costume:'Sun & Moon red continues'},{title:'Chalka Re',status:'partial',dancers:'Kaushika, Laurien, Sara, Chiara, Narcisse, Roshni',costume:'Sun & Moon red continues'}],dancers:'Svetlana, Narcisse, Kaushika, Roshni, Sara, Chiara, Khushboo, Laurien',costume:'Sun & Moon red continues',status:'partial',key:false},
+  {id:'S07',num:'04',name:'Adulthood Solo',sub:'Boy has grown up — the question of love begins',song:'Oru Paiyan (Ganavya) + Sun & Moon cameo',dancers:'Swapnil + Shreya & Laurien',costume:'Swapnil blue + Sun & Moon red',status:'ready',key:false},
+  {id:'S08',num:'05',name:'First Discovery',sub:'The village turns its gaze toward the boy — and cannot look away',songs:[{title:'Jab Se Tere Naina',status:'ready',costume:'Swapnil blue'},{title:'Nainowale Ne',status:'new',costume:'Swapnil blue'}],dancers:'Swapnil, Khushboo, Kaushika, Siddhy, Maha',costume:'Swapnil blue',status:'partial',key:false},
+  {id:'S09',num:'06',name:'More Villagers',sub:'Queen still unaware — joy building with the boy',song:'Jalalo Bilalo',dancers:'Bollyfolk Students + Swapnil + Roshni, Khushboo, Kaushika',costume:'Swapnil blue',status:'ready',key:false},
   {id:'S09B',num:'07',name:'Queen\'s Entry',sub:'Who she is before the feast — power, obsession, complexity',songs:[{title:'Laal Ishq',status:'ready',dancers:'Kaushika, Khushboo, Swapnil'},{title:'Deewani Mastani',status:'ready',dancers:'Sara, Svetlana, Narcisse, Kaushika, Chiara, Khushboo, Haike'}],dancers:'Svetlana, Sara, Narcisse, Kaushika, Chiara, Khushboo, Haike, Swapnil',status:'ready',key:false},
   {id:'S10',num:'08',name:'Village Feast ◆',sub:'Peak of joy — queen sees the boy',song:'Kalbeliya',dancers:'Narcisse, Shreya, Maha, Kaushika, Sara, Laurien, Roshni, Haike, Swapnil',status:'ready',key:true},
   {id:'S11',num:'09',name:"Queen's Rejection ◆",sub:'Music cuts. One gesture. A single voice from the dark.',song:'Silence + a single distant voice (wordless)',dancers:'Svetlana + full company freeze',status:'ready',key:true},
@@ -1731,7 +1734,8 @@ function makeFlowRow(s) {
       <div class="flow-cell song-indent"></div>
       <div class="flow-cell"><div style="display:flex;flex-direction:column;gap:2px;width:100%"><span class="song-label">${sg.title}</span>${sg.note?`<span style="font-size:0.72rem;color:var(--muted);font-style:italic;line-height:1.35">${sg.note}</span>`:''}</div></div>
       <div class="flow-cell">${sg.dancers?`<span style="font-size:0.78rem;color:var(--muted)">${sg.dancers}</span>`:''}</div>
-      <div class="flow-cell song-indent"></div>
+      <div class="flow-cell"><span style="font-size:0.74rem;color:var(--muted);line-height:1.4">${sg.costume||''}</span></div>
+      <div class="flow-cell" style="justify-content:center"><span style="font-family:'Cinzel',serif;font-size:0.68rem;color:var(--muted);letter-spacing:0.05em">${sg.duration||''}</span></div>
       <div class="flow-cell"><span class="flow-tag ${STATUS_CLASSES[sgStatus]}" onclick="cycleSongSub(this,'${s.id}',${i})" title="Click to update">${STATUS_LABELS[sgStatus]}</span></div>
     </div>`;
   }).join('') : '';
@@ -1744,10 +1748,8 @@ function makeFlowRow(s) {
       <div class="flow-cell${nameBodyClass}"><div style="display:flex;flex-direction:column;gap:3px;width:100%"><span class="flow-scene-name editable-cell" data-field="name">${sc.name}</span>${sc.sub?`<span class="editable-cell" style="font-size:0.74rem;color:var(--muted);line-height:1.35" data-field="sub">${sc.sub}</span>`:''}</div></div>
       <div class="flow-cell${narrHide}">${songCell}</div>
       <div class="flow-cell${narrHide}">${sc.songs?'':`<span class="flow-dancers editable-cell" data-field="dancers">${sc.dancers}</span>`}</div>
-      <div class="flow-cell${narrHide}" style="gap:4px;flex-wrap:wrap">
-        ${currentStatus!=='narr'?makeCheck(s.id,'c','C')+makeCheck(s.id,'m','M')+makeCheck(s.id,'t','T'):''}
-        <button class="costume-toggle${costumeVal?' open':''}" id="cosBtn-${s.id}" onclick="toggleCostume('${s.id}')" title="Costume notes">👗</button>
-      </div>
+      <div class="flow-cell${narrHide}"><span style="font-size:0.78rem;color:var(--muted);line-height:1.4">${sc.costume||''}</span></div>
+      <div class="flow-cell${narrHide}" style="justify-content:center"><span style="font-family:'Cinzel',serif;font-size:0.7rem;color:var(--muted);letter-spacing:0.05em">${sc.duration||''}</span></div>
       <div class="flow-cell"><span class="flow-tag ${STATUS_CLASSES[currentStatus]}" onclick="cycleStatus(this,'${s.id}')" title="Click to update">${STATUS_LABELS[currentStatus]}</span></div>
     </div>
     ${songSubRows}
