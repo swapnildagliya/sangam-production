@@ -1600,6 +1600,15 @@ function updateDashboard() {
   const diff = Math.ceil((show - now) / (1000*60*60*24));
   document.getElementById('days-count').innerHTML = diff > 0 ? diff + ' <span>days</span>' : 'SHOW DAY';
 
+  // Count song statuses
+  let ready = 0, inprog = 0, neww = 0;
+  songs.forEach((s, i) => {
+    const st = localStorage.getItem('sangam_song_status_' + i) || s.status;
+    if (st === 'ready') ready++;
+    else if (st === 'partial') inprog++;
+    else if (st === 'new') neww++;
+  });
+
   document.getElementById('songs-ready').innerHTML = ready + ' <span>/ ' + songs.length + '</span>';
   document.getElementById('songs-subtitle').textContent = songs.length + ' songs across the production.';
   document.getElementById('songs-progress').innerHTML = inprog + ' <span>songs</span>';
