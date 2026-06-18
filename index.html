@@ -1531,7 +1531,7 @@ const STATUS_CLASSES = {tbc:'tag-tbc',partial:'tag-partial',ready:'tag-ready',ne
 const scenes1 = [
   {id:'S00',num:'PRE',name:'Pre-show',song:'The Blue (Niraj Chag) — soundscape only. No dance. Projection or plays before curtains open.',dancers:'—',status:'ready',key:false},
   {id:'S01',num:'01',name:'The Birth & The Birth of the River ◆',sub:'Desert village. Baby rejected. Maha cries — and the river is born to carry him away',songs:[{title:'Call It Luck If You Want To (Ganavya)',status:'ready',dancers:'Svetlana, Sara, Narcisse, Kaushika, Maha, Roshni, Haike'},{title:'Remain The Sea (Anoushka Shankar feat. Vanessa Redgrave)',status:'tbc',dancers:'Maha (solo, with baby doll) — river forms, she places him on the water'}],dancers:'Svetlana, Sara, Narcisse, Kaushika, Maha, Roshni, Haike',status:'ready',key:true},
-  {id:'S02',num:'02',name:'Sun & Moon',sub:'Two guardians find each other — then find the boy',songs:[{title:'Pyaara Sa Gaon (Zubeida)',status:'partial',dancers:'Shreya & Laurien'},{title:'Dheeme Dheeme',status:'partial',dancers:'Shreya & Laurien'}],dancers:'Shreya & Laurien',status:'partial',key:false},
+  {id:'S02',num:'02',name:'Sun & Moon',sub:'Two guardians find each other — then find the boy',songs:[{title:'Pyaara Sa Gaon (Zubeida)',note:'Introduction of the Sun & Moon characters',status:'partial',dancers:'Shreya & Laurien'},{title:'Dheeme Dheeme',note:'Relationship between Sun & Moon · finding the baby',status:'partial',dancers:'Shreya & Laurien'}],dancers:'Shreya & Laurien',status:'partial',key:false},
   {id:'S04',num:'03',name:'Villagers',sub:'Village established — the river runs, life is full',songs:[{title:'Mori Atariya pe Kaaga Bole (Niraj Chag)',status:'partial',dancers:'Svetlana, Narcisse, Kaushika, Roshni, Sara, Chiara'},{title:'Chalka Re',status:'partial',dancers:'Kaushika, Laurien, Sara, Chiara, Narcisse, Roshni'}],dancers:'Svetlana, Narcisse, Kaushika, Roshni, Sara, Chiara, Khushboo, Laurien',status:'partial',key:false},
   {id:'S07',num:'04',name:'Adulthood Solo',sub:'Boy has grown up — the question of love begins',song:'Oru Paiyan (Ganavya) + Sun & Moon cameo',dancers:'Swapnil + Shreya & Laurien',status:'ready',key:false},
   {id:'S08',num:'05',name:'First Discovery',sub:'The village turns its gaze toward the boy — and cannot look away',songs:[{title:'Jab Se Tere Naina',status:'ready'},{title:'Nainowale Ne',status:'new'}],dancers:'Swapnil, Khushboo, Kaushika, Siddhy, Maha',status:'partial',key:false},
@@ -1702,7 +1702,7 @@ function makeFlowRow(s) {
     return `<div class="scene-song-subrow">
       <div class="flow-cell song-indent"></div>
       <div class="flow-cell song-indent"></div>
-      <div class="flow-cell"><span class="song-label">${sg.title}</span></div>
+      <div class="flow-cell"><div style="display:flex;flex-direction:column;gap:2px;width:100%"><span class="song-label">${sg.title}</span>${sg.note?`<span style="font-size:0.72rem;color:var(--muted);font-style:italic;line-height:1.35">${sg.note}</span>`:''}</div></div>
       <div class="flow-cell">${sg.dancers?`<span style="font-size:0.78rem;color:var(--muted)">${sg.dancers}</span>`:''}</div>
       <div class="flow-cell song-indent"></div>
       <div class="flow-cell"><span class="flow-tag ${STATUS_CLASSES[sgStatus]}" onclick="cycleSongSub(this,'${s.id}',${i})" title="Click to update">${STATUS_LABELS[sgStatus]}</span></div>
