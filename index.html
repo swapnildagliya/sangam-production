@@ -214,6 +214,13 @@ body.locked > :not(#lock-overlay) { filter:blur(6px); pointer-events:none; user-
 [data-viewer="true"] .edit-btn,
 [data-viewer="true"] .export-btn,
 [data-viewer="true"] .edit-mode-bar { display:none !important; }
+/* Dancer view: strip interactive controls (C/M/T, costume toggle, click-to-cycle status) — director controls all state via source */
+[data-viewer="true"] .r-check,
+[data-viewer="true"] .costume-toggle,
+[data-viewer="true"] .scene-costume-row { display:none !important; }
+[data-viewer="true"] .flow-tag { cursor:default !important; pointer-events:none; }
+[data-viewer="true"] .editable-cell { cursor:default !important; }
+[data-viewer="true"] [data-viewer-hide] { display:none !important; }
 [data-viewer="true"] .header-actions::after {
   content:'DANCER VIEW'; font-family:'Cinzel',serif; font-size:0.46rem;
   letter-spacing:0.28em; color:var(--muted); padding:0 0.3rem;
@@ -998,7 +1005,7 @@ body { font-size: 18px; }
   <div class="section-wrap">
     <p class="section-label">Show Flow</p>
     <h2 class="section-heading">24 Scenes — Both Acts</h2>
-    <p class="section-sub">Check off choreography (C), music (M), and tech (T) as each scene progresses. Click a status badge to update it.</p>
+    <p class="section-sub" data-viewer-hide>Check off choreography (C), music (M), and tech (T) as each scene progresses. Click a status badge to update it.</p>
     <div class="flow-header-row">
       <div class="flow-header-cell">#</div>
       <div class="flow-header-cell">Scene</div>
