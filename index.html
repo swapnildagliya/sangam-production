@@ -1709,7 +1709,7 @@ function makeFlowRow(s) {
     </div>`;
   }).join('') : '';
   const songCell = sc.songs
-    ? `<span class="flow-song" style="color:var(--text);font-size:0.86rem;font-style:italic;line-height:1.4">${sc.songs.map(sg=>sg.title).join(' · ')}</span>`
+    ? ''
     : `<span class="flow-song editable-cell" data-field="song">${sc.song||''}</span>`;
   return `<div class="scene-item" id="${s.id}">
     <div class="flow-row${kc}" id="row-${s.id}" data-scene-id="${s.id}">
