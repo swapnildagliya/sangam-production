@@ -382,9 +382,26 @@ body.locked > :not(#lock-overlay) { filter:blur(6px); pointer-events:none; user-
 /* ══════════════════════
    TAB 2 — SHOW FLOW
 ══════════════════════ */
-.act-header { display:flex; align-items:center; gap:2rem; padding:2rem 0 1.2rem; }
+.act-header { display:flex; align-items:center; gap:2rem; padding:1rem 0 1rem; position:sticky; top:0; background:var(--bg); z-index:5; }
 .act-label { font-family:'Cinzel',serif; font-size:clamp(1rem,1.8vw,1.4rem); font-weight:600; white-space:nowrap; }
 .act-line { flex:1; height:1px; background:var(--border2); }
+.act-counts { font-family:'Cinzel',serif; font-size:0.55rem; letter-spacing:0.22em; color:var(--muted); white-space:nowrap; }
+.act-counts b { color:var(--text); font-weight:600; }
+
+/* Multi-song scene parent row = compact section header */
+.flow-row.has-songs { background:var(--bg2); border-left:3px solid var(--gold); }
+.flow-row.has-songs .flow-cell { padding:0.55rem 1rem; }
+.flow-row.has-songs .flow-num { background:transparent; }
+
+/* Subrows hang off the same gold accent */
+.scene-item:has(.scene-song-subrow) .scene-song-subrow { border-left:3px solid var(--gold); }
+.scene-song-subrow .flow-cell:nth-child(3) { padding-left:1.4rem; }
+
+/* Narration / interval rows — slim, dimmed, no checkbox clutter */
+.flow-row.is-narr { background:transparent; box-shadow:none; border-style:dashed; opacity:0.7; }
+.flow-row.is-narr .flow-cell { padding:0.5rem 1rem; font-style:italic; color:var(--muted); }
+.flow-row.is-narr .flow-narr-body { grid-column: 2 / 5; }
+.flow-row.is-narr .flow-narr-hide { display:none; }
 
 .flow-header-row, .flow-row {
   display:grid; grid-template-columns:50px 160px 1fr 1fr 130px 120px;
@@ -990,9 +1007,9 @@ body { font-size: 18px; }
       <div class="flow-header-cell">Rehearsal</div>
       <div class="flow-header-cell">Status</div>
     </div>
-    <div class="act-header"><span class="act-label" style="color:var(--gold)">Part One</span><div class="act-line"></div></div>
+    <div class="act-header"><span class="act-label" style="color:var(--gold)">Part One</span><div class="act-line"></div><span class="act-counts" id="act-counts-1"></span></div>
     <div id="flow-scenes"></div>
-    <div class="act-header" style="margin-top:2rem"><span class="act-label" style="color:var(--river-light)">Part Two</span><div class="act-line"></div></div>
+    <div class="act-header" style="margin-top:2rem"><span class="act-label" style="color:var(--river-light)">Part Two</span><div class="act-line"></div><span class="act-counts" id="act-counts-2"></span></div>
     <div id="flow-scenes-2"></div>
   </div>
 </div>
@@ -1692,7 +1709,9 @@ function makeFlowRow(s) {
   const sc = {...s, ...(edits.scenes?.[s.id] || {})};
   const statusKey = 'sangam_status_' + s.id;
   const currentStatus = localStorage.getItem(statusKey) || sc.status;
-  const kc = sc.key ? ' key-scene' : '';
+  const kc = (sc.key ? ' key-scene' : '') + (sc.songs ? ' has-songs' : '') + (currentStatus === 'narr' ? ' is-narr' : '');
+  const narrHide = currentStatus === 'narr' ? ' flow-narr-hide' : '';
+  const nameBodyClass = currentStatus === 'narr' ? ' flow-narr-body' : '';
   const numStyle = sc.key ? 'color:var(--gold-light)' : '';
   const costumeVal = getCostume(s.id);
   const depsHtml = renderDepsChips(s.id);
@@ -1715,11 +1734,11 @@ function makeFlowRow(s) {
   return `<div class="scene-item" id="${s.id}">
     <div class="flow-row${kc}" id="row-${s.id}" data-scene-id="${s.id}">
       <div class="flow-cell flow-num" style="${numStyle}">${sc.num}${copyLinkBtn(s.id, 'scene ' + sc.num)}</div>
-      <div class="flow-cell"><div style="display:flex;flex-direction:column;gap:3px;width:100%"><span class="flow-scene-name editable-cell" data-field="name">${sc.name}</span>${sc.sub?`<span class="editable-cell" style="font-size:0.74rem;color:var(--muted);line-height:1.35" data-field="sub">${sc.sub}</span>`:''}</div></div>
-      <div class="flow-cell">${songCell}</div>
-      <div class="flow-cell">${sc.songs?'':`<span class="flow-dancers editable-cell" data-field="dancers">${sc.dancers}</span>`}</div>
-      <div class="flow-cell" style="gap:4px;flex-wrap:wrap">
-        ${sc.status!=='narr'?makeCheck(s.id,'c','C')+makeCheck(s.id,'m','M')+makeCheck(s.id,'t','T'):'<span style="font-size:0.75rem;color:var(--muted);font-style:italic">narration</span>'}
+      <div class="flow-cell${nameBodyClass}"><div style="display:flex;flex-direction:column;gap:3px;width:100%"><span class="flow-scene-name editable-cell" data-field="name">${sc.name}</span>${sc.sub?`<span class="editable-cell" style="font-size:0.74rem;color:var(--muted);line-height:1.35" data-field="sub">${sc.sub}</span>`:''}</div></div>
+      <div class="flow-cell${narrHide}">${songCell}</div>
+      <div class="flow-cell${narrHide}">${sc.songs?'':`<span class="flow-dancers editable-cell" data-field="dancers">${sc.dancers}</span>`}</div>
+      <div class="flow-cell${narrHide}" style="gap:4px;flex-wrap:wrap">
+        ${currentStatus!=='narr'?makeCheck(s.id,'c','C')+makeCheck(s.id,'m','M')+makeCheck(s.id,'t','T'):''}
         <button class="costume-toggle${costumeVal?' open':''}" id="cosBtn-${s.id}" onclick="toggleCostume('${s.id}')" title="Costume notes">👗</button>
       </div>
       <div class="flow-cell"><span class="flow-tag ${STATUS_CLASSES[currentStatus]}" onclick="cycleStatus(this,'${s.id}')" title="Click to update">${STATUS_LABELS[currentStatus]}</span></div>
@@ -1737,6 +1756,28 @@ function renderFlow() {
   _depsCache = null; // recompute on each full render
   document.getElementById('flow-scenes').innerHTML = scenes1.map(makeFlowRow).join('');
   document.getElementById('flow-scenes-2').innerHTML = scenes2.map(makeFlowRow).join('');
+  renderActCounts();
+}
+function renderActCounts() {
+  const tally = list => {
+    const c = {ready:0, partial:0, tbc:0, new:0, narr:0};
+    list.forEach(s => {
+      const st = localStorage.getItem('sangam_status_' + s.id) || s.status;
+      if (c[st] !== undefined) c[st]++;
+    });
+    const parts = [];
+    parts.push(`<b>${list.length}</b> scenes`);
+    if (c.ready) parts.push(`<b>${c.ready}</b> ready`);
+    if (c.partial) parts.push(`<b>${c.partial}</b> partial`);
+    if (c.tbc) parts.push(`<b>${c.tbc}</b> tbc`);
+    if (c.new) parts.push(`<b>${c.new}</b> new`);
+    if (c.narr) parts.push(`<b>${c.narr}</b> narr`);
+    return parts.join(' · ');
+  };
+  const el1 = document.getElementById('act-counts-1');
+  const el2 = document.getElementById('act-counts-2');
+  if (el1) el1.innerHTML = tally(scenes1);
+  if (el2) el2.innerHTML = tally(scenes2);
 }
 
 // ── RENDER SONGS ──
