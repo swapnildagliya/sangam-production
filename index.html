@@ -5,10 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SANGAM — ABC a bollywood company 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Cinzel+Decorative:wght@400;900&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Cinzel+Decorative:wght@400;900&family=Lora:ital,wght@0,400;0,500;1,400&family=Tiro+Devanagari+Sanskrit:ital@0;1&display=swap" rel="stylesheet">
 <style>
 /* ── THEME VARIABLES ── */
 :root {
+  /* OKLCH brand scales — additive, prefer these for new work */
+  --gold-50: oklch(96% 0.04 80);
+  --gold-100: oklch(90% 0.08 80);
+  --gold-300: oklch(78% 0.12 80);
+  --gold-500: oklch(65% 0.13 78);
+  --gold-700: oklch(48% 0.11 75);
+  --gold-900: oklch(30% 0.07 70);
+  --river-300: oklch(72% 0.09 230);
+  --river-500: oklch(55% 0.11 230);
+  --river-700: oklch(40% 0.09 230);
+
   --gold: #c4941a;
   --gold-light: #dab84a;
   --gold-bg: rgba(196,148,26,0.09);
@@ -58,6 +69,7 @@
 }
 
 * { margin:0; padding:0; box-sizing:border-box; }
+:lang(sa), [lang="sa"] { font-family:'Tiro Devanagari Sanskrit', 'Noto Sans Devanagari', serif; font-feature-settings:"liga" 1, "calt" 1; }
 html { scroll-behavior:smooth; }
 body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overflow-x:hidden; font-size:17px; transition: background 0.3s, color 0.3s; }
 
@@ -65,7 +77,7 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
 .site-header {
   position:sticky; top:0; z-index:100;
   background:var(--header-bg);
-  backdrop-filter:blur(12px);
+  background:color-mix(in srgb, var(--header-bg) 100%, transparent);
   border-bottom:1px solid var(--border2);
   box-shadow: var(--shadow);
   display:flex; align-items:center;
@@ -95,7 +107,8 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
 }
 .nav-tab:hover { color:var(--text); }
 .nav-tab.active { color:var(--gold); border-bottom-color:var(--gold); }
-.nav-tab:focus-visible, .skip-link:focus-visible { outline:2px solid var(--gold); outline-offset:2px; }
+:focus-visible { outline:2px solid var(--gold); outline-offset:2px; border-radius:inherit; }
+.skip-link:focus-visible { outline-offset:0; }
 
 /* ── DEEP LINKS ── */
 .copy-link-btn {
@@ -170,7 +183,7 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
   display:none; background:rgba(184,146,42,0.1);
   border-bottom:1px solid rgba(184,146,42,0.28);
   padding:0.6rem 2rem; align-items:center; gap:1.5rem; flex-wrap:wrap;
-  position:sticky; top:60px; z-index:90; backdrop-filter:blur(8px);
+  position:sticky; top:60px; z-index:90; background:var(--bg);
 }
 [data-edit="off"] .edit-mode-bar { display:flex; }
 .edit-mode-label { font-family:'Cinzel',serif; font-size:0.64rem; letter-spacing:0.32em; color:var(--gold); white-space:nowrap; }
@@ -368,11 +381,7 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
 .scene-song-subrow .song-label { font-style:italic; color:var(--text); font-size:0.82rem; line-height:1.3; }
 
 /* Status tags */
-.flow-tag {
-  font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.18em;
-  padding:0.22rem 0.55rem; border-radius:2px; white-space:nowrap; cursor:pointer;
-  transition:all 0.15s; user-select:none;
-}
+.flow-tag { font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.18em; padding:0.35rem 0.7rem; min-height:28px; display:inline-flex; align-items:center; justify-content:center; border-radius:3px; white-space:nowrap; user-select:none; }
 .tag-ready { background:var(--tag-ready-bg); color:var(--tag-ready-c); border:1px solid var(--tag-ready-b); }
 .tag-partial { background:var(--tag-partial-bg); color:var(--tag-partial-c); border:1px solid var(--tag-partial-b); }
 .tag-new { background:var(--tag-new-bg); color:var(--tag-new-c); border:1px solid var(--tag-new-b); }
@@ -582,7 +591,13 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
 /* ══════════════════════
    TAB 7 — CAST
 ══════════════════════ */
-.cast-grid-wrap { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:2px; }
+.cast-grid-wrap { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:2px; container-type:inline-size; }
+.cast-card { container-type:inline-size; }
+@container (max-width: 280px) {
+  .cast-card-top { padding:0.9rem 1.1rem; gap:10px; }
+  .cast-initial { width:36px; height:36px; font-size:0.92rem; }
+  .cast-section-label { font-size:0.56rem; }
+}
 .cast-card { background:var(--surface); border:1px solid var(--border); overflow:hidden; }
 .cast-card-top {
   padding:1.4rem 1.6rem 1rem; display:flex; align-items:center; gap:1rem;
@@ -603,7 +618,7 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
 .cast-empty { font-style:italic; font-size:0.85rem; color:var(--muted); padding:0.4rem 0; }
 .cast-scene-pill { font-family:'Cinzel',serif; font-size:0.64rem; letter-spacing:0.08em; padding:0.25rem 0.55rem; background:var(--gold-bg); color:var(--gold); border:1px solid rgba(184,146,42,0.3); border-radius:3px; display:inline-flex; align-items:center; gap:5px; }
 .cast-scene-pill-name { font-family:'Lora',serif; font-style:italic; font-size:0.66rem; color:var(--text2); letter-spacing:0; text-transform:none; opacity:0.85; }
-.cast-song-pill { font-family:'Lora',serif; font-style:italic; font-size:0.78rem; padding:0.2rem 0.6rem; background:var(--surface2); color:var(--text2); border:1px solid var(--border); border-radius:3px; }
+.cast-song-pill { font-family:'Lora',serif; font-style:italic; font-size:0.82rem; padding:0.35rem 0.7rem; min-height:32px; display:inline-flex; align-items:center; background:var(--surface2); color:var(--text2); border:1px solid var(--border); border-radius:3px; }
 .cast-refresh-bar { display:flex; justify-content:flex-end; margin-bottom:1.5rem; }
 .cast-refresh-btn { font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.2em; background:none; border:1px solid var(--border2); color:var(--muted); padding:0.4rem 1rem; cursor:pointer; border-radius:2px; transition:all 0.2s; }
 .cast-refresh-btn:hover { border-color:var(--gold); color:var(--gold); }
@@ -998,7 +1013,7 @@ body { font-size: 18px; }
           <div class="char-accent">P</div>
           <p class="char-role">The Sun & The Moon</p>
           <h3 class="char-name">Prabha & Chaaya <button class="copy-link-btn" onclick="event.stopPropagation();copyDeepLink('char-Birds',this)" title="Copy link to Prabha & Chaaya">🔗</button></h3>
-          <p class="char-sanskrit">प्रभा & छाया &nbsp;·&nbsp; Sun &amp; Moon · Light &amp; Shadow</p>
+          <p class="char-sanskrit"><span lang="sa">प्रभा</span> & <span lang="sa">छाया</span> &nbsp;·&nbsp; Sun &amp; Moon · Light &amp; Shadow</p>
           <p class="char-played">Played by <strong>Shreya Vaidya & Laurien De Ridder</strong></p>
         </div>
         <div class="char-body">
@@ -1497,10 +1512,6 @@ function makeFlowRow(s) {
       <div class="flow-cell"><span class="flow-tag ${STATUS_CLASSES[currentStatus]}" aria-label="Status: ${STATUS_LABELS[currentStatus]}">${STATUS_LABELS[currentStatus]}</span></div>
     </div>
     ${songSubRows}
-    <div class="scene-costume-row${costumeVal?' open':''}" id="cos-${s.id}">
-      <span class="costume-label">COSTUME</span>
-      <input class="costume-input" type="text" placeholder="Costume / colour direction for this scene…" value="${costumeVal}" oninput="saveCostume('${s.id}',this.value)">
-    </div>
     <div class="scene-deps-row${depsHtml?' has-deps':''}" id="deps-${s.id}" data-scene-id="${s.id}">${depsHtml}</div>
   </div>`;
 }
