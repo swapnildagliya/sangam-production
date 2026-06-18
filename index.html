@@ -1644,7 +1644,6 @@ function showTab(name, btn) {
     const match = document.querySelector(`.nav-tab[onclick*="'${name}'"]`);
     if (match) match.classList.add('active');
   }
-  document.getElementById('save-bar').style.display = name === 'notes' ? 'flex' : 'none';
   if(name === 'cast') renderCastTab();
 }
 
