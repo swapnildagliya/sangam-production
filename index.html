@@ -410,54 +410,6 @@ body { background:var(--bg); color:var(--text); font-family:'Lora',serif; overfl
 }
 .song-item { margin-bottom:2px; }
 .song-item .song-row { margin-bottom:0; }
-.song-expand-btn {
-  width:28px; height:28px; border-radius:50%; border:1px solid var(--border2);
-  background:var(--surface2); cursor:pointer; font-size:0.8rem; color:var(--muted);
-  display:flex; align-items:center; justify-content:center; transition:all 0.2s;
-  flex-shrink:0;
-}
-.song-expand-btn:hover { background:var(--bg3); color:var(--text); }
-.song-expand-btn.open { background:var(--gold-bg); color:var(--gold); border-color:rgba(184,146,42,0.4); transform:rotate(180deg); }
-.song-expand-panel {
-  display:none; border:1px solid var(--border); border-top:none;
-  background:var(--bg2); box-shadow:var(--shadow);
-}
-.song-expand-panel.open { display:block; }
-.sexp-inner { padding:1.4rem 1.6rem; display:flex; flex-direction:column; gap:1.2rem; }
-.sexp-label { font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.3em; color:var(--gold); margin-bottom:0.6rem; opacity:0.85; }
-.cast-dancer-grid {
-  display:grid; grid-template-columns:repeat(auto-fill,minmax(110px,1fr)); gap:6px;
-}
-.cast-chk {
-  display:flex; align-items:center; gap:6px; cursor:pointer;
-  padding:5px 8px; border-radius:3px; border:1px solid var(--border);
-  background:var(--check-bg); transition:all 0.15s; user-select:none;
-}
-.cast-chk:hover { background:var(--bg3); border-color:var(--border2); }
-.cast-chk.on { background:rgba(184,146,42,0.1); border-color:rgba(184,146,42,0.35); }
-.cast-chk-box {
-  width:14px; height:14px; border-radius:2px; border:1.5px solid var(--border2);
-  background:var(--bg); display:flex; align-items:center; justify-content:center;
-  flex-shrink:0; font-size:9px; color:white; transition:all 0.15s;
-}
-.cast-chk.on .cast-chk-box { background:var(--gold); border-color:var(--gold); }
-.cast-chk-name { font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.1em; color:var(--text2); }
-.sexp-meta { display:flex; gap:1.5rem; flex-wrap:wrap; align-items:flex-start; }
-.sexp-dur-input {
-  font-family:'Cinzel',serif; font-size:0.82rem; width:80px;
-  background:var(--note-bg); border:1px solid var(--border2); border-radius:2px;
-  color:var(--text); padding:0.4rem 0.6rem; text-align:center;
-}
-.sexp-dur-input:focus { outline:none; border-color:var(--gold); }
-.music-btns { display:flex; gap:5px; flex-wrap:wrap; }
-.music-btn {
-  font-family:'Cinzel',serif; font-size:0.58rem; letter-spacing:0.14em;
-  padding:0.35rem 0.75rem; border-radius:2px; cursor:pointer; transition:all 0.15s;
-  border:1px solid var(--border2); background:var(--surface); color:var(--muted);
-}
-.music-btn:hover { border-color:var(--border2); color:var(--text); background:var(--surface2); }
-.music-btn.on { background:var(--mbc); color:white; border-color:var(--mbc); }
-[data-theme="light"] .music-btn.on { color:#1e1810; }
 .song-header { margin-bottom:3px; }
 .song-header-cell { padding:0.5rem 1rem; font-family:'Cinzel',serif; font-size:0.48rem; letter-spacing:0.28em; color:var(--muted); background:var(--bg2); }
 .song-row { margin-bottom:2px; transition:background 0.15s; box-shadow:var(--shadow); }
@@ -1317,79 +1269,7 @@ body { font-size: 18px; }
   <button class="save-btn" onclick="saveNotes()">Save Notes</button>
 </div>
 
-<!-- JSONBin sync — replaces Supabase -->
 <script>
-// ════════════════════════════════════════════════════════════════════
-// JSONBIN LIVE-SYNC CONFIG
-// ════════════════════════════════════════════════════════════════════
-const JSONBIN_BIN_ID     = '6a17f674ddf5aa59f76efa35';
-const JSONBIN_MASTER_KEY = '$2a$10$aMJxhM9mOohBbH6DHwqqKOGXWzRpVBy3JDIjZSXWIQ9CNmKwwzc8W';
-const JSONBIN_URL        = 'https://api.jsonbin.io/v3/b/' + JSONBIN_BIN_ID;
-
-// ── CAST ──
-const DANCERS = ['Swapnil','Narcisse','Sara','Svetlana','Chiara','Kaushika','Laurien','Khushboo','Shreya','Roshni','Haike','Siddhy','Maha'];
-const MUSIC_STATUSES = {
-  none:     {label:'No file',       color:'#808090'},
-  received: {label:'File received', color:'#2a6b8f'},
-  editing:  {label:'Needs editing', color:'#8b5e1a'},
-  ready:    {label:'Music ready',   color:'#2a7a4a'}
-};
-
-function getSongCast(idx) {
-  try { return JSON.parse(localStorage.getItem('sangam_cast_' + idx) || '[]'); } catch(e) { return []; }
-}
-function toggleSongCastMember(idx, name) {
-  let cast = getSongCast(idx);
-  cast = cast.includes(name) ? cast.filter(d => d !== name) : [...cast, name];
-  localStorage.setItem('sangam_cast_' + idx, JSON.stringify(cast));
-  return cast.includes(name);
-}
-function setMusicStatus(idx, status, btn) {
-  localStorage.setItem('sangam_music_' + idx, status);
-  btn.closest('.music-btns').querySelectorAll('.music-btn').forEach(b => b.classList.remove('on'));
-  btn.classList.add('on');
-}
-function toggleSongExpand(idx) {
-  const panel = document.getElementById('sep-' + idx);
-  const btn = document.getElementById('seb-' + idx);
-  const isOpen = panel.classList.contains('open');
-  if (!isOpen && !panel.innerHTML) buildSongExpand(idx);
-  panel.classList.toggle('open', !isOpen);
-  btn.classList.toggle('open', !isOpen);
-}
-function buildSongExpand(idx) {
-  const cast = getSongCast(idx);
-  const dur = localStorage.getItem('sangam_song_dur_' + idx) || '';
-  const ms = localStorage.getItem('sangam_music_' + idx) || 'none';
-  const dancerBoxes = [...DANCERS, 'Level 2'].map(d => `
-    <div class="cast-chk${cast.includes(d) ? ' on' : ''}" onclick="handleCastChk(${idx},'${d}',this)">
-      <div class="cast-chk-box">${cast.includes(d) ? '✓' : ''}</div>
-      <span class="cast-chk-name">${d}</span>
-    </div>`).join('');
-  const musicBtns = Object.entries(MUSIC_STATUSES).map(([k, v]) =>
-    `<button class="music-btn${ms === k ? ' on' : ''}" style="--mbc:${v.color}" onclick="setMusicStatus(${idx},'${k}',this)">${v.label}</button>`
-  ).join('');
-  document.getElementById('sep-' + idx).innerHTML = `
-    <div class="sexp-inner">
-      <div><div class="sexp-label">CAST FOR THIS SONG</div>
-        <div class="cast-dancer-grid">${dancerBoxes}</div>
-      </div>
-      <div class="sexp-meta">
-        <div><div class="sexp-label">DURATION</div>
-          <input class="sexp-dur-input" type="text" placeholder="3:45" value="${dur}"
-            oninput="localStorage.setItem('sangam_song_dur_${idx}',this.value);updateDashboard()">
-        </div>
-        <div><div class="sexp-label">MUSIC FILE STATUS</div>
-          <div class="music-btns">${musicBtns}</div>
-        </div>
-      </div>
-    </div>`;
-}
-function handleCastChk(idx, name, el) {
-  const isNowOn = toggleSongCastMember(idx, name);
-  el.classList.toggle('on', isNowOn);
-  el.querySelector('.cast-chk-box').textContent = isNowOn ? '✓' : '';
-}
 
 // Costume notes on scenes
 function toggleCostume(sceneId) {
@@ -1407,23 +1287,23 @@ function getCostume(sceneId) {
   return localStorage.getItem('sangam_costume_' + sceneId) || '';
 }
 
-// Cast tab
+// Cast tab — reads cast assignments straight from source data (songs[].dancers + scenes[].dancers strings)
+const DANCERS = ['Swapnil','Narcisse','Sara','Svetlana','Chiara','Kaushika','Laurien','Khushboo','Shreya','Roshni','Haike','Siddhy','Maha'];
+function dancerInText(dancer, text) {
+  if (!text) return false;
+  return new RegExp('\\b' + dancer + '\\b', 'i').test(text);
+}
 function renderCastTab() {
   const allScenes = [...scenes1, ...scenes2];
   const html = DANCERS.map(dancer => {
-    const songList = songs.map((s, i) => {
-      const cast = getSongCast(i);
-      if (!cast.includes(dancer)) return '';
-      const dur = localStorage.getItem('sangam_song_dur_' + i) || '';
-      return `<div class="cast-song-row">
+    const songList = songs.filter(s => dancerInText(dancer, s.dancers)).map(s => `
+      <div class="cast-song-row">
         <div class="cast-song-dot"></div>
         <span class="cast-song-name">${s.title}</span>
-        <span class="cast-song-genre">${s.genre}</span>
-        ${dur ? `<span class="cast-song-dur">${dur}</span>` : ''}
-      </div>`;
-    }).filter(Boolean);
+        <span class="cast-song-genre">${s.genre || ''}</span>
+      </div>`);
     const scenePills = allScenes
-      .filter(sc => sc.dancers && sc.dancers.toLowerCase().includes(dancer.toLowerCase()))
+      .filter(sc => dancerInText(dancer, sc.dancers) || (sc.songs && sc.songs.some(sg => dancerInText(dancer, sg.dancers))))
       .map(sc => `<span class="cast-scene-pill">S${sc.num}</span>`).join('');
     return `<div class="cast-card">
       <div class="cast-card-top">
@@ -1434,7 +1314,7 @@ function renderCastTab() {
         </div>
       </div>
       <div class="cast-body">
-        ${songList.length ? songList.join('') : '<div class="cast-empty">No songs assigned yet — use Songs tab</div>'}
+        ${songList.length ? songList.join('') : '<div class="cast-empty">No songs assigned yet</div>'}
         ${scenePills ? `<div class="cast-scenes-wrap">${scenePills}</div>` : ''}
       </div>
     </div>`;
@@ -1702,7 +1582,6 @@ function makeSongRow(s, i) {
   const sg = {...s, ...(edits.songs?.[String(i)] || {})};
   const key = 'sangam_song_status_' + i;
   const currentStatus = localStorage.getItem(key) || sg.status;
-  const castCount = getSongCast(i).length;
   return `<div class="song-item" id="song-${i}">
     <div class="song-row" data-song-idx="${i}">
       <div class="song-cell"><span class="song-title editable-cell" data-field="title">${sg.title}</span>${copyLinkBtn('song-' + i, sg.title)}</div>
@@ -1710,11 +1589,7 @@ function makeSongRow(s, i) {
       <div class="song-cell" style="justify-content:center"><span class="editable-cell" style="font-family:'Cinzel',serif;font-size:1rem;font-weight:600;color:var(--gold);opacity:0.55;text-align:center" data-field="people">${sg.people}</span></div>
       <div class="song-cell"><span class="song-meta editable-cell" data-field="dancers">${sg.dancers}</span></div>
       <div class="song-cell"><span class="flow-tag ${STATUS_CLASSES[currentStatus]}" onclick="cycleSongStatus(this,${i})" title="Click to update">${STATUS_LABELS[currentStatus]}</span></div>
-      <div class="song-cell" style="justify-content:center;border-right:none">
-        <button class="song-expand-btn" id="seb-${i}" onclick="toggleSongExpand(${i})" title="Cast, duration & music">▾</button>
-      </div>
     </div>
-    <div class="song-expand-panel" id="sep-${i}"></div>
   </div>`;
 }
 
@@ -1785,31 +1660,6 @@ function updateDashboard() {
   });
   document.getElementById('checks-done').textContent = done;
 
-  // Running time
-  let totalSecs = 0;
-  songs.forEach((s, i) => {
-    const dur = localStorage.getItem('sangam_song_dur_' + i) || '';
-    if (dur.includes(':')) {
-      const parts = dur.split(':');
-      totalSecs += (parseInt(parts[0]) || 0) * 60 + (parseInt(parts[1]) || 0);
-    }
-  });
-  const el = document.getElementById('total-duration');
-  if (el) {
-    if (totalSecs > 0) {
-      const m = Math.floor(totalSecs / 60), s = totalSecs % 60;
-      el.innerHTML = `${m}m ${s < 10 ? '0' + s : s}s <span>timed</span>`;
-    } else { el.innerHTML = '— <span>timed</span>'; }
-  }
-
-  // Song stats
-  let ready=0, inprog=0, neww=0;
-  songs.forEach((s,i) => {
-    const st = localStorage.getItem('sangam_song_status_'+i) || s.status;
-    if(st==='ready') ready++;
-    else if(st==='partial') inprog++;
-    else if(st==='new') neww++;
-  });
   document.getElementById('songs-ready').innerHTML = ready + ' <span>/ ' + songs.length + '</span>';
   document.getElementById('songs-subtitle').textContent = songs.length + ' songs across the production. Click a status badge to update readiness.';
   document.getElementById('songs-progress').innerHTML = inprog + ' <span>songs</span>';
@@ -2180,106 +2030,6 @@ async function publishToGitHub() {
   }
 }
 
-// ════════════════════════════════════════════════════════════════════
-// SUPABASE LIVE-SYNC — multi-device team sync over localStorage
-// ────────────────────────────────────────────────────────────────────
-// Behaviour:
-//  - All sangam_* keys still write to localStorage instantly (zero-latency UI)
-//  - On startup: fetch all rows, hydrate any newer values into localStorage
-//  - On write: queue an upsert to the sangam_state table
-//  - On realtime change from another device: write to localStorage + re-render
-//  - If SUPABASE_URL/KEY are blank, this whole module is a no-op
-// ════════════════════════════════════════════════════════════════════
-const Sync = (() => {
-  const enabled = !!(JSONBIN_BIN_ID && JSONBIN_MASTER_KEY);
-  if (!enabled) return { enabled:false, hydrate:async()=>{}, subscribe:()=>{} };
-
-  const HEADERS = {
-    'Content-Type': 'application/json',
-    'X-Master-Key': JSONBIN_MASTER_KEY,
-    'X-Bin-Versioning': 'false'
-  };
-
-  const isSyncedKey = k => k && k.startsWith('sangam_') && k !== 'sangam_theme';
-
-  // Patch localStorage to push changes debounced
-  const origSet = localStorage.setItem.bind(localStorage);
-  const origRm  = localStorage.removeItem.bind(localStorage);
-  let dirty = false, pushTimer = null;
-  function schedulePush() {
-    dirty = true;
-    clearTimeout(pushTimer);
-    pushTimer = setTimeout(flushPush, 600);
-  }
-  localStorage.setItem = function(k, v) { origSet(k, v); if (isSyncedKey(k)) schedulePush(); };
-  localStorage.removeItem = function(k) { origRm(k); if (isSyncedKey(k)) schedulePush(); };
-
-  function getState() {
-    const state = {};
-    for (let i = 0; i < localStorage.length; i++) {
-      const k = localStorage.key(i);
-      if (isSyncedKey(k)) state[k] = localStorage.getItem(k);
-    }
-    return state;
-  }
-
-  async function flushPush() {
-    if (!dirty) return;
-    dirty = false;
-    try {
-      const res = await fetch(JSONBIN_URL, { method:'PUT', headers:HEADERS, body:JSON.stringify(getState()) });
-      if (res.ok) setSyncStatus('Synced');
-      else { dirty = true; setSyncStatus('Offline'); }
-    } catch(e) { dirty = true; setSyncStatus('Offline'); }
-  }
-
-  function reRenderAll() {
-    try { renderFlow(); } catch(e){}
-    try { renderSongs(); } catch(e){}
-    try { loadNotes(); } catch(e){}
-    try { loadCharEdits(); } catch(e){}
-    try { updateDashboard(); } catch(e){}
-    try { if (document.querySelector('#tab-cast.active')) renderCastTab(); } catch(e){}
-  }
-
-  async function hydrate() {
-    setSyncStatus('Syncing…');
-    try {
-      const res = await fetch(JSONBIN_URL + '/latest', { headers: { 'X-Master-Key': JSONBIN_MASTER_KEY } });
-      if (!res.ok) { setSyncStatus('Offline'); return; }
-      const data = await res.json();
-      const remote = data.record || {};
-      let changed = 0;
-      Object.entries(remote).forEach(([k, v]) => {
-        if (!isSyncedKey(k)) return;
-        if (localStorage.getItem(k) !== v) { origSet(k, v); changed++; }
-      });
-      if (changed) reRenderAll();
-      setSyncStatus('Synced');
-    } catch(e) { setSyncStatus('Offline'); }
-  }
-
-  // Poll every 45s so other devices' changes appear
-  function subscribe() {
-    setInterval(async () => {
-      if (dirty) return; // skip poll if we have unsaved local changes
-      try {
-        const res = await fetch(JSONBIN_URL + '/latest', { headers: { 'X-Master-Key': JSONBIN_MASTER_KEY } });
-        if (!res.ok) return;
-        const data = await res.json();
-        const remote = data.record || {};
-        let changed = 0;
-        Object.entries(remote).forEach(([k, v]) => {
-          if (!isSyncedKey(k)) return;
-          if (localStorage.getItem(k) !== v) { origSet(k, v); changed++; }
-        });
-        if (changed) { reRenderAll(); setSyncStatus('Synced ↻'); }
-      } catch(e) {}
-    }, 45000);
-  }
-
-  return { enabled:true, hydrate, subscribe };
-})();
 
 function setSyncStatus(text) {
   const el = document.getElementById('sync-status');
@@ -2297,14 +2047,6 @@ function bootSangam() {
   if (window._sangamBooted) return;
   window._sangamBooted = true;
 
-  // Restore from baked preload data if present
-  if (window.SANGAM_PRELOAD) {
-    const isViewer = document.documentElement.dataset.viewer === 'true';
-    Object.entries(window.SANGAM_PRELOAD).forEach(([k, v]) => {
-      // Viewers always load from preload; editors only load if key is absent
-      if (isViewer || !localStorage.getItem(k)) localStorage.setItem(k, v);
-    });
-  }
   const savedTheme = localStorage.getItem('sangam_theme') || 'dark';
   document.documentElement.setAttribute('data-theme', savedTheme);
   document.getElementById('theme-btn').textContent = savedTheme === 'dark' ? '🌙' : '☀️';
@@ -2317,9 +2059,6 @@ function bootSangam() {
   // Honour any incoming deep-link hash (e.g. /#S11) on first paint
   if (location.hash) setTimeout(() => goToHash(), 100);
 
-  if (Sync.enabled) {
-    Sync.hydrate().then(() => Sync.subscribe());
-  }
 }
 
 bootSangam();
