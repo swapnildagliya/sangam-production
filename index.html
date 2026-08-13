@@ -921,10 +921,14 @@ body { font-size: 18px; }
       <div class="flow-header-cell">Time</div>
       <div class="flow-header-cell">Status</div>
     </div>
-    <div class="act-header"><span class="act-label" style="color:var(--gold)">Part One</span><div class="act-line"></div><span class="act-counts" id="act-counts-1"></span></div>
+    <div class="act-header"><span class="act-label" style="color:var(--gold)">Part 1 — Origin</span><div class="act-line"></div><span class="act-counts" id="act-counts-1"></span></div>
     <div id="flow-scenes"></div>
-    <div class="act-header" style="margin-top:2rem"><span class="act-label" style="color:var(--river-light)">Part Two</span><div class="act-line"></div><span class="act-counts" id="act-counts-2"></span></div>
+    <div class="act-header" style="margin-top:2rem"><span class="act-label" style="color:var(--river-light)">Part 2 — The Boy</span><div class="act-line"></div><span class="act-counts" id="act-counts-2"></span></div>
     <div id="flow-scenes-2"></div>
+    <div class="act-header" style="margin-top:2rem"><span class="act-label" style="color:#c47a3a">Part 3 — The Tribes</span><div class="act-line"></div><span class="act-counts" id="act-counts-3"></span></div>
+    <div id="flow-scenes-3"></div>
+    <div class="act-header" style="margin-top:2rem"><span class="act-label" style="color:#9f7ab8">Part 4 — Reunion</span><div class="act-line"></div><span class="act-counts" id="act-counts-4"></span></div>
+    <div id="flow-scenes-4"></div>
   </div>
 </div>
 
@@ -1267,7 +1271,7 @@ function dancerInText(dancer, text) {
   return new RegExp('\\b' + dancer + '\\b', 'i').test(text);
 }
 function renderCastTab() {
-  const allScenes = [...scenes1, ...scenes2];
+  const allScenes = [...scenes1, ...scenes2, ...scenes3, ...scenes4];
   const html = DANCERS.map(dancer => {
     const matchingScenes = allScenes.filter(sc =>
       dancerInText(dancer, sc.dancers) || (sc.songs && sc.songs.some(sg => dancerInText(dancer, sg.dancers)))
@@ -1317,13 +1321,15 @@ const scenes1 = [
   {id:'S01',num:'01',name:'The Birth of a Boy & a River ◆',sub:'Desert village. Baby rejected. Maha cries — and the river is born to carry him away',songs:[{title:'Call It Luck If You Want To (Ganavya)',status:'ready',dancers:'Svetlana, Sara, Narcisse, Kaushika, Maha, Roshni, Haike'},{title:'Remain The Sea (Anoushka Shankar feat. Vanessa Redgrave)',status:'tbc',dancers:'Maha (solo, with baby doll) — river forms, she places him on the water'}],dancers:'Svetlana, Sara, Narcisse, Kaushika, Maha, Roshni, Haike',status:'ready',key:true},
   {id:'S02',num:'02',name:'Sun & Moon',sub:'Two guardians find each other — then find the boy',songs:[{title:'Pyaara Sa Gaon (Zubeida)',note:'Introduction of the Sun & Moon characters',status:'partial',dancers:'Shreya & Laurien',costume:'Sun = gold skirt · Moon = silver skirt'},{title:'Dheeme Dheeme',note:'Relationship between Sun & Moon · finding the baby',status:'partial',dancers:'Shreya & Laurien',costume:'Sun = gold skirt · Moon = silver skirt'}],dancers:'Shreya & Laurien',costume:'Sun = gold skirt · Moon = silver skirt',status:'partial',key:false},
   {id:'S04',num:'03',name:'Villagers',sub:'Village established — the river runs, life is full',songs:[{title:'Mori Atariya pe Kaaga Bole (Niraj Chag)',status:'partial',dancers:'Svetlana, Narcisse, Kaushika, Roshni, Sara, Chiara'},{title:'Chalka Re',status:'partial',dancers:'Kaushika, Laurien, Sara, Chiara, Narcisse, Roshni'}],dancers:'Svetlana, Narcisse, Kaushika, Roshni, Sara, Chiara, Khushboo, Laurien',status:'partial',key:false},
+];
+const scenes2 = [
   {id:'S07',num:'04',name:'Adulthood Solo',sub:'Boy has grown up — the question of love begins',song:'Oru Paiyan (Ganavya) + Sun & Moon cameo',dancers:'Swapnil + Shreya & Laurien',costume:'Sun = gold · Moon = silver',status:'ready',key:false},
   {id:'S08',num:'05',name:'First Discovery',sub:'The village turns its gaze toward the boy — and cannot look away',songs:[{title:'Gehra Hua',note:'Swapnil starts, Kaushika & Khushboo join',status:'ready',dancers:'Swapnil → + Kaushika, Khushboo'},{title:'Jab Se Tere Naina',status:'ready',dancers:'Swapnil, Kaushika, Khushboo, Maha'},{title:'Nainowale Ne',status:'ready',dancers:'Swapnil, Sara, Narcisse, Roshni, Kaushika'}],dancers:'Swapnil, Kaushika, Khushboo, Maha, Sara, Narcisse, Roshni',status:'ready',key:false},
   {id:'S09',num:'06',name:'More Villagers',sub:'Queen still unaware — joy building with the boy',song:'Jalalo Bilalo',dancers:'Bollyfolk Students + Svetlana + Roshni, Kaushika',status:'ready',key:false},
   {id:'S09B',num:'07',name:'Queen\'s Entry',sub:'Who she is before the feast — power, obsession, complexity',songs:[{title:'Laal Ishq',status:'ready',dancers:'Kaushika, Khushboo, Swapnil'},{title:'Deewani Mastani',status:'ready',dancers:'Sara, Svetlana, Narcisse, Kaushika, Chiara, Khushboo, Haike'}],dancers:'Svetlana, Sara, Narcisse, Kaushika, Chiara, Khushboo, Haike, Swapnil',status:'ready',key:false},
   {id:'S10',num:'08',name:'Village Feast → Queen\'s Rejection ◆',sub:"Peak of joy as Kalbeliya climaxes. At the end — music cuts. Queen's gesture. One distant voice. Full company freeze. Act 1 ends in stillness.",song:'Kalbeliya (climax cuts to silence + single distant voice)',dancers:'Svetlana + Narcisse, Shreya, Maha, Kaushika, Sara, Laurien, Roshni, Haike, Swapnil',status:'ready',key:true},
 ];
-const scenes2 = [
+const scenes3 = [
   {id:'S13',num:'09',name:'Chaos & Drought ◆',sub:'The river dies in real time',song:'No song — projection, strobe, smoke',dancers:'Full ensemble — fragmented',status:'tbc',key:true},
   {id:'S14',num:'10',name:'Tribe Invitation',sub:'Vayu carries the village\'s plea to the Four Tribes',song:'Narration + wind / Vayu solo',dancers:'Narcisse (Vayu)',status:'narr',key:false},
   {id:'S15',num:'11',name:'Invocation to Nataraja',sub:'The village prays — but prayer is not love',song:'Natarang Ubha',dancers:'Svetlana + 8 dancers',status:'ready',key:false},
@@ -1333,6 +1339,8 @@ const scenes2 = [
   {id:'S18',num:'15',name:'Tribe 3 — Bolly Folk',sub:'Community — but the boy was never let in',song:'O Re Kanchi',dancers:'Bollyfolk Students + ABC dancers (TBC)',status:'ready',key:false},
   {id:'S_CHERAW',num:'16',name:'Tribe 4 — Cheraw',sub:'Grace & precision — but not love',song:'TBC — fusion',dancers:'Cheraw group TBC',status:'new',key:false},
   {id:'S19',num:'17',name:'The Appeal',sub:'The village and the boy both plead with the Queen',songs:[{title:'Ishq Bina',status:'partial'},{title:'Tera Taali',status:'partial'}],dancers:'Shreya, Laurien, Sara, Khushboo, Haike, Maha, Siddhy, Roshni + Swapnil, Roshni, Kaushika',status:'partial',key:false},
+];
+const scenes4 = [
   {id:'S21',num:'18',name:"Queen's Sacrifice → Ardhanarishwar ◆",sub:"She dies. Her soul enters him. The sitar never lifts — Lasya carries the sacrifice into the boy's first breath as Ardhanarishwar. One unbroken scene.",songs:[{title:'Ode to Baji / Jhalla Re (Rani verse, Niraj Chag)',note:'Queen\'s softening / her choice',status:'new',dancers:'Svetlana (Queen)'},{title:'Lasya (Anoushka Shankar)',note:'Sacrifice → Ardhanarishwar reveal · sitar continues unbroken through both beats',status:'new',dancers:'Svetlana + Swapnil (union) → Swapnil solo (the boy becomes)'}],dancers:'Svetlana + Swapnil',status:'ready',key:true},
   {id:'S23',num:'19',name:'Rainfall ◆',sub:'One drop. Then a monsoon. The river returns because love returned.',songs:[{title:'Saawan (Niraj Chag, opening)',status:'new'},{title:'Ghanan Ghanan',status:'ready',dancers:'Bollywood Level 2 Students + ABC dancers (TBC)'}],dancers:'Bollywood Level 2 Students + ABC dancers (TBC)',status:'ready',key:true},
   {id:'S24',num:'20',name:'Return of the Boy',song:'Ghar More Pardesiya',dancers:'Swapnil, Narcisse, Khushboo, Roshni, Sara, Laurien, Haike, Kaushika',status:'ready',key:false},
@@ -1390,7 +1398,7 @@ function parseSceneDancers(s) {
 }
 
 function computeDeps() {
-  const all = [...scenes1, ...scenes2].filter(s => s.id !== 'S00' && s.status !== 'narr');
+  const all = [...scenes1, ...scenes2, ...scenes3, ...scenes4].filter(s => s.id !== 'S00' && s.status !== 'narr');
   const dancerToIdx = {};
   all.forEach((s, i) => {
     parseSceneDancers(s).forEach(d => {
@@ -1520,6 +1528,8 @@ function renderFlow() {
   _depsCache = null; // recompute on each full render
   document.getElementById('flow-scenes').innerHTML = scenes1.map(makeFlowRow).join('');
   document.getElementById('flow-scenes-2').innerHTML = scenes2.map(makeFlowRow).join('');
+  document.getElementById('flow-scenes-3').innerHTML = scenes3.map(makeFlowRow).join('');
+  document.getElementById('flow-scenes-4').innerHTML = scenes4.map(makeFlowRow).join('');
   renderActCounts();
 }
 function renderActCounts() {
@@ -1540,8 +1550,12 @@ function renderActCounts() {
   };
   const el1 = document.getElementById('act-counts-1');
   const el2 = document.getElementById('act-counts-2');
+  const el3 = document.getElementById('act-counts-3');
+  const el4 = document.getElementById('act-counts-4');
   if (el1) el1.innerHTML = tally(scenes1);
   if (el2) el2.innerHTML = tally(scenes2);
+  if (el3) el3.innerHTML = tally(scenes3);
+  if (el4) el4.innerHTML = tally(scenes4);
 }
 
 // ── RENDER SONGS ──
@@ -1867,11 +1881,15 @@ function buildUpdatedHTML() {
   const edits = getEditData();
   const mergedScenes1 = scenes1.map(s => ({...s, ...(edits.scenes?.[s.id] || {})}));
   const mergedScenes2 = scenes2.map(s => ({...s, ...(edits.scenes?.[s.id] || {})}));
+  const mergedScenes3 = scenes3.map(s => ({...s, ...(edits.scenes?.[s.id] || {})}));
+  const mergedScenes4 = scenes4.map(s => ({...s, ...(edits.scenes?.[s.id] || {})}));
   const mergedSongs = songs.map((s, i) => ({...s, ...(edits.songs?.[String(i)] || {})}));
   const newData =
     '// ── DATA START ──\n' +
     'const scenes1 = ' + JSON.stringify(mergedScenes1) + ';\n' +
     'const scenes2 = ' + JSON.stringify(mergedScenes2) + ';\n' +
+    'const scenes3 = ' + JSON.stringify(mergedScenes3) + ';\n' +
+    'const scenes4 = ' + JSON.stringify(mergedScenes4) + ';\n' +
     'const songs = ' + JSON.stringify(mergedSongs) + ';\n' +
     '// ── DATA END ──';
   let html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
